@@ -1,0 +1,24 @@
+{
+  "name" : "Bad-Class",
+  "version": "0.0.1",
+  "description": "Classes are bad sometimes",
+  "scripts": {
+    "serve" : "npm run-script make && cd ./bin/static && python -m SimpleHTTPServer && cd ..",
+    "make" : "./node_modules/.bin/gulp"
+  },
+
+  "dependencies": {
+    "gulp" : "latest",
+    "vinyl-source-stream" : "latest",
+    "gulp-typescript" : "latest",
+    "reactify" : "latest",
+    "browserify" : "latest",
+    "react" : "latest",
+    "jquery" : "latest",
+    "taffydb" : "latest",
+    "d3" : "latest"
+  },
+
+  "author": "Aaron Nech, Ryan Drapeau",
+  "license": "N/A"
+}

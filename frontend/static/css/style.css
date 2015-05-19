@@ -1,0 +1,173 @@
+@font-face {
+    font-family: Bebas;
+    src: url('../font/BebasNeue.otf');
+}
+
+body, html {
+	font-family: Bebas;
+	margin: 0;
+	padding: 0;
+    background-color: #ecf0f1 !important;
+    color: #7f8c8d !important;
+}
+
+.screen {
+	display: none;
+}
+
+.screen.active {
+	display: block;
+}
+
+#header {
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 483px;
+    height: 66px;
+    display: block;
+}
+
+#search-bar-container {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+#search-input {
+    width: 73%;
+    float: left;
+    margin-bottom: 20px;
+}
+
+#search-button {
+    margin-left: 10px;
+}
+
+.value-bar {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    min-height: 20px;
+}
+
+.value-bar p {
+    position: absolute;
+    font-weight: bold;
+    top:25%; left:10px;
+    z-index: 10;
+    color: #444;
+}
+
+.table-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.table {
+    background-color: white;
+    width: 100% !important;
+}
+
+.table-top {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.table-top th:hover, .prof-name:hover, .course-code:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.table-curved {
+    border-collapse: separate;
+}
+
+.table-curved {
+    border-radius: 4px;
+    border-left:0px;
+}
+
+.table-curved td, .table-curved th {
+    position: relative;
+    border-top: 10px #ecf0f1 solid !important;
+    border-bottom: none;
+    min-height: 20px;
+    table-layout: fixed;
+    width: 200px;
+    padding: 10px;
+}
+
+.table-curved th {
+    border-top: none;
+}
+
+.table-curved th:first-child {
+    border-radius: 4px 0 0 0;
+}
+
+.table-curved th:last-child {
+    border-radius: 0 4px 0 0;
+}
+
+.table-curved th:only-child{
+    border-radius: 4px 4px 0 0;
+}
+
+.table-curved tr:last-child td:first-child {
+    border-radius: 0 0 0 4px;
+}
+
+.table-curved tr:last-child td:last-child {
+    border-radius: 0 0 4px 0;
+}
+
+td.no-pad {
+    padding: 0!important;
+    height: 25px;
+}
+
+.vb-bg {
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+.vb-bg.red {
+    background-color: #e74c3c;
+}
+
+.scoreRating1, .scoreRating2 {
+    color: #e74c3c;
+}
+
+.vb-bg.yellow {
+    background-color: #f1c40f;
+}
+
+.scoreRating3 {
+    color: #f1c40f;
+}
+
+.vb-bg.green {
+    background-color: #27ae60;
+}
+
+.scoreRating4, .scoreRating5 {
+    color: #27ae60;
+}
+
+.vb-bg.disabled {
+    background-color: #bdc3c7;
+}
+
+.prof-name, .instructorDetailName {
+    text-transform:capitalize;
+}
+
+.instructorDetailName, .courseDetailName {
+    float: left;
+}
+
+.instructorDetailScore, .courseDetailScore {
+    float: right;
+}
