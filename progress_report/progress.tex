@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}% http://ctan.org/pkg/listings
+\lstset{
+  basicstyle=\ttfamily,
+  mathescape
+}
+
+\usetikzlibrary{automata,positioning}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\rhead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}
+% \rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+\setcounter{secnumdepth}{0}
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+\newcommand{\hmwkTitle}{FP Progress Report}
+\newcommand{\hmwkClass}{CSE 512}
+\newcommand{\hmwkClassInstructor}{Jeffrey Heer}
+\newcommand{\hmwkAuthorName}{Emily Gu | Ryan Drapeau | Vimala Jampala}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \vspace{0.2in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\\
+    \author{\textbf{\hmwkAuthorName\ $\vert$ \hmwkAuthorCSE\ $\vert$ \hmwkAuthorId}}
+}
+
+\date{}
+
+\begin{document}
+
+\begin{center}
+\LARGE
+\textbf{Final Project Progress Report}
+\end{center}
+
+\section{Description}
+
+\section{Literature Review}
+
+\subsection{UW Course Evaluation Catalog}
+{\color{blue} \href{https://www.washington.edu/cec/toc.html}{https://www.washington.edu/cec/toc.html}}
+
+\subsection{RateMyProfessors \cite{ratemyprofessors}}
+{\color{blue} \href{http://www.ratemyprofessors.com/}{http://www.ratemyprofessors.com/}}
+
+\subsection{berkeleytime \cite{berkeleytime}}
+{\color{blue} \href{http://www.berkeleytime.com/}{http://www.berkeleytime.com/}}
+
+\bibliographystyle{apalike}
+\bibliography{sources}
+
+\end{document}
