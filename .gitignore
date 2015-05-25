@@ -8,3 +8,5 @@
 *.log
 
 *.gz
+
+data_pipeline/params.csv
