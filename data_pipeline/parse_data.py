@@ -61,7 +61,6 @@ for filename in listdir(PATH):
 
     courses.append({'course_code' : course_code, 'ratings' : page_values, 'prof' : name, 'time' : time, 'course_dep' : course_dep, 'course_title' : course_title, 'completed' : completed, 'total_entrolled' : total_entrolled})
 
-    # Add completed and total enrolled
 
 print ';'.join(['course_department', 'course_code', 'professor', 'time', 'course_title', 'completed', 'total_entrolled'] + list(possible))
 for course in courses:
