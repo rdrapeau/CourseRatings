@@ -14,7 +14,8 @@ class Constants {
 		"Content",
 		"Amount Learned",
 		"Teaching",
-		"Grading"
+		"Grading",
+        "% Completed"
 	];
 
     public static HEADER_TO_KEY: any = {

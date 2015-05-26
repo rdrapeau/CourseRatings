@@ -34,6 +34,7 @@ var OverviewCourseRowComponent = React.createClass({
                 <td className="no-pad"><ValueBarComponent value={data.amount_learned} max={5} /></td>
                 <td className="no-pad"><ValueBarComponent value={data.instructors_effectiveness} max={5} /></td>
                 <td className="no-pad"><ValueBarComponent value={data.grading_techniques} max={5} /></td>
+                <td className="no-pad"><ValueBarComponent value={data.percent_enrolled} max={100} /></td>
             </tr>
         );
     }
