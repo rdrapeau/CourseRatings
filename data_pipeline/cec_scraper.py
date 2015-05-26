@@ -54,13 +54,12 @@ def login(browser):
 
 def process_course(browser, course, base_url, cache):
     course_page_id = course[2:]
-
     if course_page_id not in cache:
         try:
             browser.open(course)
         except:
-            print 'Open fail', course_page_id
-            return None
+            # print 'Open fail', course_page_id
+            return False
 
         if js_warning_page(browser):
             response = browser.response().read()
@@ -68,8 +67,12 @@ def process_course(browser, course, base_url, cache):
                 f.write(response)
 
             cache.add(course_page_id)
+            return True
         else:
-            print 'Write fail', course_page_id
+            # print 'Write fail', course_page_id
+            return False
+
+    return False
 
 
 def process_catalog(url):
@@ -83,11 +86,20 @@ def process_catalog(url):
     base_url = browser.geturl()
 
     cache = set(listdir(CACHE))
-    for course in courses:
-        process_course(browser, course, base_url, cache)
+    total = 0
+    for i, course in enumerate(courses):
+        added = process_course(browser, course, base_url, cache)
+        if added:
+            total += 1
+
+        if i % 100 == 0 and i != 0:
+            ratio = float(i) / len(courses)
+            print url, "%.2f" % ratio, 'Done'
+
+
         browser.open(base_url)
 
-    print 'Finished', url
+    print 'Finished (' + str(total) + '):', url
 
 
 def main():
