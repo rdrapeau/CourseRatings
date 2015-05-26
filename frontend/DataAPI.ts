@@ -21,7 +21,7 @@ class DataAPI {
                 var line = lines[i].split(';');
                 var course = {'course_whole_code' : line[0] + line[1]};
                 var percentEnrolled = Math.round(1000.0 * Number(line[header.indexOf('completed')]) / Number(line[header.indexOf('total_enrolled')])) / 10;
-                course['percent_enrolled'] = percentEnrolled;
+                course['percent_enrolled'] = Math.min(percentEnrolled, 100);
                 for (var j = 0; j < line.length; j++) {
                     if (!isNaN(line[j])) {
                         course[header[j]] = Number(line[j]);

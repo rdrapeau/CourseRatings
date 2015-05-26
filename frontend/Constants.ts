@@ -25,7 +25,8 @@ class Constants {
         "Content": "the_course_content",
         "Amount Learned": "amount_learned",
         "Teaching": "instructors_effectiveness",
-        "Grading": "grading_techniques"
+        "Grading": "grading_techniques",
+        "% Completed": "percent_enrolled"
     };
 
     public static SEARCH_RESULT_LIMIT: number = 300;
