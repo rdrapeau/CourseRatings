@@ -9,4 +9,6 @@
 
 *.gz
 
+node_modules/*
+
 data_pipeline/params.csv
