@@ -10,7 +10,7 @@ with open('class_names.csv', 'r') as f:
     lines = f.read().splitlines()
     for line in lines:
         parsed = line.split(';')
-        course_names[parsed[0]] = parsed[1]
+        course_names[parsed[0]] = (parsed[1], parsed[2])
 
 courses = []
 for filename in listdir(PATH):
@@ -36,7 +36,7 @@ for filename in listdir(PATH):
         continue
 
     completed = str(int(parsed_caption[-3]))
-    total_entrolled = str(int(parsed_caption[-1]))
+    total_enrolled = str(int(parsed_caption[-1]))
 
     parsed_prof = str(prof_time).replace('<h2>', '').replace('</h2>', '').split('\xc2\xa0')
 
@@ -57,14 +57,14 @@ for filename in listdir(PATH):
     course_dep_code = (course_dep + course_code).lower().replace(' ', '')
     course_title = 'NULL'
     if course_dep_code in course_names:
-        course_title = course_names[course_dep_code]
+        course_title, course_description = course_names[course_dep_code]
 
-    courses.append({'course_code' : course_code, 'ratings' : page_values, 'prof' : name, 'time' : time, 'course_dep' : course_dep, 'course_title' : course_title, 'completed' : completed, 'total_entrolled' : total_entrolled})
+    courses.append({'course_code' : course_code, 'ratings' : page_values, 'prof' : name, 'time' : time, 'course_dep' : course_dep, 'course_title' : course_title, 'completed' : completed, 'total_enrolled' : total_enrolled, 'course_description' : course_description})
 
 
-print ';'.join(['course_department', 'course_code', 'professor', 'time', 'course_title', 'completed', 'total_entrolled'] + list(possible))
+print ';'.join(['course_department', 'course_code', 'professor', 'time', 'course_title', 'completed', 'total_enrolled', 'course_description'] + list(possible))
 for course in courses:
-    output = [course['course_dep'], course['course_code'], course['prof'], course['time'], course['course_title'], course['completed'], course['total_entrolled']]
+    output = [course['course_dep'], course['course_code'], course['prof'], course['time'], course['course_title'], course['completed'], course['total_enrolled'], course['course_description']]
 
     for rating in possible:
         if rating in course['ratings']:
