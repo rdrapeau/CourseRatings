@@ -33,7 +33,6 @@ var CourseDetailComponent = React.createClass({
 
         if (courses.length > 0) {
             this.setState({current_course_name : courses[0].course_title});
-            this.setState({current_course_description : courses[0].course_description});
         }
 
         return courses;
@@ -58,9 +57,6 @@ var CourseDetailComponent = React.createClass({
         return (
             <div className="table-container">
                 <h2><span className="courseDetailName">{this.props.course + (this.state.current_course_name ? ': ' + this.state.current_course_name : '')}</span><span className="courseDetailScore">Score: <span className={"scoreRating" + rating}>{runningSum}</span></span></h2>
-                {this.state.current_course_description != 0 &&
-                    <p className="course-description">{this.state.current_course_description}</p>
-                }
                 <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers}/>
             </div>
         );

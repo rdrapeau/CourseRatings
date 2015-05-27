@@ -1,7 +1,6 @@
 import mechanize, cookielib, multiprocessing, re
 from bs4 import BeautifulSoup
 
-
 NAME_URL = 'https://www.washington.edu/students/crscat/'
 
 
@@ -22,23 +21,11 @@ def process_dep(browser, dep):
     soup = BeautifulSoup(browser.response().read(), 'lxml')
     for tag in soup.findAll(lambda tag : tag.name == 'a' and 'name' in tag.attrs):
         header = tag.find('b').getText()
-        optional_profs = tag.find('i')
-        description = tag.getText().replace(header, '').replace(';', ',')
-
-        if optional_profs:
-            description = description.replace(optional_profs.getText(), '')
-
-        if 'View course details in MyPlan' in description:
-            description = description[:description.index('View course details in MyPlan')]
-
-
         course_code = tag.attrs['name']
         header = header[re.search('[0-9]{3}', header).start() + 4:header.index('(') - 1]
         header = ' '.join(header.split())
-        description = ' '.join(description.split())
-
         if course_code not in processed:
-            print course_code + ';' + header + ';' + description
+            print course_code + ';' + header
             processed.add(course_code)
 
 
