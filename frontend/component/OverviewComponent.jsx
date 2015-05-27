@@ -49,6 +49,8 @@ var OverviewComponent = React.createClass({
             }
         }
 
+        // TODO: Else sort on Time
+
         // Else sort on Professor
         if (comparison === 0) {
             if (a['professor'] < b['professor']) {
