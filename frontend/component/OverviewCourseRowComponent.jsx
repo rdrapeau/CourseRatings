@@ -24,7 +24,7 @@ var OverviewCourseRowComponent = React.createClass({
         return (
             <tr>
                 {this.props.headers.indexOf('Course Code') != -1 &&
-                    <td className='course-code' onClick={this.onClickCourse}>{data.course_whole_code}</td>
+                    <td className='course-code' onClick={this.onClickCourse}>{data.course_whole_code}<span className="course_time">{' (' + data.time + ')'}</span></td>
                 }
                 {this.props.headers.indexOf('Instructor') != -1 &&
                     <td className='prof-name' onClick={this.onClickInstructor}>{data.professor}</td>
