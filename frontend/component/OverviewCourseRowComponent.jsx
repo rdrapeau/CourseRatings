@@ -21,13 +21,17 @@ var OverviewCourseRowComponent = React.createClass({
     render : function() {
         var data = this.props.data;
 
+        var isCourseCodePresent = this.props.headers.indexOf('Course Code') != -1;
+        var isInstructorPresent = this.props.headers.indexOf('Instructor') != -1;
+
         return (
             <tr>
-                {this.props.headers.indexOf('Course Code') != -1 &&
-                    <td className='course-code' onClick={this.onClickCourse}>{data.course_whole_code}<span className="course_time">{' (' + data.time + ')'}</span></td>
+                {isCourseCodePresent &&
+                    <td className='course-code' onClick={this.onClickCourse}>{data.course_whole_code}<span className={"course_time " + (isCourseCodePresent ? "" : "hidden")}>{' (' + data.time + ')'}</span></td>
                 }
-                {this.props.headers.indexOf('Instructor') != -1 &&
-                    <td className='prof-name' onClick={this.onClickInstructor}>{data.professor}</td>
+
+                {isInstructorPresent &&
+                    <td className='prof-name' onClick={this.onClickInstructor}>{data.professor}<span className={"course_time " + (isInstructorPresent && !isCourseCodePresent ? "" : "hidden")}>{' (' + data.time + ')'}</span></td>
                 }
                 <td className="no-pad"><ValueBarComponent value={data.the_course_as_a_whole} max={5} /></td>
                 <td className="no-pad"><ValueBarComponent value={data.the_course_content} max={5} /></td>

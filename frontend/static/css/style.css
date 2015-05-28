@@ -19,6 +19,10 @@ body, html {
 	display: block;
 }
 
+.hidden {
+    display: none;
+}
+
 #header {
     margin: 0 auto;
     margin-top: 15px;
