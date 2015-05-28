@@ -15,14 +15,14 @@ var CourseDetailComponent = React.createClass({
     },
 
     componentDidMount : function() {
-        this.setState({current_courses : this.getCoursesByInstructor(this.props.course)});
+        this.setState({current_courses : this.getCoursesByCourseCode(this.props.course)});
     },
 
     componentWillReceiveProps : function(next) {
-        this.setState({current_courses : this.getCoursesByInstructor(next.course)});
+        this.setState({current_courses : this.getCoursesByCourseCode(next.course)});
     },
 
-    getCoursesByInstructor : function(course) {
+    getCoursesByCourseCode : function(course) {
         var courses = [];
         if (course) {
             courses = this.props.taffy(
@@ -61,6 +61,7 @@ var CourseDetailComponent = React.createClass({
                 {this.state.current_course_description != 0 &&
                     <p className="course-description">{this.state.current_course_description}</p>
                 }
+
                 <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers}/>
             </div>
         );
