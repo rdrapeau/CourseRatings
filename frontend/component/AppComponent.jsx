@@ -66,7 +66,7 @@ var AppComponent = React.createClass({
                 [
                     {'professor' : {likenocase: searchValue}},
                     {'course_whole_code' : {likenocase: searchValue.replace(' ', '')}}
-                ]).order('course_whole_code,professor,time').limit(Constants.SEARCH_RESULT_LIMIT).get();
+                ]).order('course_whole_code,professor,datetime').limit(Constants.SEARCH_RESULT_LIMIT).get();
         }
 
         this.refs.overviewComponent.sortData('Course Code', null);

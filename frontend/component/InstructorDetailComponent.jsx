@@ -27,7 +27,7 @@ var InstructorDetailComponent = React.createClass({
             courses = this.props.taffy(
                         {the_course_as_a_whole : {isNumber: true}},
                         {'professor' : {isnocase: instructor}}
-                    ).order('course_whole_code,professor,time').limit(Constants.SEARCH_RESULT_LIMIT).get();
+                    ).order('course_whole_code,datetime').limit(Constants.SEARCH_RESULT_LIMIT).get();
         }
 
         return courses;
