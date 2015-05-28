@@ -71,7 +71,31 @@ var AppComponent = React.createClass({
 
         this.refs.overviewComponent.sortData('Course Code', null);
         this.setState({current_courses : new_courses});
-        this.setScreenLater(Constants.SCREENS.OVERVIEW)();
+
+        // Skip to the course page or instructor page if it is a unique result
+        var differentProfessors = false;
+        var differentCourses = false;
+        for (var i = 1; i < new_courses.length; i++) {
+            if (new_courses[i].course_whole_code !== new_courses[i - 1].course_whole_code) {
+                differentCourses = true;
+            }
+
+            if (new_courses[i].professor !== new_courses[i - 1].professor) {
+                differentProfessors = true;
+            }
+
+            if (differentCourses && differentProfessors) {
+                break; // Break early
+            }
+        }
+
+        if (new_courses.length == 0 || (differentCourses && differentProfessors)) {
+            this.setScreenLater(Constants.SCREENS.OVERVIEW)();
+        } else if (!differentCourses) {
+            this.onClickCourse(new_courses[0].course_whole_code);
+        } else { // Same professors
+            this.onClickInstructor(new_courses[0].professor);
+        }
     },
 
     /**
