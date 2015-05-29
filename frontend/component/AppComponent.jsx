@@ -89,9 +89,10 @@ var AppComponent = React.createClass({
             }
         }
 
+        var containsNumber = searchValue.match(/\d+/g) !== null;
         if (new_courses.length == 0 || (differentCourses && differentProfessors)) {
             this.setScreenLater(Constants.SCREENS.OVERVIEW)();
-        } else if (!differentCourses) {
+        } else if (!differentCourses && (differentProfessors || (!differentProfessors && containsNumber))) {
             this.onClickCourse(new_courses[0].course_whole_code);
         } else { // Same professors
             this.onClickInstructor(new_courses[0].professor);
