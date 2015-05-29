@@ -16,7 +16,9 @@
     "react" : "latest",
     "jquery" : "latest",
     "taffydb" : "latest",
-    "d3" : "latest"
+    "d3" : "latest",
+    "jszip" : "latest",
+    "jszip-utils" : "latest"
   },
 
   "author": "Aaron Nech, Ryan Drapeau",
