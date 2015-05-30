@@ -48,7 +48,7 @@ class DataAPI {
             output.push(course);
         }
 
-        callback(TAFFY.taffy(output));
+        callback(TAFFY.taffy(output), output);
     }
 
 	/**

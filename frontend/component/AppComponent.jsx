@@ -28,7 +28,8 @@ var AppComponent = React.createClass({
     componentDidMount : function() {
         var self = this;
 
-        DataAPI.getTaffy(function(taffy) {
+        DataAPI.getTaffy(function(taffy, courses) {
+            self.setState({allCourses : courses});
             self.setState({taffy : taffy});
         });
     },
@@ -51,6 +52,7 @@ var AppComponent = React.createClass({
             active : Constants.SCREENS.OVERVIEW,
             current_courses : [],
             taffy : null,
+            allCourses : null,
             activeCourse : null,
             activeInstructor : null,
             currentSearch : ''
@@ -107,7 +109,7 @@ var AppComponent = React.createClass({
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
         } else {
-            results = this.state.taffy().order('course_whole_code,professor,datetime').get();
+            results = this.state.allCourses;
         }
 
         if (course_department === '' && course_code === '' && professor === '') {
@@ -141,10 +143,15 @@ var AppComponent = React.createClass({
 
         return (
             <div id="app">
+                {this.state.taffy == null && this.state.allCourses == null && (
+
                 <div className="loading">
+                    Loading.
                 </div>
 
-                {this.state.taffy != null && (
+                )}
+
+                {this.state.taffy != null && this.state.allCourses != null && (
 
                 <div className="loaded">
                     <HeaderComponent screen={this.state.active} />
