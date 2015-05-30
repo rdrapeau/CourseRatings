@@ -125,16 +125,19 @@ var OverviewComponent = React.createClass({
     render: function() {
     	var self = this;
         return (
-	        <table className="table table-curved">
-	        	<OverviewHeaderComponent ref="headerComp" headers={this.props.headers} onClickHeader={this.sortData} />
+            <div>
+                {this.state.current_courses && (
+        	        <table className="table table-curved" >
+        	        	<OverviewHeaderComponent ref="headerComp" headers={this.props.headers} onClickHeader={this.sortData} />
 
-	        	{this.state.current_courses && this.state.current_courses.map(function(course) {
-	        		return (
-                        <OverviewCourseRowComponent headers={self.props.headers} onClickCourse={self.props.onClickCourse} onClickInstructor={self.props.onClickInstructor} data={course} />
-	        		);
-	        	})}
-
-	        </table>
+        	        	{this.state.current_courses.slice(0, Constants.SEARCH_RESULT_LIMIT).map(function(course) {
+        	        		return (
+                                <OverviewCourseRowComponent headers={self.props.headers} onClickCourse={self.props.onClickCourse} onClickInstructor={self.props.onClickInstructor} data={course} />
+        	        		);
+        	        	})}
+        	        </table>
+                )}
+            </div>
         );
 	}
 });

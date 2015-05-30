@@ -17,53 +17,57 @@ class DataAPI {
         "au": 3
     };
 
+    private static processCSV(csv : string, callback : Function) : void {
+        var lines = csv.split('\n');
+        var header = lines[0].split(';');
+
+        var output = [];
+        for (var i = 1; i < lines.length - 1; i++) {
+            var line = lines[i].split(';');
+            var course = { 'course_whole_code': line[0] + line[1] };
+            var percentEnrolled = Math.round(1000.0 * Number(line[header.indexOf('completed')]) / Number(line[header.indexOf('total_enrolled')])) / 10;
+            course['percent_enrolled'] = Math.min(percentEnrolled, 100);
+
+            var time = line[header.indexOf('time')];
+            var quarter = time.substring(0, 2);
+            var year = time.substring(2);
+            course['datetime'] = year + DataAPI.TIME_TO_DATETIME[quarter];
+
+            for (var j = 0; j < line.length; j++) {
+                if (!isNaN(Number(line[j]))) {
+                    course[header[j]] = Number(line[j]);
+                } else {
+                    if (line[j] === 'NULL') {
+                        course[header[j]] = null;
+                    } else {
+                        course[header[j]] = line[j];
+                    }
+                }
+            }
+
+            output.push(course);
+        }
+
+        callback(TAFFY.taffy(output));
+    }
+
 	/**
 	 * Gets the organizations
 	 * @param {Function} callback Callback to execute after retrieval
 	 */
 	public static getTaffy(callback : Function) : void {
-
-        JSZipUtils.getBinaryContent(DataAPI.PAYLOAD_URL, function(err, data) {
+        JSZipUtils.getBinaryContent(DataAPI.PAYLOAD_URL, (err, data) => {
             if (err) {
-                throw err; // or handle err
+                setTimeout(() => {
+                    DataAPI.getTaffy(callback);
+                }, 500);
+                return;
             }
 
             var zip = new JSZip(data);
 
             var csv = zip.file(DataAPI.INSIDE_ZIP).asText();
-
-            var lines = csv.split('\n');
-            var header = lines[0].split(';');
-
-            var output = [];
-            for (var i = 1; i < lines.length - 1; i++) {
-                var line = lines[i].split(';');
-                var course = { 'course_whole_code': line[0] + line[1] };
-                var percentEnrolled = Math.round(1000.0 * Number(line[header.indexOf('completed')]) / Number(line[header.indexOf('total_enrolled')])) / 10;
-                course['percent_enrolled'] = Math.min(percentEnrolled, 100);
-
-                var time = line[header.indexOf('time')];
-                var quarter = time.substring(0, 2);
-                var year = time.substring(2);
-                course['datetime'] = year + DataAPI.TIME_TO_DATETIME[quarter];
-
-                for (var j = 0; j < line.length; j++) {
-                    if (!isNaN(line[j])) {
-                        course[header[j]] = Number(line[j]);
-                    } else {
-                        if (line[j] === 'NULL') {
-                            course[header[j]] = null;
-                        } else {
-                            course[header[j]] = line[j];
-                        }
-                    }
-                }
-
-                output.push(course);
-            }
-
-            callback(TAFFY.taffy(output));
-
+            DataAPI.processCSV(csv, callback);
         });
 	}
 }

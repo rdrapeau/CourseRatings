@@ -57,46 +57,78 @@ var AppComponent = React.createClass({
         };
     },
 
-    getSearchResult : function(searchValue) {
-        this.setState({currentSearch : searchValue});
-
-        var new_courses = [];
-        if (searchValue.replace(' ', '') !== '') {
-            new_courses = this.state.taffy({the_course_as_a_whole : {isNumber: true}},
-                [
-                    {'professor' : {likenocase: searchValue}},
-                    {'course_whole_code' : {likenocase: searchValue.replace(' ', '')}}
-                ]).order('course_whole_code,professor,datetime').limit(Constants.SEARCH_RESULT_LIMIT).get();
+    getSearchResult : function(course_department, course_code, professor) {
+        var results = [];
+        if (course_department !== '' && course_code !== '' && professor !== '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    course_department : {isnocase: course_department},
+                                    course_code : {'==' : course_code},
+                                    professor : {isnocase : professor}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else if (course_department !== '' && course_code !== '' && professor === '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    course_department : {isnocase: course_department},
+                                    course_code : {'==' : course_code}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else if (course_department !== '' && course_code === '' && professor !== '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    course_department : {isnocase: course_department},
+                                    professor : {isnocase : professor}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else if (course_department !== '' && course_code === '' && professor === '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    course_department : {isnocase: course_department}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else if (course_department === '' && course_code !== '' && professor !== '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    course_code : {'==' : course_code},
+                                    professor : {isnocase : professor}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else if (course_department === '' && course_code !== '' && professor === '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    course_code : {'==' : course_code}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else if (course_department === '' && course_code === '' && professor !== '') {
+            results = this.state.taffy({
+                                the_course_as_a_whole : {isNumber: true}},
+                                {
+                                    professor : {isnocase : professor}
+                                }).order('course_whole_code,professor,datetime').get();
+        } else {
+            results = this.state.taffy().order('course_whole_code,professor,datetime').get();
         }
 
-        this.refs.overviewComponent.sortData('Course Code', null);
-        this.setState({current_courses : new_courses});
-
-        // Skip to the course page or instructor page if it is a unique result
-        var differentProfessors = false;
-        var differentCourses = false;
-        for (var i = 1; i < new_courses.length; i++) {
-            if (new_courses[i].course_whole_code !== new_courses[i - 1].course_whole_code) {
-                differentCourses = true;
-            }
-
-            if (new_courses[i].professor !== new_courses[i - 1].professor) {
-                differentProfessors = true;
-            }
-
-            if (differentCourses && differentProfessors) {
-                break; // Break early
-            }
+        if (course_department === '' && course_code === '' && professor === '') {
+            this.setState({current_courses : []});
+        } else {
+            this.setState({current_courses : results});
         }
 
-        var containsNumber = searchValue.match(/\d+/g) !== null;
-        if (new_courses.length == 0 || (differentCourses && differentProfessors)) {
+        if (results.length !== 0) {
+            if (course_department !== '' && course_code !== '' && professor === '') {
+                this.onClickCourse(results[0].course_whole_code);
+            } else if (professor !== '') {
+                this.onClickInstructor(results[0].professor);
+            } else {
+                this.setScreenLater(Constants.SCREENS.OVERVIEW)();
+            }
+        } else {
             this.setScreenLater(Constants.SCREENS.OVERVIEW)();
-        } else if (!differentCourses && (differentProfessors || (!differentProfessors && containsNumber))) {
-            this.onClickCourse(new_courses[0].course_whole_code);
-        } else { // Same professors
-            this.onClickInstructor(new_courses[0].professor);
         }
+
+        return results;
     },
 
     /**

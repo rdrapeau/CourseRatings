@@ -32,9 +32,9 @@ body, html {
 }
 
 #search-bar-container {
-    width: 400px;
+    width: 580px;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 #search-input {
@@ -188,4 +188,26 @@ td.no-pad {
     text-transform:capitalize;
     font-size: 12px;
     font-weight: 350;
+}
+
+.departmentField {
+    width: 150px;
+}
+
+.courseCodeField {
+    width: 150px;
+    margin-left: 15px;
+}
+
+.profField {
+    width: 250px;
+    margin-left: 15px;
+}
+
+.departmentField, .courseCodeField, .profField {
+    display: inline-block;
+}
+
+.Select-menu-outer, .Select-placeholder {
+    text-transform: capitalize;
 }
