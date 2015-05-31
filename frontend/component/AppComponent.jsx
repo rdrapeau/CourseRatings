@@ -114,7 +114,7 @@ var AppComponent = React.createClass({
         }
 
         if (!course_department && !course_code && !professor) {
-            this.setState({current_courses : []});
+            this.resetPage();
         } else {
             this.setState({current_courses : results});
         }
@@ -132,6 +132,10 @@ var AppComponent = React.createClass({
         }
 
         return results;
+    },
+
+    resetPage : function() {
+        this.setState({current_courses : []});
     },
 
     /**
@@ -157,7 +161,7 @@ var AppComponent = React.createClass({
 
                 <div className="loaded">
                     <HeaderComponent screen={this.state.active} />
-                    <SearchComponent searchFunction={this.getSearchResult} />
+                    <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} />
                     <div className={"screen " + (isOverview ? "active" : "")}>
                         <div className="table-container">
                             <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} />

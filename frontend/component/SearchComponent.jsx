@@ -70,6 +70,7 @@ var SearchComponent = React.createClass({
                     'course_code' : localStorage['course_code'].split(';').map(function(item) { return {value: item, label: item};}),
                     'professor' : localStorage['professor'].split(';').map(function(item) { return {value: item, label: item};})
                     };
+            this.props.resetFunction();
         } else {
             var searchResults = this.props.searchFunction(course_department, course_code, professor)
             unique = this.getUnique(this.state.keys, searchResults);
@@ -81,7 +82,6 @@ var SearchComponent = React.createClass({
     },
 
     departmentChange: function(course_department) {
-        console.log(course_department);
         this.setState({course_department: course_department});
         this.update(course_department, this.state.course_code, this.state.professor);
     },
