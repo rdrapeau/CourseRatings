@@ -211,3 +211,19 @@ td.no-pad {
 .Select-menu-outer, .Select-placeholder {
     text-transform: capitalize;
 }
+
+.loading {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#loadingSpinner {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loadingText {
+    font-size: 50px;
+}

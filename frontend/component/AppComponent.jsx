@@ -1,6 +1,7 @@
 var React = require('react');
 var Constants = require('../Constants');
 var DataAPI = require('../DataAPI');
+var Spinner = require('react-spinkit');
 
 var HeaderComponent = require('./HeaderComponent.jsx');
 var OverviewComponent = require('./OverviewComponent.jsx');
@@ -61,7 +62,7 @@ var AppComponent = React.createClass({
 
     getSearchResult : function(course_department, course_code, professor) {
         var results = [];
-        if (course_department !== '' && course_code !== '' && professor !== '') {
+        if (course_department && course_code && professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
@@ -69,40 +70,40 @@ var AppComponent = React.createClass({
                                     course_code : {'==' : course_code},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
-        } else if (course_department !== '' && course_code !== '' && professor === '') {
+        } else if (course_department && course_code && !professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
                                     course_department : {isnocase: course_department},
                                     course_code : {'==' : course_code}
                                 }).order('course_whole_code,professor,datetime').get();
-        } else if (course_department !== '' && course_code === '' && professor !== '') {
+        } else if (course_department && !course_code && professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
                                     course_department : {isnocase: course_department},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
-        } else if (course_department !== '' && course_code === '' && professor === '') {
+        } else if (course_department && !course_code && !professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
                                     course_department : {isnocase: course_department}
                                 }).order('course_whole_code,professor,datetime').get();
-        } else if (course_department === '' && course_code !== '' && professor !== '') {
+        } else if (!course_department && course_code && professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
                                     course_code : {'==' : course_code},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
-        } else if (course_department === '' && course_code !== '' && professor === '') {
+        } else if (!course_department && course_code && !professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
                                     course_code : {'==' : course_code}
                                 }).order('course_whole_code,professor,datetime').get();
-        } else if (course_department === '' && course_code === '' && professor !== '') {
+        } else if (!course_department && !course_code && professor) {
             results = this.state.taffy({
                                 the_course_as_a_whole : {isNumber: true}},
                                 {
@@ -112,16 +113,16 @@ var AppComponent = React.createClass({
             results = this.state.allCourses;
         }
 
-        if (course_department === '' && course_code === '' && professor === '') {
+        if (!course_department && !course_code && !professor) {
             this.setState({current_courses : []});
         } else {
             this.setState({current_courses : results});
         }
 
         if (results.length !== 0) {
-            if (course_department !== '' && course_code !== '' && professor === '') {
+            if (course_department && course_code && !professor) {
                 this.onClickCourse(results[0].course_whole_code);
-            } else if (professor !== '') {
+            } else if (professor && !course_department && !course_code) {
                 this.onClickInstructor(results[0].professor);
             } else {
                 this.setScreenLater(Constants.SCREENS.OVERVIEW)();
@@ -146,7 +147,8 @@ var AppComponent = React.createClass({
                 {this.state.taffy == null && this.state.allCourses == null && (
 
                 <div className="loading">
-                    Loading.
+                    <span id="loadingText">Loading</span>
+                    <Spinner id="loadingSpinner" spinnerName='circle' noFadeIn={true} />
                 </div>
 
                 )}

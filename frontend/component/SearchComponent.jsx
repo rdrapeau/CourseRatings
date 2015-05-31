@@ -11,7 +11,7 @@ var SearchComponent = React.createClass({
      */
     getInitialState: function() {
         var keys = ['course_department', 'course_code', 'professor'];
-        var allData = this.props.searchFunction('', '', '');
+        var allData = this.props.searchFunction(null, null, null);
         var unique = this.getUnique(keys, allData);
 
         localStorage.setItem("course_department", unique.course_department.map(function(item) { return item.value; }).join(';'));
@@ -19,9 +19,9 @@ var SearchComponent = React.createClass({
         localStorage.setItem("professor", unique.professor.map(function(item) { return item.value; }).join(';'));
 
         return {
-            course_department : '',
-            course_code : '',
-            professor : '',
+            course_department : null,
+            course_code : null,
+            professor : null,
             departments : unique.course_department,
             courseCodes : unique.course_code,
             professors : unique.professor,
@@ -64,7 +64,7 @@ var SearchComponent = React.createClass({
 
     update: function(course_department, course_code, professor) {
         var unique = {};
-        if (course_department === '' && course_code === '' && professor === '' && localStorage['course_department']) {
+        if (!course_department && !course_code && !professor && localStorage['course_department']) {
             unique = {
                     'course_department' : localStorage['course_department'].split(';').map(function(item) { return {value: item, label: item};}),
                     'course_code' : localStorage['course_code'].split(';').map(function(item) { return {value: item, label: item};}),
@@ -81,6 +81,7 @@ var SearchComponent = React.createClass({
     },
 
     departmentChange: function(course_department) {
+        console.log(course_department);
         this.setState({course_department: course_department});
         this.update(course_department, this.state.course_code, this.state.professor);
     },
@@ -101,9 +102,9 @@ var SearchComponent = React.createClass({
     render: function() {
         return (
             <div id='search-bar-container'>
-                <Select value={this.state.course_department} className="departmentField" placeholder="Department" options={this.state.departments} onChange={this.departmentChange} />
-                <Select value={this.state.course_code} className="courseCodeField" placeholder="Course Code" options={this.state.courseCodes} onChange={this.courseCodeChange} />
-                <Select value={this.state.professor} className="profField" placeholder="Instructor" options={this.state.professors} onChange={this.profChange} />
+                <Select value={this.state.course_department ? this.state.course_department : null} className="departmentField" placeholder="Department" options={this.state.departments} onChange={this.departmentChange} />
+                <Select value={this.state.course_code ? this.state.course_code : null} className="courseCodeField" placeholder="Course Code" options={this.state.courseCodes} onChange={this.courseCodeChange} />
+                <Select value={this.state.professor ? this.state.professor : null} className="profField" placeholder="Instructor" options={this.state.professors} onChange={this.profChange} />
             </div>
         );
     }

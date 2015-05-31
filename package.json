@@ -21,7 +21,8 @@
     "jszip-utils" : "latest",
     "react-select" : "latest",
     "classNames" : "latest",
-    "react-input-autosize" : "latest"
+    "react-input-autosize" : "latest",
+    "react-spinkit" : "latest"
   },
 
   "author": "Aaron Nech, Ryan Drapeau",
