@@ -34,3 +34,9 @@
   text-transform: capitalize;
   font-size: 14px;
 }
+
+.plot {
+  display: block;
+  margin: 0 auto;
+  width: 680px;
+}

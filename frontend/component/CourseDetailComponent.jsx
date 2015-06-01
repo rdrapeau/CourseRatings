@@ -73,7 +73,7 @@ var CourseDetailComponent = React.createClass({
             left: 50
         },
         width = 660 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom;
+        height = 300 - margin.top - margin.bottom;
 
         var x = d3.scale.linear()
             .range([0, width - 100]);
@@ -100,6 +100,7 @@ var CourseDetailComponent = React.createClass({
         });
 
         var svg = d3.select(".time-series-body").append("svg")
+            .attr("class", "plot")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
