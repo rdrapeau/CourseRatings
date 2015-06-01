@@ -54,7 +54,7 @@ var CourseDetailComponent = React.createClass({
         2) The main index.html file is in fp-vjampala-emilygu-drapeau/frontend/static/index.html .
         You probably won't need to edit it.
         3) The json Ryan created uses "datetime" instead of time.
-        */ 
+        */
         d3.select("svg").remove();
         if (this.state.current_courses.length === 0) {
             return;
@@ -107,7 +107,7 @@ var CourseDetailComponent = React.createClass({
 
         // TODO: USES OUTSIDE CODE ------------- DON"T FORGET TO CITE
         // Used for hovering to get rating of professor
-        /*var tip = d3.tip() 
+        /*var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
@@ -138,7 +138,7 @@ var CourseDetailComponent = React.createClass({
         var maxY = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.the_course_as_a_whole; }) });
 
         // Set axis ranges
-        x.domain([minX, maxX]);
+        x.domain([minX - 0.5, maxX]);
         y.domain([0, 5]);
 
         function getPrettyTime(time) {
@@ -156,7 +156,7 @@ var CourseDetailComponent = React.createClass({
             return quarterStr.concat(time.substring(0, time.length - 1));
         }
 
-        timeValues = d3.set(timeValues).values(); 
+        timeValues = d3.set(timeValues).values();
         xAxis.tickValues(timeValues);
         xAxis.tickFormat(function(d) { return getPrettyTime(d); })
 
@@ -173,8 +173,8 @@ var CourseDetailComponent = React.createClass({
         svg.append("text")
             .attr("transform", "translate(" + ((width - 100)/ 2) + " ," + (height + margin.bottom) + ")")
             .style("text-anchor", "middle")
-            .text("Quarter");    
-    
+            .text("Quarter");
+
 
         svg.append("g")
             .attr("class", "y axis")
@@ -212,8 +212,8 @@ var CourseDetailComponent = React.createClass({
                 return d.values;
             })
             .enter().append('circle')
-            .attr("cx", function(d, i) { 
-                return x(d.datetime); 
+            .attr("cx", function(d, i) {
+                return x(d.datetime);
             })
             .attr("cy", function(d, i) {
                 return y(d.the_course_as_a_whole);
@@ -231,8 +231,8 @@ var CourseDetailComponent = React.createClass({
                 return d.values;
             })
             .enter().append('circle')
-            .attr("cx", function(d, i) { 
-                return x(d.time); 
+            .attr("cx", function(d, i) {
+                return x(d.time);
             })
             .attr("cy", function(d, i) {
                 return y(d.the_course_as_a_whole);
@@ -247,14 +247,14 @@ var CourseDetailComponent = React.createClass({
         svg.selectAll('circle')
         .style("stroke", function (d) {
             return color(d.professor);
-        }); 
+        });
 
         professor.append('rect')
             .attr('x', width - 20 + 50 - 100)
             .attr('y', function(d, i){ return i *  20;})
             .attr('width', 10)
             .attr('height', 10)
-            .style('fill', function(d) { 
+            .style('fill', function(d) {
               return color(d.key);
             });
 
@@ -279,7 +279,7 @@ var CourseDetailComponent = React.createClass({
         runningSum /= this.state.current_courses.length;
         runningSum = runningSum.toFixed(2);
         rating = Math.floor(runningSum);
-        
+
         this.getTimeSeriesByCourseCode();
 
         return (
