@@ -60,101 +60,101 @@ var CourseDetailComponent = React.createClass({
             return;
         }
 
-    var data = d3.nest()
-        .key(function(d) {
-            return d.professor;
-        })
-        .entries(this.state.current_courses);
+        var data = d3.nest()
+            .key(function(d) {
+                return d.professor;
+            })
+            .entries(this.state.current_courses);
 
-    var margin = {
-        top: 20,
-        right: 80,
-        bottom: 30,
-        left: 50
-    },
-    width = 660 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        var margin = {
+            top: 20,
+            right: 80,
+            bottom: 30,
+            left: 50
+        },
+        width = 660 - margin.left - margin.right,
+            height = 300 - margin.top - margin.bottom;
 
-    var x = d3.scale.linear()
-        .range([0, width - 100]);
+        var x = d3.scale.linear()
+            .range([0, width - 100]);
 
-    var y = d3.scale.linear()
-        .range([height, 0]);
+        var y = d3.scale.linear()
+            .range([height, 0]);
 
-    var color = d3.scale.category10();
+        var color = d3.scale.category10();
 
-    var xAxis = d3.svg.axis()
-       .scale(x)
-        .orient("bottom");
+        var xAxis = d3.svg.axis()
+           .scale(x)
+           .orient("bottom");
 
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
 
-    var line = d3.svg.line()
-        .x(function (d) {
-            return x(d.datetime);
-        })
-        .y(function (d) {
-        return y(d.the_course_as_a_whole);
-    });
-
-    var svg = d3.select("#time-series-body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    // TODO: USES OUTSIDE CODE ------------- DON"T FORGET TO CITE
-    // Used for hovering to get rating of professor
-    /*var tip = d3.tip() 
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-            return d.the_course_as_a_whole;
-        })
-
-    svg.call(tip);*/
-
-    /*var tooltip = d3.select('body')
-        .append('div')
-        .attr('class', 'tooltip');*/
-
-    color.domain(data.map(function (d) { return d.key; }));
-
-    var timeValues = [];
-    data.forEach(function (kv) {
-        kv.values.forEach(function (d) {
-            d.datetime = d.datetime;
-            timeValues.push(d.datetime);
+        var line = d3.svg.line()
+            .x(function (d) {
+                return x(d.datetime);
+            })
+            .y(function (d) {
+            return y(d.the_course_as_a_whole);
         });
-    });
 
-    var cities = data;
+        var svg = d3.select("#time-series-body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var minX = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return d.datetime; }) });
-    var maxX = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.datetime; }) });
-    var minY = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return d.the_course_as_a_whole; }) });
-    var maxY = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.the_course_as_a_whole; }) });
+        // TODO: USES OUTSIDE CODE ------------- DON"T FORGET TO CITE
+        // Used for hovering to get rating of professor
+        /*var tip = d3.tip() 
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+                return d.the_course_as_a_whole;
+            })
 
-    // Set axis ranges
-    x.domain([minX, maxX]);
-    y.domain([0, 5]);
+        svg.call(tip);*/
 
-    function getPrettyTime(time) {
-        var quarterNum = time.substr(time.length - 1);
-        var quarterStr = "str";
-        if (quarterNum === "0") {
-            quarterStr = "Wi";
-        } else if (quarterNum === "1") {
-            quarterStr = "Sp";
-        } else if (quarterNum === "2") {
-            quarterStr = "Su";
-        } else {
-            quarterStr = "Au";
+        /*var tooltip = d3.select('body')
+            .append('div')
+            .attr('class', 'tooltip');*/
+
+        color.domain(data.map(function (d) { return d.key; }));
+
+        var timeValues = [];
+        data.forEach(function (kv) {
+            kv.values.forEach(function (d) {
+                d.datetime = d.datetime;
+                timeValues.push(d.datetime);
+            });
+        });
+
+        var cities = data;
+
+        var minX = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return d.datetime; }) });
+        var maxX = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.datetime; }) });
+        var minY = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return d.the_course_as_a_whole; }) });
+        var maxY = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.the_course_as_a_whole; }) });
+
+        // Set axis ranges
+        x.domain([minX, maxX]);
+        y.domain([0, 5]);
+
+        function getPrettyTime(time) {
+            var quarterNum = time.substr(time.length - 1);
+            var quarterStr = "str";
+            if (quarterNum === "0") {
+                quarterStr = "Wi";
+            } else if (quarterNum === "1") {
+                quarterStr = "Sp";
+            } else if (quarterNum === "2") {
+                quarterStr = "Su";
+            } else {
+                quarterStr = "Au";
+            }
+            return quarterStr.concat(time.substring(0, time.length - 1));
         }
-        return quarterStr.concat(time.substring(0, time.length - 1));
-    }
 
     timeValues = d3.set(timeValues).values(); 
     xAxis.tickValues(timeValues);
