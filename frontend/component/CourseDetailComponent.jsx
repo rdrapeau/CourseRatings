@@ -45,9 +45,7 @@ var CourseDetailComponent = React.createClass({
         1) have the values on the x axis be spaced out better
         2) show the overall rating when the user hovers over one of the points
         I commented out the code- it's at lines 107 and 223. (CTRL+F TODO)
-        3) center the graph
         4) When two points have the same x-coordinate, average them
-        5) Increase the font size?
 
         Notes:
         1) The css for the d3 stuff is in fp-vjampala-emilygu-drapeau/frontend/static/css/time-series.css .
@@ -174,6 +172,7 @@ var CourseDetailComponent = React.createClass({
         svg.append("text")
             .attr("transform", "translate(" + ((width - 100)/ 2) + " ," + (height + margin.bottom) + ")")
             .style("text-anchor", "middle")
+            .attr("font-size", "14px")
             .text("Quarter");
 
 
@@ -186,6 +185,7 @@ var CourseDetailComponent = React.createClass({
             .attr("x",0 - (height / 2))
             .attr("dy", ".71em")
             .style("text-anchor", "middle")
+            .attr("font-size", "14px")
             .text("Overall Rating");
 
         var professor = svg.selectAll(".professor")
