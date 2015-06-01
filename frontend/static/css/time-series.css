@@ -1,14 +1,15 @@
-#time-series-body {
+.time-series-body {
   font: 10px sans-serif;
   display: block;
   width: 100%;
   float: left;
   margin-top: 5px;
   margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.axis path,
-.axis line {
+.axis path, .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
@@ -30,5 +31,6 @@
 }
 
 .professor text {
-  text-transform: capitalize
+  text-transform: capitalize;
+  font-size: 14px;
 }

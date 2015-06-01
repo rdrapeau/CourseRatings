@@ -99,7 +99,7 @@ var CourseDetailComponent = React.createClass({
             return y(d.the_course_as_a_whole);
         });
 
-        var svg = d3.select("#time-series-body").append("svg")
+        var svg = d3.select(".time-series-body").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -288,7 +288,7 @@ var CourseDetailComponent = React.createClass({
                 {this.state.current_course_description != 0 &&
                     <p className="course-description">{this.state.current_course_description}</p>
                 }
-                <div id="time-series-body"></div>
+                <div className="time-series-body"></div>
                 <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers}/>
             </div>
         );
