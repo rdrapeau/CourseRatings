@@ -10,8 +10,24 @@ var OverviewHeaderComponent = React.createClass({
      */
     render: function() {
         var self = this;
+        var className = 'table-top';
+        var divStyle = {}
+        if (this.props.fixedHeader) {
+            className += ' topHeader'
+
+            if (this.props.width) {
+                divStyle = { width: this.props.width };
+            }
+
+            if (this.props.scrollState) {
+                className += ' topHeaderLoaded'
+            } else {
+                className += ' topHeaderHidden';
+            }
+        }
+
         return (
-            <tr className='table-top'>
+            <tr className={className} style={divStyle}>
                 {this.props.headers.map(function(header) {
                     return (
                         <th id={header === 'Course Code' ? 'course_whole_code_header' : ''} onClick={function(event) {

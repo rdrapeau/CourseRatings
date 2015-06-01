@@ -1,6 +1,7 @@
 var React = require('react');
 var JQuery = require('jquery');
 var Constants = require('../Constants');
+var OnScroll = require("react-window-mixins").OnScroll;
 
 var OverviewHeaderComponent = require('./OverviewHeaderComponent.jsx');
 var OverviewCourseRowComponent = require('./OverviewCourseRowComponent.jsx');
@@ -9,6 +10,8 @@ var OverviewCourseRowComponent = require('./OverviewCourseRowComponent.jsx');
  * Encapsulates the overview table of the application
  */
 var OverviewComponent = React.createClass({
+    mixins: [ OnScroll ],
+
     /**
      * Initalize the state
      */
@@ -17,7 +20,9 @@ var OverviewComponent = React.createClass({
             current_courses : this.props.currentData,
             current_sort_key : null,
             current_sort_multiplier : 1,
-            activeHeader : null
+            activeHeader : null,
+            scrolledPast : false,
+            barWidth : 0
         };
     },
 
@@ -119,6 +124,20 @@ var OverviewComponent = React.createClass({
         this.setState({current_courses : this.state.current_courses});
     },
 
+    onScroll: function() {
+        var element = this.getDOMNode();
+        var rect = element.getBoundingClientRect();
+        var windowPos = window.pageYOffset;
+
+        if (windowPos - element.offsetTop > 50) {
+            this.setState({scrolledPast : true});
+        } else {
+            this.setState({scrolledPast : false});
+        }
+
+        this.setState({barWidth : rect.width});
+    },
+
 	/**
 	 * Render
 	 */
@@ -128,7 +147,8 @@ var OverviewComponent = React.createClass({
             <div>
                 {this.state.current_courses && (
         	        <table className="table table-curved" >
-        	        	<OverviewHeaderComponent ref="headerComp" headers={this.props.headers} onClickHeader={this.sortData} />
+    	        	    <OverviewHeaderComponent headers={this.props.headers} onClickHeader={this.sortData} fixedHeader={true} scrollState={this.state.scrolledPast} width={this.state.barWidth} />
+                        <OverviewHeaderComponent ref="headerComp" headers={this.props.headers} onClickHeader={this.sortData} fixedHeader={false} />
 
         	        	{this.state.current_courses.slice(0, Constants.SEARCH_RESULT_LIMIT).map(function(course) {
         	        		return (

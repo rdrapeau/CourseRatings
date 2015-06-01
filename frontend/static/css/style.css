@@ -227,3 +227,19 @@ td.no-pad {
 #loadingText {
     font-size: 50px;
 }
+
+.topHeader {
+  position: fixed;
+  z-index: 1000;
+  top: -7px;
+}
+
+.topHeaderHidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.topHeaderLoaded {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
