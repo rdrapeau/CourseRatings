@@ -125,9 +125,9 @@ var OverviewComponent = React.createClass({
     },
 
     onScroll: function() {
-        var element = this.getDOMNode();
+        var element = this.getDOMNode().children[0];
         var rect = element.getBoundingClientRect();
-        var windowPos = window.pageYOffset;
+        var windowPos = window.scrollY;
 
         if (windowPos - element.offsetTop > 50) {
             this.setState({scrolledPast : true});
@@ -147,7 +147,8 @@ var OverviewComponent = React.createClass({
             <div>
                 {this.state.current_courses && (
         	        <table className="table table-curved" >
-    	        	    <OverviewHeaderComponent headers={this.props.headers} onClickHeader={this.sortData} fixedHeader={true} scrollState={this.state.scrolledPast} width={this.state.barWidth} />
+                        <tbody>
+                        <OverviewHeaderComponent headers={this.props.headers} onClickHeader={this.sortData} fixedHeader={true} scrollState={this.state.scrolledPast} width={this.state.barWidth} />
                         <OverviewHeaderComponent ref="headerComp" headers={this.props.headers} onClickHeader={this.sortData} fixedHeader={false} />
 
         	        	{this.state.current_courses.slice(0, Constants.SEARCH_RESULT_LIMIT).map(function(course) {
@@ -155,6 +156,7 @@ var OverviewComponent = React.createClass({
                                 <OverviewCourseRowComponent headers={self.props.headers} onClickCourse={self.props.onClickCourse} onClickInstructor={self.props.onClickInstructor} data={course} />
         	        		);
         	        	})}
+                        </tbody>
         	        </table>
                 )}
             </div>
