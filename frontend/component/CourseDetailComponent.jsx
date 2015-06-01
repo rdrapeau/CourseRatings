@@ -45,7 +45,8 @@ var CourseDetailComponent = React.createClass({
         1) have the values on the x axis be spaced out better
         2) show the overall rating when the user hovers over one of the points
         I commented out the code- it's at lines 107 and 223. (CTRL+F TODO)
-        4) When two points have the same x-coordinate, average them
+        3) When two points have the same x-coordinate, average them
+        4) Font color should be #7f8c8d?
 
         Notes:
         1) The css for the d3 stuff is in fp-vjampala-emilygu-drapeau/frontend/static/css/time-series.css .
