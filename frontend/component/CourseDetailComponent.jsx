@@ -156,112 +156,112 @@ var CourseDetailComponent = React.createClass({
             return quarterStr.concat(time.substring(0, time.length - 1));
         }
 
-    timeValues = d3.set(timeValues).values(); 
-    xAxis.tickValues(timeValues);
-    xAxis.tickFormat(function(d) { return getPrettyTime(d); })
+        timeValues = d3.set(timeValues).values(); 
+        xAxis.tickValues(timeValues);
+        xAxis.tickFormat(function(d) { return getPrettyTime(d); })
 
-    // Set y-axis tick marks
-    yAxis.tickValues([0, 1, 2, 3, 4, 5]);
-    yAxis.tickFormat(d3.format(".0f"));
+        // Set y-axis tick marks
+        yAxis.tickValues([0, 1, 2, 3, 4, 5]);
+        yAxis.tickFormat(d3.format(".0f"));
 
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
 
-    // Add the text label for the x axis
-    svg.append("text")
-        .attr("transform", "translate(" + ((width - 100)/ 2) + " ," + (height + margin.bottom) + ")")
-        .style("text-anchor", "middle")
-        .text("Quarter");    
+        // Add the text label for the x axis
+        svg.append("text")
+            .attr("transform", "translate(" + ((width - 100)/ 2) + " ," + (height + margin.bottom) + ")")
+            .style("text-anchor", "middle")
+            .text("Quarter");    
     
 
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 8 - margin.left)
-        .attr("x",0 - (height / 2))
-        .attr("dy", ".71em")
-        .style("text-anchor", "middle")
-        .text("Overall Rating");
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 8 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", ".71em")
+            .style("text-anchor", "middle")
+            .text("Overall Rating");
 
-    var professor = svg.selectAll(".professor")
-        .data(cities)
-        .enter().append("g")
-        .attr("class", "professor");
+        var professor = svg.selectAll(".professor")
+            .data(cities)
+            .enter().append("g")
+            .attr("class", "professor");
 
-    professor.append("path")
-        .attr("class", "line")
-        .attr("d", function (d) {
-        return line(d.values);
-    })
-        .style("stroke", function (d) {
-        return color(d.key);
-    });
-
-    // Draws circle points on lines
-    // Includes hovering
-    svg.selectAll('g.dot')
-        .data(data)
-        .enter().append("g")
-        .attr("class", "dot")
-        .selectAll("circle")
-        .data(function(d) {
-            return d.values;
+        professor.append("path")
+            .attr("class", "line")
+            .attr("d", function (d) {
+            return line(d.values);
         })
-        .enter().append('circle')
-        .attr("cx", function(d, i) { 
-            return x(d.datetime); 
-        })
-        .attr("cy", function(d, i) {
-            return y(d.the_course_as_a_whole);
-        })
-        .attr('r', 3)
-        .style("fill", "white");
-
-    // Add underlying circle for larger hover area
-    /*svg.selectAll('g.largeDot')
-        .data(data)
-        .enter().append("g")
-        .attr("class", "largeDot")
-        .selectAll("circle")
-        .data(function(d) {
-            return d.values;
-        })
-        .enter().append('circle')
-        .attr("cx", function(d, i) { 
-            return x(d.time); 
-        })
-        .attr("cy", function(d, i) {
-            return y(d.the_course_as_a_whole);
-        })
-        .attr('r', 6)
-        .style("opacity", 0)
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);*/
-
-
-    // Sets color of circles to match line
-    svg.selectAll('circle')
-    .style("stroke", function (d) {
-        return color(d.professor);
-    }); 
-
-    professor.append('rect')
-        .attr('x', width - 20 + 50 - 100)
-        .attr('y', function(d, i){ return i *  20;})
-        .attr('width', 10)
-        .attr('height', 10)
-        .style('fill', function(d) { 
-          return color(d.key);
+            .style("stroke", function (d) {
+            return color(d.key);
         });
 
-    professor.append('text')
-        .attr('x', width - 8 + 50 + 5 - 100)
-        .attr('y', function(d, i){ return (i *  20) + 9;})
-        .text(function(d){ return d.key; });
+        // Draws circle points on lines
+        // Includes hovering
+        svg.selectAll('g.dot')
+            .data(data)
+            .enter().append("g")
+            .attr("class", "dot")
+            .selectAll("circle")
+            .data(function(d) {
+                return d.values;
+            })
+            .enter().append('circle')
+            .attr("cx", function(d, i) { 
+                return x(d.datetime); 
+            })
+            .attr("cy", function(d, i) {
+                return y(d.the_course_as_a_whole);
+            })
+            .attr('r', 3)
+            .style("fill", "white");
+
+        // Add underlying circle for larger hover area
+        /*svg.selectAll('g.largeDot')
+            .data(data)
+            .enter().append("g")
+            .attr("class", "largeDot")
+            .selectAll("circle")
+            .data(function(d) {
+                return d.values;
+            })
+            .enter().append('circle')
+            .attr("cx", function(d, i) { 
+                return x(d.time); 
+            })
+            .attr("cy", function(d, i) {
+                return y(d.the_course_as_a_whole);
+            })
+            .attr('r', 6)
+            .style("opacity", 0)
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);*/
+
+
+        // Sets color of circles to match line
+        svg.selectAll('circle')
+        .style("stroke", function (d) {
+            return color(d.professor);
+        }); 
+
+        professor.append('rect')
+            .attr('x', width - 20 + 50 - 100)
+            .attr('y', function(d, i){ return i *  20;})
+            .attr('width', 10)
+            .attr('height', 10)
+            .style('fill', function(d) { 
+              return color(d.key);
+            });
+
+        professor.append('text')
+            .attr('x', width - 8 + 50 + 5 - 100)
+            .attr('y', function(d, i){ return (i *  20) + 9;})
+            .text(function(d){ return d.key; });
     },
 
     /**
