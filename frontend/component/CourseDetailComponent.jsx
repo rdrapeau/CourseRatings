@@ -40,7 +40,7 @@ var CourseDetailComponent = React.createClass({
         return courses;
     },
 
-    getTimeSeriesByCourseCode : function() {
+    getTimeSeriesByCourseCode : function(key) {
         /* TODO Vi + Emily
         1) have the values on the x axis be spaced out better
         2) show the overall rating when the user hovers over one of the points
@@ -59,7 +59,7 @@ var CourseDetailComponent = React.createClass({
             return;
         }
 
-        function modifyData(data) {
+        function modifyData(data, key) {
             var newData = []
             var existingData = {}
 
@@ -70,7 +70,7 @@ var CourseDetailComponent = React.createClass({
                 var prevCount = 0;
 
                 // To use as key
-                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], "professor": dataPoint["professor"]});
+                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], "name": dataPoint[key]});
 
                 // Rating already exists.  So keep track that this is a duplicate
                 if (dataPointString in existingData) {
@@ -97,9 +97,9 @@ var CourseDetailComponent = React.createClass({
 
         var data = d3.nest()
             .key(function(d) {
-                return d.professor;
+                return d.name;
             })
-            .entries(modifyData(this.state.current_courses));
+            .entries(modifyData(this.state.current_courses, key));
 
         var margin = {
             top: 20,
@@ -142,7 +142,7 @@ var CourseDetailComponent = React.createClass({
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         // TODO: USES OUTSIDE CODE ------------- DON"T FORGET TO CITE
-        // Used for hovering to get rating of professor
+        // Used for hovering to get rating of professor/course code
         /*var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
@@ -225,12 +225,12 @@ var CourseDetailComponent = React.createClass({
             .attr("font-size", "14px")
             .text("Overall Rating");
 
-        var professor = svg.selectAll(".professor")
+        var category = svg.selectAll(".category")
             .data(cities)
             .enter().append("g")
-            .attr("class", "professor");
+            .attr("class", "category");
 
-        professor.append("path")
+        category.append("path")
             .attr("class", "line")
             .attr("d", function (d) {
             return line(d.values);
@@ -284,10 +284,10 @@ var CourseDetailComponent = React.createClass({
         // Sets color of circles to match line
         svg.selectAll('circle')
         .style("stroke", function (d) {
-            return color(d.professor);
+            return color(d.name);
         });
 
-        professor.append('rect')
+        category.append('rect')
             .attr('x', width - 20 + 50 - 100)
             .attr('y', function(d, i){ return i *  20;})
             .attr('width', 10)
@@ -296,7 +296,7 @@ var CourseDetailComponent = React.createClass({
               return color(d.key);
             });
 
-        professor.append('text')
+        category.append('text')
             .attr('x', width - 8 + 50 + 5 - 100)
             .attr('y', function(d, i){ return (i *  20) + 9;})
             .text(function(d){ return d.key; });
@@ -318,7 +318,7 @@ var CourseDetailComponent = React.createClass({
         runningSum = runningSum.toFixed(2);
         rating = Math.floor(runningSum);
 
-        this.getTimeSeriesByCourseCode();
+        this.getTimeSeriesByCourseCode("professor");
 
         return (
             <div className="table-container">
