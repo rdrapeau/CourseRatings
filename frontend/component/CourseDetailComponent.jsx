@@ -59,11 +59,47 @@ var CourseDetailComponent = React.createClass({
             return;
         }
 
+        function modifyData(data) {
+            var newData = []
+            var existingData = {}
+
+            // Merge averages
+            for(var i = 0; i < data.length; i++) {
+                var dataPoint = data[i];
+                var rating = dataPoint.the_course_as_a_whole;
+                var prevCount = 0;
+
+                // To use as key
+                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], "professor": dataPoint["professor"]});
+
+                // Rating already exists.  So keep track that this is a duplicate
+                if (dataPointString in existingData) {
+                    var prevRating = existingData[dataPointString];
+                    rating = prevRating["sum"] + rating;
+                    prevCount = prevRating["count"];   
+                } 
+
+                // Updated stored rating for a class
+                existingData[dataPointString] = {"sum": rating, "count": prevCount + 1};
+            }
+
+            // Set to previous format 
+            for (var key in existingData) {
+                if( existingData.hasOwnProperty(key) ) {
+                    var course = JSON.parse(key);
+                    var rating = existingData[key];
+                    course["the_course_as_a_whole"] = parseFloat((rating["sum"] / rating["count"]).toFixed(2));
+                    newData.push(course);
+                }
+            }    
+            return newData;
+        }
+
         var data = d3.nest()
             .key(function(d) {
                 return d.professor;
             })
-            .entries(this.state.current_courses);
+            .entries(modifyData(this.state.current_courses));
 
         var margin = {
             top: 20,
