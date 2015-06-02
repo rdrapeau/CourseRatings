@@ -243,3 +243,26 @@ td.no-pad {
     opacity: 1;
     transition: opacity 0.25s ease-in-out;
 }
+
+.glyphicon-play {
+    margin-left: -30px;
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+.glyphicon-play:hover {
+    color: purple;
+    cursor: pointer;
+}
+
+.rotated {
+    -webkit-transform: rotate(90deg); /* Safari and Chrome */
+    -moz-transform: rotate(90deg);   /* Firefox */
+    -ms-transform: rotate(90deg);   /* IE 9 */
+    -o-transform: rotate(90deg);   /* Opera */
+    transform: rotate(90deg);
+}
+
+.existing-expanded {
+    background-color: rgba(0, 0, 0, 0.14);
+}

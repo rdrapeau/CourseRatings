@@ -327,7 +327,7 @@ var CourseDetailComponent = React.createClass({
                     <p className="course-description">{this.state.current_course_description}</p>
                 }
                 <div className="time-series-body"></div>
-                <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers}/>
+                <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers} collapseKey="professor" />
             </div>
         );
     }

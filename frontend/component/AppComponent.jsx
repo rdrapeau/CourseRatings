@@ -164,7 +164,7 @@ var AppComponent = React.createClass({
                     <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} />
                     <div className={"screen " + (isOverview ? "active" : "")}>
                         <div className="table-container">
-                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} />
+                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" />
                         </div>
                     </div>
                     <div className={"screen " + (isCourseDetails ? "active" : "")}>
