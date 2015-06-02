@@ -107,24 +107,46 @@ var OverviewComponent = React.createClass({
         this.setState({current_sort_key : key});
         this.setState({current_sort_multiplier : multiplier});
         var self = this;
-        this.state.current_courses.sort(function(a, b) {
+
+        var toSort = [];
+        var previousHighLevel;
+        for (var i = 0; i < this.state.allCourses.length; i++) {
+            var course = this.state.allCourses[i];
+            if (course.highLevel) {
+                previousHighLevel = {highLevelCourse : course, innerCourses : []};
+                toSort.push(previousHighLevel);
+            } else {
+                previousHighLevel.innerCourses.push(course);
+            }
+        }
+
+        toSort.sort(function(a, b) {
             var comparison = 0;
-            if (a[key] < b[key]) {
+            if (a.highLevelCourse[key] < b.highLevelCourse[key]) {
                 comparison = -1;
-            } else if (a[key] > b[key]) {
+            } else if (a.highLevelCourse[key] > b.highLevelCourse[key]) {
                 comparison = 1;
             }
 
             if (comparison === 0) {
-                comparison = self.comparison(a, b);
+                comparison = self.comparison(a.highLevelCourse, b.highLevelCourse);
             }
 
             // Equal
             return comparison * multiplier;
         });
 
+        var result = [];
+        for (var i = 0; i < toSort.length; i++) {
+            result.push(toSort[i].highLevelCourse);
+
+            for (var j = 0; j < toSort[i].innerCourses.length; j++) {
+                result.push(toSort[i].innerCourses[j]);
+            }
+        }
+
         // Force an update to the listeners
-        this.setState({current_courses : this.state.current_courses});
+        this.setState({allCourses : result});
     },
 
     onScroll: function() {
@@ -172,6 +194,7 @@ var OverviewComponent = React.createClass({
                 courses[0].hidden = false;
                 courses[0].existing = true;
                 courses[0].colorThis = false;
+                courses[0].highLevel = true;
                 allCourses.push(courses[0]);
                 continue;
             }
@@ -216,11 +239,13 @@ var OverviewComponent = React.createClass({
             averageCourse.existing = false;
             averageCourse.showing = false;
             averageCourse.colorThis = false;
+            averageCourse.highLevel = true;
             allCourses.push(averageCourse);
             for (var i = 0; i < courses.length; i++) {
                 courses[i].hidden = true;
                 courses[i].existing = true;
                 courses[i].colorThis = true;
+                courses[i].highLevel = false;
                 allCourses.push(courses[i]);
             }
         }
