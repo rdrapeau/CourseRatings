@@ -41,10 +41,9 @@ var CourseDetailComponent = React.createClass({
         return courses;
     },
 
-    getTimeSeriesByCourseCode : function(key) {
+    getTimeSeriesByCourseCode : function(key, id) {
         /* TODO Vi + Emily
         1) have the values on the x axis be spaced out better
-        4) Font color should be #7f8c8d?
 
         Notes:
         1) The css for the d3 stuff is in fp-vjampala-emilygu-drapeau/frontend/static/css/time-series.css .
@@ -132,7 +131,7 @@ var CourseDetailComponent = React.createClass({
             return y(d.the_course_as_a_whole);
         });
 
-        var svg = d3.select(".time-series-body").append("svg")
+        var svg = d3.select(id).append("svg")
             .attr("class", "plot")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -316,7 +315,7 @@ var CourseDetailComponent = React.createClass({
         runningSum = runningSum.toFixed(2);
         rating = Math.floor(runningSum);
 
-        this.getTimeSeriesByCourseCode("professor");
+        this.getTimeSeriesByCourseCode("professor", "#course-time-series-body");
 
         return (
             <div className="table-container">
@@ -324,7 +323,7 @@ var CourseDetailComponent = React.createClass({
                 {this.state.current_course_description != 0 &&
                     <p className="course-description">{this.state.current_course_description}</p>
                 }
-                <div className="time-series-body"></div>
+                <div id="course-time-series-body"></div>
                 <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers} collapseKey="professor" />
             </div>
         );
