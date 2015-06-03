@@ -1,5 +1,6 @@
 var React = require('react');
 var d3 = require('d3');
+var tip = require('d3-tip');
 var Constants = require('../Constants');
 
 var OverviewComponent = require('./OverviewComponent.jsx');
@@ -76,14 +77,14 @@ var CourseDetailComponent = React.createClass({
                 if (dataPointString in existingData) {
                     var prevRating = existingData[dataPointString];
                     rating = prevRating["sum"] + rating;
-                    prevCount = prevRating["count"];   
-                } 
+                    prevCount = prevRating["count"];
+                }
 
                 // Updated stored rating for a class
                 existingData[dataPointString] = {"sum": rating, "count": prevCount + 1};
             }
 
-            // Set to previous format 
+            // Set to previous format
             for (var key in existingData) {
                 if( existingData.hasOwnProperty(key) ) {
                     var course = JSON.parse(key);
@@ -91,7 +92,7 @@ var CourseDetailComponent = React.createClass({
                     course["the_course_as_a_whole"] = parseFloat((rating["sum"] / rating["count"]).toFixed(2));
                     newData.push(course);
                 }
-            }    
+            }
             return newData;
         }
 
@@ -260,7 +261,7 @@ var CourseDetailComponent = React.createClass({
             .style("fill", "white");
 
         // Add underlying circle for larger hover area
-        /*svg.selectAll('g.largeDot')
+        svg.selectAll('g.largeDot')
             .data(data)
             .enter().append("g")
             .attr("class", "largeDot")
@@ -278,7 +279,7 @@ var CourseDetailComponent = React.createClass({
             .attr('r', 6)
             .style("opacity", 0)
             .on('mouseover', tip.show)
-            .on('mouseout', tip.hide);*/
+            .on('mouseout', tip.hide);
 
 
         // Sets color of circles to match line
