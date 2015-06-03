@@ -106,7 +106,7 @@ var CourseDetailComponent = React.createClass({
             left: 50
         },
         width = 660 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        height = 400 - margin.top - margin.bottom;
 
         var x = d3.scale.linear()
             .range([0, width - 100]);
@@ -203,7 +203,10 @@ var CourseDetailComponent = React.createClass({
         svg.append("text")
             .attr("transform", "translate(" + ((width - 100)/ 2) + " ," + (height + margin.bottom) + ")")
             .style("text-anchor", "middle")
+            .attr("y",0)
+            .attr("dx", "1em")
             .attr("font-size", "14px")
+            .attr("fill", "#7f8c8d")
             .text("Quarter");
 
 
@@ -217,6 +220,7 @@ var CourseDetailComponent = React.createClass({
             .attr("dy", ".71em")
             .style("text-anchor", "middle")
             .attr("font-size", "14px")
+            .attr("fill", "#7f8c8d")
             .text("Overall Rating");
 
         var category = svg.selectAll(".category")
