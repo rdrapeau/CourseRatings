@@ -44,9 +44,6 @@ var CourseDetailComponent = React.createClass({
     getTimeSeriesByCourseCode : function(key) {
         /* TODO Vi + Emily
         1) have the values on the x axis be spaced out better
-        2) show the overall rating when the user hovers over one of the points
-        I commented out the code- it's at lines 107 and 223. (CTRL+F TODO)
-        3) When two points have the same x-coordinate, average them
         4) Font color should be #7f8c8d?
 
         Notes:
@@ -144,18 +141,14 @@ var CourseDetailComponent = React.createClass({
 
         // TODO: USES OUTSIDE CODE ------------- DON"T FORGET TO CITE
         // Used for hovering to get rating of professor/course code
-        /*var tip = d3.tip()
+        var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
                 return d.the_course_as_a_whole;
             })
 
-        svg.call(tip);*/
-
-        /*var tooltip = d3.select('body')
-            .append('div')
-            .attr('class', 'tooltip');*/
+        svg.call(tip);
 
         color.domain(data.map(function (d) { return d.key; }));
 
@@ -271,7 +264,7 @@ var CourseDetailComponent = React.createClass({
             })
             .enter().append('circle')
             .attr("cx", function(d, i) {
-                return x(d.time);
+                return x(d.datetime);
             })
             .attr("cy", function(d, i) {
                 return y(d.the_course_as_a_whole);
