@@ -30,6 +30,17 @@ class Constants {
         "% Completed": "percent_enrolled"
     };
 
+    public static KEY_TO_HEADER: any = {
+        "course_whole_code": "Course Code",
+        "professor": "Instructor",
+        "the_course_as_a_whole": "Overall",
+        "the_course_content": "Content",
+        "amount_learned": "Amount Learned",
+        "instructors_effectiveness": "Teaching",
+        "grading_techniques": "Grading",
+        "percent_enrolled" : "% Completed"
+    };
+
     public static SEARCH_RESULT_LIMIT: number = 300;
 }
 
