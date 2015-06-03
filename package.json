@@ -23,8 +23,7 @@
     "classnames" : "latest",
     "react-input-autosize" : "latest",
     "react-spinkit" : "latest",
-    "react-window-mixins" : "latest",
-    "d3-tip" : "latest"
+    "react-window-mixins" : "latest"
   },
 
   "author": "Aaron Nech, Ryan Drapeau",

@@ -1,6 +1,5 @@
 var React = require('react');
 var d3 = require('d3');
-var tip = require('d3-tip');
 var Constants = require('../Constants');
 
 var OverviewComponent = require('./OverviewComponent.jsx');
