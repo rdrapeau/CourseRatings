@@ -122,7 +122,7 @@ var AppComponent = React.createClass({
         if (results.length !== 0) {
             if (course_department && course_code && !professor) {
                 this.onClickCourse(results[0].course_whole_code);
-            } else if (professor && !course_department && !course_code) {
+            } else if (professor && !course_code) {
                 this.onClickInstructor(results[0].professor);
             } else {
                 this.setScreenLater(Constants.SCREENS.OVERVIEW)();
