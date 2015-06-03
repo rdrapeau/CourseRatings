@@ -25,6 +25,8 @@ var LinePlotComponent = React.createClass({
             return;
         }
 
+        var minTime = Number.MAX_VALUE;
+
         function modifyData(data, key) {
             var newData = []
             var existingData = {}
@@ -34,6 +36,11 @@ var LinePlotComponent = React.createClass({
                 var dataPoint = data[i];
                 var rating = dataPoint.the_course_as_a_whole;
                 var prevCount = 0;
+
+                // Keep track of min time
+                if (dataPoint["datetime"] < minTime) {
+                    minTime = dataPoint["datetime"];
+                }
 
                 // To use as key
                 dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], "name": dataPoint[key]});
@@ -49,7 +56,8 @@ var LinePlotComponent = React.createClass({
                 existingData[dataPointString] = {"sum": rating, "count": prevCount + 1};
             }
 
-            // Set to previous format
+            // Set to previous format and add incrementing ticks
+            minTime = Math.floor(minTime / 10) * 10;
             for (var attribute in existingData) {
                 if( existingData.hasOwnProperty(attribute) ) {
                     var course = JSON.parse(attribute);
@@ -60,6 +68,11 @@ var LinePlotComponent = React.createClass({
             }
 
             return newData;
+        }
+
+        var incrementedTime = function(time) {
+            var newTime = time - minTime;
+            return newTime - (Math.floor(newTime / 10) * 6);
         }
 
         var data = d3.nest()
@@ -95,7 +108,7 @@ var LinePlotComponent = React.createClass({
 
         var line = d3.svg.line()
             .x(function (d) {
-                return x(d.datetime);
+                 return x(incrementedTime(d.datetime));
             })
             .y(function (d) {
             return y(d.the_course_as_a_whole);
@@ -125,15 +138,14 @@ var LinePlotComponent = React.createClass({
         var timeValues = [];
         data.forEach(function (kv) {
             kv.values.forEach(function (d) {
-                d.datetime = d.datetime;
-                timeValues.push(d.datetime);
+                timeValues.push(incrementedTime(d.datetime));
             });
         });
 
         var cities = data;
 
-        var minX = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return d.datetime; }) });
-        var maxX = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.datetime; }) });
+        var minX = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return incrementedTime(d.datetime); }) });
+        var maxX = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return incrementedTime(d.datetime); }) });
         var minY = d3.min(data, function (kv) { return d3.min(kv.values, function (d) { return d.the_course_as_a_whole; }) });
         var maxY = d3.max(data, function (kv) { return d3.max(kv.values, function (d) { return d.the_course_as_a_whole; }) });
 
@@ -142,7 +154,10 @@ var LinePlotComponent = React.createClass({
         y.domain([0, 5]);
 
         function getPrettyTime(time) {
-            var quarterNum = time.substr(time.length - 1);
+            time = (Math.floor(time / 4) * 10) + (time % 4) + minTime;
+            var sTime = time.toString();
+            var quarterNum = sTime.substr(sTime.length - 1);
+
             var quarterStr = "str";
             if (quarterNum === "0") {
                 quarterStr = "Wi";
@@ -153,7 +168,7 @@ var LinePlotComponent = React.createClass({
             } else {
                 quarterStr = "Au";
             }
-            return quarterStr.concat(time.substring(0, time.length - 1));
+            return quarterStr.concat(sTime.substring(0, sTime.length - 1));
         }
 
         timeValues = d3.set(timeValues).values();
@@ -219,7 +234,7 @@ var LinePlotComponent = React.createClass({
             })
             .enter().append('circle')
             .attr("cx", function(d, i) {
-                return x(d.datetime);
+                return x(incrementedTime(d.datetime));
             })
             .attr("cy", function(d, i) {
                 return y(d.the_course_as_a_whole);
@@ -238,7 +253,7 @@ var LinePlotComponent = React.createClass({
             })
             .enter().append('circle')
             .attr("cx", function(d, i) {
-                return x(d.datetime);
+                return x(incrementedTime(d.datetime));
             })
             .attr("cy", function(d, i) {
                 return y(d.the_course_as_a_whole);
