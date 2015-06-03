@@ -11,6 +11,7 @@ var LinePlotComponent = React.createClass({
     getTimeSeries : function() {
         /* TODO Vi + Emily
         1) have the values on the x axis be spaced out better
+        2) Display only top X professors/courses
 
         Notes:
         1) The css for the d3 stuff is in fp-vjampala-emilygu-drapeau/frontend/static/css/time-series.css .
@@ -109,11 +110,12 @@ var LinePlotComponent = React.createClass({
 
         // TODO: USES OUTSIDE CODE ------------- DON"T FORGET TO CITE
         // Used for hovering to get rating of professor/course code
+        var detailKey = this.props.detailKey;
         var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-                return d.the_course_as_a_whole;
+                return d.name.concat(": ").concat(d.the_course_as_a_whole);
             })
 
         svg.call(tip);
