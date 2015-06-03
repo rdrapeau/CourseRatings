@@ -11,6 +11,10 @@ body, html {
     color: #7f8c8d !important;
 }
 
+.loaded {
+    margin-bottom: 100px;
+}
+
 .screen {
 	display: none;
 }
