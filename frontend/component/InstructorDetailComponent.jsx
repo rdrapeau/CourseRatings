@@ -2,6 +2,7 @@ var React = require('react');
 var Constants = require('../Constants');
 
 var OverviewComponent = require('./OverviewComponent.jsx');
+var LinePlotComponent = require('./LinePlotComponent.jsx');
 
 /**
  * Encapsulates the instructor detail screen
@@ -52,6 +53,7 @@ var InstructorDetailComponent = React.createClass({
         return (
             <div className="table-container">
                 <h2><span className="instructorDetailName">{this.props.instructor}</span><span className="instructorDetailScore">Score: <span className={"scoreRating" + rating}>{runningSum}</span></span></h2>
+                <LinePlotComponent divId="instructorDetailPlot" detailKey="course_whole_code" current_courses={this.state.current_courses} />
                 <OverviewComponent onClickCourse={this.props.onClickCourse} onClickInstructor={function() {}} currentData={this.state.current_courses} headers={headers} collapseKey="course_whole_code" />
             </div>
         );

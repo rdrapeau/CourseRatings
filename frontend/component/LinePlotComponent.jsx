@@ -1,46 +1,14 @@
 var React = require('react');
+var JQuery = require('jquery');
 var d3 = require('d3');
 var Constants = require('../Constants');
-
-var OverviewComponent = require('./OverviewComponent.jsx');
 
 /**
  * Encapsulates the course detail screen
  */
-var CourseDetailComponent = React.createClass({
-    getInitialState : function() {
-        return {
-            current_course_name : '',
-            current_courses : []
-        };
-    },
+var LinePlotComponent = React.createClass({
 
-    componentDidMount : function() {
-        this.setState({current_courses : this.getCoursesByCourseCode(this.props.course)});
-    },
-
-    componentWillReceiveProps : function(next) {
-        this.setState({current_courses : this.getCoursesByCourseCode(next.course)});
-    },
-
-    getCoursesByCourseCode : function(course) {
-        var courses = [];
-        if (course) {
-            courses = this.props.taffy(
-                        {the_course_as_a_whole : {isNumber: true}},
-                        {'course_whole_code' : {isnocase: course}}
-                    ).order('professor,datetime').limit(Constants.SEARCH_RESULT_LIMIT).get();
-        }
-
-        if (courses.length > 0) {
-            this.setState({current_course_name : courses[0].course_title});
-            this.setState({current_course_description : courses[0].course_description});
-        }
-
-        return courses;
-    },
-
-    getTimeSeriesByCourseCode : function(key, id) {
+    getTimeSeries : function() {
         /* TODO Vi + Emily
         1) have the values on the x axis be spaced out better
 
@@ -50,8 +18,9 @@ var CourseDetailComponent = React.createClass({
         You probably won't need to edit it.
         3) The json Ryan created uses "datetime" instead of time.
         */
-        d3.select("svg").remove();
-        if (this.state.current_courses.length === 0) {
+
+        JQuery("#" + this.props.divId).empty();
+        if (this.props.current_courses.length === 0) {
             return;
         }
 
@@ -80,14 +49,15 @@ var CourseDetailComponent = React.createClass({
             }
 
             // Set to previous format
-            for (var key in existingData) {
-                if( existingData.hasOwnProperty(key) ) {
-                    var course = JSON.parse(key);
-                    var rating = existingData[key];
+            for (var attribute in existingData) {
+                if( existingData.hasOwnProperty(attribute) ) {
+                    var course = JSON.parse(attribute);
+                    var rating = existingData[attribute];
                     course["the_course_as_a_whole"] = parseFloat((rating["sum"] / rating["count"]).toFixed(2));
                     newData.push(course);
                 }
             }
+
             return newData;
         }
 
@@ -95,7 +65,7 @@ var CourseDetailComponent = React.createClass({
             .key(function(d) {
                 return d.name;
             })
-            .entries(modifyData(this.state.current_courses, key));
+            .entries(modifyData(this.props.current_courses, this.props.detailKey));
 
         var margin = {
             top: 20,
@@ -130,7 +100,7 @@ var CourseDetailComponent = React.createClass({
             return y(d.the_course_as_a_whole);
         });
 
-        var svg = d3.select(id).append("svg")
+        var svg = d3.select("#" + this.props.divId).append("svg")
             .attr("class", "plot")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -276,7 +246,6 @@ var CourseDetailComponent = React.createClass({
             .on('mouseover', tip.show)
             .on('mouseout', tip.hide);
 
-
         // Sets color of circles to match line
         svg.selectAll('circle')
         .style("stroke", function (d) {
@@ -302,31 +271,12 @@ var CourseDetailComponent = React.createClass({
      * Render the page
      */
     render: function() {
-        var headers = Constants.OVERVIEW_HEADERS.slice(0);
-        headers.splice(Constants.OVERVIEW_HEADERS.indexOf('Course Code'), 1);
-
-        var runningSum = 0.0;
-        for (var i = 0; i < this.state.current_courses.length; i++) {
-            runningSum += Math.min(this.state.current_courses[i].the_course_as_a_whole, 5);
-        }
-
-        runningSum /= this.state.current_courses.length;
-        runningSum = runningSum.toFixed(2);
-        rating = Math.floor(runningSum);
-
-        this.getTimeSeriesByCourseCode("professor", "#course-time-series-body");
+        this.getTimeSeries();
 
         return (
-            <div className="table-container">
-                <h2><span className="courseDetailName">{this.props.course + (this.state.current_course_name ? ': ' + this.state.current_course_name : '')}</span><span className="courseDetailScore">Score: <span className={"scoreRating" + rating}>{runningSum}</span></span></h2>
-                {this.state.current_course_description != 0 &&
-                    <p className="course-description">{this.state.current_course_description}</p>
-                }
-                <div id="course-time-series-body"></div>
-                <OverviewComponent onClickCourse={this.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.current_courses} headers={headers} collapseKey="professor" />
-            </div>
+            <div id={this.props.divId} className="time-series-body"></div>
         );
     }
 });
 
-module.exports = CourseDetailComponent;
+module.exports = LinePlotComponent;
