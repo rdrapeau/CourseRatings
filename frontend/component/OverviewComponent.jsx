@@ -5,6 +5,7 @@ var OnScroll = require("react-window-mixins").OnScroll;
 
 var OverviewHeaderComponent = require('./OverviewHeaderComponent.jsx');
 var OverviewCourseRowComponent = require('./OverviewCourseRowComponent.jsx');
+var TopKComponent = require('./TopKComponent.jsx');
 
 /**
  * Encapsulates the overview table of the application
@@ -150,7 +151,14 @@ var OverviewComponent = React.createClass({
     },
 
     onScroll: function() {
-        var element = this.getDOMNode().children[0];
+        var element = this.getDOMNode();
+        for (var i = 0; i < element.children.length; i++) {
+            if (element.children[i].className === "table table-curved") {
+                element = element.children[i];
+                break;
+            }
+        }
+
         var rect = element.getBoundingClientRect();
         var windowPos = window.scrollY;
 
@@ -276,6 +284,20 @@ var OverviewComponent = React.createClass({
 
         return (
             <div>
+                {this.props.departmentName && (
+                    <div>
+                        <div className="left">
+                            <h3>Top Courses in {this.props.departmentName}</h3>
+                            <TopKComponent k={5} data={this.state.current_courses} featureKey="course_whole_code" additionalLabel="course_title" onClickLabel={self.props.onClickCourse} />
+                        </div>
+
+                        <div className="right">
+                            <h3>Top Instructors in {this.props.departmentName}</h3>
+                            <TopKComponent k={5} data={this.state.current_courses} featureKey="professor" onClickLabel={self.props.onClickInstructor} />
+                        </div>
+                    </div>
+                )}
+
                 {this.state.current_courses && (
         	        <table className="table table-curved" >
                         <tbody>

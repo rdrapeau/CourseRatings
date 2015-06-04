@@ -56,7 +56,8 @@ var AppComponent = React.createClass({
             allCourses : null,
             activeCourse : null,
             activeInstructor : null,
-            currentSearch : ''
+            currentSearch : '',
+            departmentName : null
         };
     },
 
@@ -119,6 +120,12 @@ var AppComponent = React.createClass({
             this.setState({current_courses : results});
         }
 
+        if (course_department && !course_code && !professor) {
+            this.setState({departmentName : course_department});
+        } else {
+            this.setState({departmentName : false});
+        }
+
         if (results.length !== 0) {
             if (course_department && course_code && !professor) {
                 this.onClickCourse(results[0].course_whole_code);
@@ -136,6 +143,7 @@ var AppComponent = React.createClass({
 
     resetPage : function() {
         this.setState({current_courses : []});
+        this.setState({departmentName : false});
     },
 
     /**
@@ -164,7 +172,7 @@ var AppComponent = React.createClass({
                     <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} />
                     <div className={"screen " + (isOverview ? "active" : "")}>
                         <div className="table-container">
-                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" />
+                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.departmentName} />
                         </div>
                     </div>
                     <div className={"screen " + (isCourseDetails ? "active" : "")}>

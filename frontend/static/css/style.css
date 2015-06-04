@@ -81,7 +81,7 @@ body, html {
     color: #ecf0f1;
 }
 
-.table-top th:hover, .prof-name:hover, .course-code:hover {
+.table-top th:hover, .prof-name:hover, .course-code:hover, .topLabels:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -168,7 +168,7 @@ td.no-pad {
     background-color: #bdc3c7;
 }
 
-.prof-name, .instructorDetailName {
+.prof-name, .instructorDetailName, .topLabels {
     text-transform:capitalize;
 }
 
@@ -269,4 +269,12 @@ td.no-pad {
 
 .existing-expanded {
     background-color: rgba(0, 0, 0, 0.14);
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
 }
