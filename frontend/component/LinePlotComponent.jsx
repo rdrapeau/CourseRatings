@@ -28,8 +28,9 @@ var LinePlotComponent = React.createClass({
         var minTime = Number.MAX_VALUE;
 
         function modifyData(data, key) {
-            var newData = []
-            var existingData = {}
+            var newData = [];
+            var existingData = {};
+            var countDict = {};
 
             // Merge averages
             for(var i = 0; i < data.length; i++) {
@@ -43,17 +44,52 @@ var LinePlotComponent = React.createClass({
                 }
 
                 // To use as key
-                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], "name": dataPoint[key]});
+                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], 
+                                                  "name": dataPoint[key], 
+                                                  "course_whole_code": dataPoint["course_whole_code"]});
 
                 // Rating already exists.  So keep track that this is a duplicate
                 if (dataPointString in existingData) {
                     var prevRating = existingData[dataPointString];
                     rating = prevRating["sum"] + rating;
                     prevCount = prevRating["count"];
+                } else {
+                    // Update number of quarters a professor has taught
+                    var prevGroupCount = 0;
+                    var countKey = dataPoint.professor;
+                    if (key == "course_whole_code") {
+                        countKey = dataPoint.course_whole_code;
+                    }
+                    if (countKey in countDict) {
+                        prevGroupCount = countDict[countKey];
+                    }
+                    countDict[countKey] = prevGroupCount + 1;
                 }
 
                 // Updated stored rating for a class
                 existingData[dataPointString] = {"sum": rating, "count": prevCount + 1};
+            }
+
+            // Pick top 5 professors who have taught the most
+            var top5 = {};
+            var minCount = Number.MAX_VALUE;
+            var minKey = null;
+
+            for (var countKey in countDict) {
+                if (Object.keys(top5).length < 5) {
+                    top5[countKey] = countDict[countKey];
+                    if (minCount > countDict[countKey]) {
+                        minCount = countDict[countKey];
+                        minKey = countKey;
+                    }
+                } else {
+                    if (minCount < countDict[countKey]) {
+                        top5[countKey] = countDict[countKey];
+                        delete top5[minKey];
+                        minCount = countDict[countKey];
+                        minKey = countKey;
+                    } 
+                }
             }
 
             // Set to previous format and add incrementing ticks
@@ -61,9 +97,15 @@ var LinePlotComponent = React.createClass({
             for (var attribute in existingData) {
                 if( existingData.hasOwnProperty(attribute) ) {
                     var course = JSON.parse(attribute);
-                    var rating = existingData[attribute];
-                    course["the_course_as_a_whole"] = parseFloat((rating["sum"] / rating["count"]).toFixed(2));
-                    newData.push(course);
+                    var keyName = "name";
+                    if (key == "course_whole_code") {
+                        keyName = "course_whole_code";
+                    } 
+                    if (course[keyName] in top5) {
+                        var rating = existingData[attribute];
+                        course["the_course_as_a_whole"] = parseFloat((rating["sum"] / rating["count"]).toFixed(2));
+                        newData.push(course);
+                    }
                 }
             }
 
