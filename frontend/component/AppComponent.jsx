@@ -159,6 +159,7 @@ var AppComponent = React.createClass({
      * Render the application
      */
     render : function() {
+        var self = this;
         var isOverview = (this.state.active == Constants.SCREENS.OVERVIEW);
         var isCourseDetails = (this.state.active == Constants.SCREENS.COURSE_DETAILS);
         var isInstructorDetails = (this.state.active == Constants.SCREENS.INSTRUCTOR_DETAILS);
@@ -181,18 +182,39 @@ var AppComponent = React.createClass({
 
                 <div className="loaded">
                     <HeaderComponent screen={this.state.active} onImgClick={this.resetPage} />
-                    <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} activeDepartment={this.state.activeDepartment} activeCourseCode={this.state.activeCourseCode} activeInstructor={this.state.activeInstructor} />
-                    <div className={"screen " + (isOverview ? "active" : "")}>
+
+                    <div id="screenButtonContainer">
+                        <button type="button" className={"leftButton btn btn-default" + (isCompare ? " hidden" : "")} onClick={function() { self.setScreenLater(Constants.SCREENS.COMPARE)(); }}>
+                            <span className="glyphicon glyphicon-book"></span> Compare Courses
+                        </button>
+
+                        <button type="button" className={"leftButton btn btn-default" + (!isCompare ? " hidden" : "")} onClick={function() { self.setScreenLater(Constants.SCREENS.OVERVIEW)(); }}>
+                            <span className="glyphicon glyphicon-stats"></span> Explore Courses
+                        </button>
+
+                        <button id="howToButton" type="button" className="btn btn-default">
+                            <span className="glyphicon glyphicon-info-sign"></span> How To Use
+                        </button>
+                    </div>
+
+                    <div className={"screen " + (!isCompare ? "active" : "")}>
+                        <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} activeDepartment={this.state.activeDepartment} activeCourseCode={this.state.activeCourseCode} activeInstructor={this.state.activeInstructor} />
+                    </div>
+
+                    <div className={"screen " + (isOverview && this.state.current_courses.length > 0 ? "active" : "")}>
                         <div className="table-container">
                             <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.activeDepartment} displayTop={doDisplayTop} active={this.state.active} />
                         </div>
                     </div>
+
                     <div className={"screen " + (isCourseDetails ? "active" : "")}>
                         <CourseDetailComponent onClickInstructor={this.onClickInstructor} course={this.state.activeCourse} taffy={this.state.taffy} active={this.state.active} />
                     </div>
+
                     <div className={"screen " + (isInstructorDetails ? "active" : "")}>
                         <InstructorDetailComponent onClickCourse={this.onClickCourse} instructor={this.state.activeInstructor} taffy={this.state.taffy} active={this.state.active} />
                     </div>
+
                     <div className={"screen " + (isCompare ? "active" : "")}>
                         <p>hi</p>
                     </div>
