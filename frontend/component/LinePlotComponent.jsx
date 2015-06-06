@@ -44,8 +44,8 @@ var LinePlotComponent = React.createClass({
                 }
 
                 // To use as key
-                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"], 
-                                                  "name": dataPoint[key], 
+                dataPointString = JSON.stringify({"datetime": dataPoint["datetime"],
+                                                  "name": dataPoint[key],
                                                   "course_whole_code": dataPoint["course_whole_code"]});
 
                 // Rating already exists.  So keep track that this is a duplicate
@@ -88,7 +88,7 @@ var LinePlotComponent = React.createClass({
                         delete top5[minKey];
                         minCount = countDict[countKey];
                         minKey = countKey;
-                    } 
+                    }
                 }
             }
 
@@ -100,7 +100,7 @@ var LinePlotComponent = React.createClass({
                     var keyName = "name";
                     if (key == "course_whole_code") {
                         keyName = "course_whole_code";
-                    } 
+                    }
                     if (course[keyName] in top5) {
                         var rating = existingData[attribute];
                         course["the_course_as_a_whole"] = parseFloat((rating["sum"] / rating["count"]).toFixed(2));

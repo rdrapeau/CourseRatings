@@ -8,6 +8,8 @@ var OverviewComponent = require('./OverviewComponent.jsx');
 var SearchComponent = require('./SearchComponent.jsx');
 var CourseDetailComponent = require('./CourseDetailComponent.jsx');
 var InstructorDetailComponent = require('./InstructorDetailComponent.jsx');
+var TutorialComponent = require('./TutorialComponent.jsx');
+var ComparisonComponent = require('./ComparisonComponent.jsx');
 
 /**
  * Encapsulates the entire application
@@ -164,6 +166,7 @@ var AppComponent = React.createClass({
         var isCourseDetails = (this.state.active == Constants.SCREENS.COURSE_DETAILS);
         var isInstructorDetails = (this.state.active == Constants.SCREENS.INSTRUCTOR_DETAILS);
         var isCompare = (this.state.active == Constants.SCREENS.COMPARE);
+        var isTutorial = (this.state.active == Constants.SCREENS.TUTORIAL);
 
         var doDisplayTop = this.state.activeDepartment && !this.state.activeCourseCode && !this.state.activeInstructor;
 
@@ -184,20 +187,20 @@ var AppComponent = React.createClass({
                     <HeaderComponent screen={this.state.active} onImgClick={this.resetPage} />
 
                     <div id="screenButtonContainer">
-                        <button type="button" className={"leftButton btn btn-default" + (isCompare ? " hidden" : "")} onClick={function() { self.setScreenLater(Constants.SCREENS.COMPARE)(); }}>
+                        <button type="button" className={"btn btn-default" + (isCompare ? " hidden" : " leftButton")} onClick={function() { self.setScreenLater(Constants.SCREENS.COMPARE)(); }}>
                             <span className="glyphicon glyphicon-book"></span> Compare Courses
                         </button>
 
-                        <button type="button" className={"leftButton btn btn-default" + (!isCompare ? " hidden" : "")} onClick={function() { self.setScreenLater(Constants.SCREENS.OVERVIEW)(); }}>
+                        <button type="button" className={"btn btn-default" + (isOverview || isCourseDetails || isInstructorDetails ? " hidden" : (isCompare ? " leftButton" : ""))} onClick={function() { self.setScreenLater(Constants.SCREENS.OVERVIEW)(); }}>
                             <span className="glyphicon glyphicon-stats"></span> Explore Courses
                         </button>
 
-                        <button id="howToButton" type="button" className="btn btn-default">
+                        <button id="howToButton" type="button" className={"btn btn-default" + (isTutorial ? " hidden" : "")} onClick={function() { self.setScreenLater(Constants.SCREENS.TUTORIAL)(); }}>
                             <span className="glyphicon glyphicon-info-sign"></span> How To Use
                         </button>
                     </div>
 
-                    <div className={"screen " + (!isCompare ? "active" : "")}>
+                    <div className={"screen " + (isOverview || isCourseDetails || isInstructorDetails ? "active" : "")}>
                         <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} activeDepartment={this.state.activeDepartment} activeCourseCode={this.state.activeCourseCode} activeInstructor={this.state.activeInstructor} />
                     </div>
 
@@ -216,7 +219,11 @@ var AppComponent = React.createClass({
                     </div>
 
                     <div className={"screen " + (isCompare ? "active" : "")}>
-                        <p>hi</p>
+                        <ComparisonComponent />
+                    </div>
+
+                    <div className={"screen " + (isTutorial ? "active" : "")}>
+                        <TutorialComponent />
                     </div>
                 </div>
 
