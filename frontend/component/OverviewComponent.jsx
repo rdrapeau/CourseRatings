@@ -284,7 +284,7 @@ var OverviewComponent = React.createClass({
 
         return (
             <div>
-                {this.props.departmentName && (
+                {this.props.displayTop && this.props.departmentName && (
                     <div>
                         <div className="left">
                             <h3>Top Courses in {this.props.departmentName}</h3>

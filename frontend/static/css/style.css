@@ -33,6 +33,7 @@ body, html {
     width: 483px;
     height: 66px;
     display: block;
+    cursor: pointer;
 }
 
 #search-bar-container {
@@ -234,16 +235,19 @@ td.no-pad {
 
 .topHeader {
   position: fixed;
-  z-index: 1000;
   top: -7px;
 }
 
 .topHeaderHidden {
+    z-index: -10;
+    pointer-events: none;
     opacity: 0;
     transition: opacity 0.25s ease-in-out;
 }
 
 .topHeaderLoaded {
+    pointer-events: auto;
+    z-index: 1000;
     opacity: 1;
     transition: opacity 0.25s ease-in-out;
 }

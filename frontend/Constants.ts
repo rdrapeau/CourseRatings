@@ -5,7 +5,8 @@ class Constants {
 	public static SCREENS : any = {
 		OVERVIEW : 0,
 		COURSE_DETAILS : 1,
-        INSTRUCTOR_DETAILS : 2
+        INSTRUCTOR_DETAILS : 2,
+        COMPARE : 3
 	};
 
 	public static OVERVIEW_HEADERS : string[] = [

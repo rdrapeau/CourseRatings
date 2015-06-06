@@ -30,18 +30,25 @@ var AppComponent = React.createClass({
         var self = this;
 
         DataAPI.getTaffy(function(taffy, courses) {
-            self.setState({allCourses : courses});
+            self.setState({allCourses : taffy({the_course_as_a_whole : {isNumber: true}}).get()});
             self.setState({taffy : taffy});
         });
     },
 
     onClickCourse : function(course) {
+        var match_index = course.match(/\d/).index;
         this.setState({activeCourse : course});
+        this.setState({activeCourseCode : course.substring(match_index)});
+        this.setState({activeDepartment : course.substring(0, match_index)});
+        this.setState({activeInstructor : null});
         this.setScreenLater(Constants.SCREENS.COURSE_DETAILS)();
     },
 
     onClickInstructor : function(instructor) {
         this.setState({activeInstructor : instructor});
+        this.setState({activeCourse : null});
+        this.setState({activeCourseCode : null});
+        this.setState({activeDepartment : null});
         this.setScreenLater(Constants.SCREENS.INSTRUCTOR_DETAILS)();
     },
 
@@ -56,8 +63,8 @@ var AppComponent = React.createClass({
             allCourses : null,
             activeCourse : null,
             activeInstructor : null,
-            currentSearch : '',
-            departmentName : null
+            activeDepartment : null,
+            activeCourseCode : null
         };
     },
 
@@ -120,16 +127,14 @@ var AppComponent = React.createClass({
             this.setState({current_courses : results});
         }
 
-        if (course_department && !course_code && !professor) {
-            this.setState({departmentName : course_department});
-        } else {
-            this.setState({departmentName : false});
-        }
+        this.setState({activeDepartment : course_department});
+        this.setState({activeCourseCode : course_code});
+        this.setState({activeInstructor : professor});
 
         if (results.length !== 0) {
             if (course_department && course_code && !professor) {
                 this.onClickCourse(results[0].course_whole_code);
-            } else if (professor && !course_code) {
+            } else if (professor && !course_code && !course_department) {
                 this.onClickInstructor(results[0].professor);
             } else {
                 this.setScreenLater(Constants.SCREENS.OVERVIEW)();
@@ -143,7 +148,11 @@ var AppComponent = React.createClass({
 
     resetPage : function() {
         this.setState({current_courses : []});
-        this.setState({departmentName : false});
+        this.setState({activeDepartment : null});
+        this.setState({activeInstructor : null});
+        this.setState({activeCourse : null});
+        this.setState({activeCourseCode : null});
+        this.setScreenLater(Constants.SCREENS.OVERVIEW)();
     },
 
     /**
@@ -153,6 +162,9 @@ var AppComponent = React.createClass({
         var isOverview = (this.state.active == Constants.SCREENS.OVERVIEW);
         var isCourseDetails = (this.state.active == Constants.SCREENS.COURSE_DETAILS);
         var isInstructorDetails = (this.state.active == Constants.SCREENS.INSTRUCTOR_DETAILS);
+        var isCompare = (this.state.active == Constants.SCREENS.COMPARE);
+
+        var doDisplayTop = this.state.activeDepartment && !this.state.activeCourseCode && !this.state.activeInstructor;
 
         return (
             <div id="app">
@@ -168,11 +180,11 @@ var AppComponent = React.createClass({
                 {this.state.taffy != null && this.state.allCourses != null && (
 
                 <div className="loaded">
-                    <HeaderComponent screen={this.state.active} />
-                    <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} />
+                    <HeaderComponent screen={this.state.active} onImgClick={this.resetPage} />
+                    <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} activeDepartment={this.state.activeDepartment} activeCourseCode={this.state.activeCourseCode} activeInstructor={this.state.activeInstructor} />
                     <div className={"screen " + (isOverview ? "active" : "")}>
                         <div className="table-container">
-                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.departmentName} />
+                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.activeDepartment} displayTop={doDisplayTop} />
                         </div>
                     </div>
                     <div className={"screen " + (isCourseDetails ? "active" : "")}>
@@ -180,6 +192,9 @@ var AppComponent = React.createClass({
                     </div>
                     <div className={"screen " + (isInstructorDetails ? "active" : "")}>
                         <InstructorDetailComponent onClickCourse={this.onClickCourse} instructor={this.state.activeInstructor} taffy={this.state.taffy} />
+                    </div>
+                    <div className={"screen " + (isCompare ? "active" : "")}>
+                        <p>hi</p>
                     </div>
                 </div>
 

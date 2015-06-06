@@ -19,14 +19,22 @@ var SearchComponent = React.createClass({
         localStorage.setItem("professor", unique.professor.map(function(item) { return item.value; }).join(';'));
 
         return {
-            course_department : null,
-            course_code : null,
-            professor : null,
             departments : unique.course_department,
             courseCodes : unique.course_code,
             professors : unique.professor,
-            keys : keys
+            keys : keys,
+            currentDepartment : null,
+            currentCourseCode : null,
+            currentProfessor : null
             };
+    },
+
+    componentWillReceiveProps : function(next) {
+        if (this.state.currentDepartment != next.activeDepartment
+                || this.state.currentCourseCode != next.activeCourseCode
+                || this.state.currentProfessor != next.activeInstructor) {
+            this.update(next.activeDepartment, next.activeCourseCode, next.activeInstructor);
+        }
     },
 
     getUnique : function(keys, results) {
@@ -64,6 +72,7 @@ var SearchComponent = React.createClass({
 
     update: function(course_department, course_code, professor) {
         var unique = {};
+
         if (!course_department && !course_code && !professor && localStorage['course_department']) {
             unique = {
                     'course_department' : localStorage['course_department'].split(';').map(function(item) { return {value: item, label: item};}),
@@ -72,28 +81,29 @@ var SearchComponent = React.createClass({
                     };
             this.props.resetFunction();
         } else {
-            var searchResults = this.props.searchFunction(course_department, course_code, professor)
+            var searchResults = this.props.searchFunction(course_department, course_code, professor);
             unique = this.getUnique(this.state.keys, searchResults);
         }
 
         this.setState({departments : unique.course_department});
         this.setState({courseCodes : unique.course_code});
         this.setState({professors : unique.professor});
+
+        this.setState({currentDepartment : course_department});
+        this.setState({currentCourseCode : course_code});
+        this.setState({currentProfessor : professor});
     },
 
     departmentChange: function(course_department) {
-        this.setState({course_department: course_department});
-        this.update(course_department, this.state.course_code, this.state.professor);
+        this.update(course_department, this.props.activeCourseCode, this.props.activeInstructor);
     },
 
     courseCodeChange: function(course_code) {
-        this.setState({course_code: course_code});
-        this.update(this.state.course_department, course_code, this.state.professor);
+        this.update(this.props.activeDepartment, course_code, this.props.activeInstructor);
     },
 
     profChange: function(professor) {
-        this.setState({professor: professor});
-        this.update(this.state.course_department, this.state.course_code, professor);
+        this.update(this.props.activeDepartment, this.props.activeCourseCode, professor);
     },
 
     /**
@@ -102,9 +112,9 @@ var SearchComponent = React.createClass({
     render: function() {
         return (
             <div id='search-bar-container'>
-                <Select value={this.state.course_department ? this.state.course_department : null} className="departmentField" placeholder="Department" options={this.state.departments} onChange={this.departmentChange} />
-                <Select value={this.state.course_code ? this.state.course_code : null} className="courseCodeField" placeholder="Course Code" options={this.state.courseCodes} onChange={this.courseCodeChange} />
-                <Select value={this.state.professor ? this.state.professor : null} className="profField" placeholder="Instructor" options={this.state.professors} onChange={this.profChange} />
+                <Select value={this.props.activeDepartment ? this.props.activeDepartment : null} className="departmentField" placeholder="Department" options={this.state.departments} onChange={this.departmentChange} />
+                <Select value={this.props.activeCourseCode ? this.props.activeCourseCode : null} className="courseCodeField" placeholder="Course Code" options={this.state.courseCodes} onChange={this.courseCodeChange} />
+                <Select value={this.props.activeInstructor ? this.props.activeInstructor : null} className="profField" placeholder="Instructor" options={this.state.professors} onChange={this.profChange} />
             </div>
         );
     }
