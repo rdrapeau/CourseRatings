@@ -184,14 +184,14 @@ var AppComponent = React.createClass({
                     <SearchComponent searchFunction={this.getSearchResult} resetFunction={this.resetPage} activeDepartment={this.state.activeDepartment} activeCourseCode={this.state.activeCourseCode} activeInstructor={this.state.activeInstructor} />
                     <div className={"screen " + (isOverview ? "active" : "")}>
                         <div className="table-container">
-                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.activeDepartment} displayTop={doDisplayTop} />
+                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.activeDepartment} displayTop={doDisplayTop} active={this.state.active} />
                         </div>
                     </div>
                     <div className={"screen " + (isCourseDetails ? "active" : "")}>
-                        <CourseDetailComponent onClickInstructor={this.onClickInstructor} course={this.state.activeCourse} taffy={this.state.taffy} />
+                        <CourseDetailComponent onClickInstructor={this.onClickInstructor} course={this.state.activeCourse} taffy={this.state.taffy} active={this.state.active} />
                     </div>
                     <div className={"screen " + (isInstructorDetails ? "active" : "")}>
-                        <InstructorDetailComponent onClickCourse={this.onClickCourse} instructor={this.state.activeInstructor} taffy={this.state.taffy} />
+                        <InstructorDetailComponent onClickCourse={this.onClickCourse} instructor={this.state.activeInstructor} taffy={this.state.taffy} active={this.state.active} />
                     </div>
                     <div className={"screen " + (isCompare ? "active" : "")}>
                         <p>hi</p>

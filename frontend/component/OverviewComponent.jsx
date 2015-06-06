@@ -24,7 +24,8 @@ var OverviewComponent = React.createClass({
             activeHeader : null,
             scrolledPast : false,
             barWidth : 0,
-            allCourses : this.collapse(this.props.currentData)
+            allCourses : this.collapse(this.props.currentData),
+            active : null
         };
     },
 
@@ -45,6 +46,11 @@ var OverviewComponent = React.createClass({
     	var elem = React.findDOMNode(this.refs.headerComp);
 
         this.addArrowToHeader(header, 1);
+
+        if (this.state.active != next.active) {
+            this.setState({active : next.active});
+            this.onScroll();
+        }
     },
 
     comparison : function(a, b) {

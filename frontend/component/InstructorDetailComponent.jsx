@@ -54,7 +54,7 @@ var InstructorDetailComponent = React.createClass({
             <div className="table-container">
                 <h2><span className="instructorDetailName">{this.props.instructor}</span><span className="instructorDetailScore">Score: <span className={"scoreRating" + rating}>{runningSum}</span></span></h2>
                 <LinePlotComponent divId="instructorDetailPlot" detailKey="course_whole_code" current_courses={this.state.current_courses} />
-                <OverviewComponent onClickCourse={this.props.onClickCourse} onClickInstructor={function() {}} currentData={this.state.current_courses} headers={headers} collapseKey="course_whole_code" />
+                <OverviewComponent onClickCourse={this.props.onClickCourse} onClickInstructor={function() {}} currentData={this.state.current_courses} headers={headers} collapseKey="course_whole_code" active={this.props.active} />
             </div>
         );
 	}
