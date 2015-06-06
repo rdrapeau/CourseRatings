@@ -23,6 +23,11 @@ body, html {
 	display: block;
 }
 
+.opaque {
+    pointer-events: none;
+    opacity: 0;
+}
+
 .hidden {
     display: none;
 }
@@ -300,4 +305,38 @@ td.no-pad {
 
 button .glyphicon {
     float: left;
+}
+
+#comparisonSearchBarsContainer {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.faded {
+    opacity: 0.5;
+}
+
+.glyphicon-plus:hover {
+    color: green;
+    cursor: pointer;
+}
+
+.glyphicon-minus:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.glyphicon-plus {
+    float: right;
+}
+
+.glyphicon-minus {
+    float: left;
+    margin-right: 10px;
+}
+
+.glyphicon-plus, .glyphicon-minus {
+    font-size: 30px;
+    margin-top: 2px;
 }

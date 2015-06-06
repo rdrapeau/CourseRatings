@@ -21,7 +21,7 @@ class Constants {
         "% Completed"
 	];
 
-    public static HEADER_TO_KEY: any = {
+    public static HEADER_TO_KEY : any = {
         "Course Code": "course_whole_code",
         "Instructor": "professor",
         "Overall": "the_course_as_a_whole",
@@ -32,7 +32,9 @@ class Constants {
         "% Completed": "percent_enrolled"
     };
 
-    public static KEY_TO_HEADER: any = {
+    public static KEYS : any = ["the_course_as_a_whole", "the_course_content", "amount_learned", "instructors_effectiveness", "grading_techniques"]
+
+    public static KEY_TO_HEADER : any = {
         "course_whole_code": "Course Code",
         "professor": "Instructor",
         "the_course_as_a_whole": "Overall",
@@ -43,7 +45,7 @@ class Constants {
         "percent_enrolled" : "% Completed"
     };
 
-    public static SEARCH_RESULT_LIMIT: number = 300;
+    public static SEARCH_RESULT_LIMIT : number = 300;
 }
 
 export = Constants;

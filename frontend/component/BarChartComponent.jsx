@@ -10,9 +10,9 @@ var BarChartComponent = React.createClass({
      */
     render: function() {
 
-        // var courses = this.props.courses;
-        // var compareKeys = this.props.compareKeys;
-        // var depAverages = this.props.depAverages;
+        var courses = this.props.courses;
+        var compareKeys = this.props.compareKeys;
+        var depAverages = this.props.depAverages;
 
         return (
             <div id={this.props.divId} className="barChartBody"></div>

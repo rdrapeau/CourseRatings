@@ -219,7 +219,7 @@ var AppComponent = React.createClass({
                     </div>
 
                     <div className={"screen " + (isCompare ? "active" : "")}>
-                        <ComparisonComponent />
+                        <ComparisonComponent allCourses={this.state.allCourses} onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} taffy={this.state.taffy} />
                     </div>
 
                     <div className={"screen " + (isTutorial ? "active" : "")}>
