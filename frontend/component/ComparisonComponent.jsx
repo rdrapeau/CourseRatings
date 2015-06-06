@@ -13,7 +13,7 @@ var ComparisonComponent = React.createClass({
             <div>
                 Comparison Component
 
-                <BarChartComponent />
+                <BarChartComponent divId="compareBarChart" />
             </div>
         );
     }
