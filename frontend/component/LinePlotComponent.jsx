@@ -258,11 +258,11 @@ var LinePlotComponent = React.createClass({
         category.append("path")
             .attr("class", "line")
             .attr("d", function (d) {
-            return line(d.values);
-        })
+                return line(d.values);
+            })
             .style("stroke", function (d) {
-            return color(d.key);
-        });
+                return color(d.key);
+            });
 
         // Draws circle points on lines
         // Includes hovering
@@ -281,8 +281,10 @@ var LinePlotComponent = React.createClass({
             .attr("cy", function(d, i) {
                 return y(d.the_course_as_a_whole);
             })
-            .attr('r', 3)
-            .style("fill", "white");
+            .attr('r', 4)
+            .style("fill", function (d) {
+                return color(d.name);
+            });
 
         // Add underlying circle for larger hover area
         svg.selectAll('g.largeDot')
