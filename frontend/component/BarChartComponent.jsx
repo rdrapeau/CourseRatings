@@ -15,7 +15,7 @@ var BarChartComponent = React.createClass({
         // var depAverages = this.props.depAverages;
 
         return (
-            <div id={this.props.divId} className="barCharBody"></div>
+            <div id={this.props.divId} className="barChartBody"></div>
         );
     }
 });
