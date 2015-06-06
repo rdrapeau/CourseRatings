@@ -55,11 +55,11 @@ var OverviewCourseRowComponent = React.createClass({
             <tr className={(data.hidden ? "hidden" : "") + (data.colorThis ? " existing-expanded" : "")} >
                 {courseCodeRow}
                 {instructorRow}
-                <td className="no-pad"><ValueBarComponent value={data.the_course_as_a_whole} max={5} /></td>
-                <td className="no-pad"><ValueBarComponent value={data.the_course_content} max={5} /></td>
-                <td className="no-pad"><ValueBarComponent value={data.amount_learned} max={5} /></td>
-                <td className="no-pad"><ValueBarComponent value={data.instructors_effectiveness} max={5} /></td>
-                <td className="no-pad"><ValueBarComponent value={data.grading_techniques} max={5} /></td>
+                <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.the_course_as_a_whole}} value={data.the_course_as_a_whole} max={5} /></td>
+                <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.the_course_content}} value={data.the_course_content} max={5} /></td>
+                <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.amount_learned}} value={data.amount_learned} max={5} /></td>
+                <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.instructors_effectiveness}} value={data.instructors_effectiveness} max={5} /></td>
+                <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.grading_techniques}} value={data.grading_techniques} max={5} /></td>
                 <td className="no-pad"><ValueBarComponent value={data.percent_enrolled} max={100} /></td>
             </tr>
         );

@@ -32,8 +32,39 @@ var AppComponent = React.createClass({
         var self = this;
 
         DataAPI.getTaffy(function(taffy, courses) {
-            self.setState({allCourses : taffy({the_course_as_a_whole : {isNumber: true}}).get()});
+            var allCourses = taffy({the_course_as_a_whole : {isNumber: true}}).get();
+            self.setState({allCourses : allCourses});
             self.setState({taffy : taffy});
+
+            var depAverages = {};
+            for (var i = 0; i < allCourses.length; i++) {
+                var course = allCourses[i];
+
+                if (!(course.course_department in depAverages)) {
+                    depAverages[course.course_department] = {};
+                    for (var j = 0; j < Constants.KEYS.length; j++) {
+                        depAverages[course.course_department][Constants.KEYS[j]] = course[Constants.KEYS[j]];
+                    }
+
+                    depAverages[course.course_department]['length'] = 1.0;
+                } else {
+                    for (var j = 0; j < Constants.KEYS.length; j++) {
+                        depAverages[course.course_department][Constants.KEYS[j]] += course[Constants.KEYS[j]];
+                    }
+
+                    depAverages[course.course_department]['length'] += 1.0;
+                }
+            }
+
+            for (var department in depAverages) {
+                for (var attribute in depAverages[department]) {
+                    if (attribute !== 'length') {
+                        depAverages[department][attribute] = Math.round(depAverages[department][attribute] / depAverages[department]['length'] * 100) / 100;
+                    }
+                }
+            }
+
+            self.setState({depAverages : depAverages});
         });
     },
 
@@ -66,7 +97,8 @@ var AppComponent = React.createClass({
             activeCourse : null,
             activeInstructor : null,
             activeDepartment : null,
-            activeCourseCode : null
+            activeCourseCode : null,
+            depAverages : null
         };
     },
 
@@ -172,7 +204,7 @@ var AppComponent = React.createClass({
 
         return (
             <div id="app">
-                {this.state.taffy == null && this.state.allCourses == null && (
+                {!this.state.taffy && !this.state.allCourses && !this.state.depAverages && (
 
                 <div className="loading">
                     <span id="loadingText">Loading</span>
@@ -181,7 +213,7 @@ var AppComponent = React.createClass({
 
                 )}
 
-                {this.state.taffy != null && this.state.allCourses != null && (
+                {this.state.taffy && this.state.allCourses && this.state.depAverages && (
 
                 <div className="loaded">
                     <HeaderComponent screen={this.state.active} onImgClick={this.resetPage} />
@@ -206,20 +238,20 @@ var AppComponent = React.createClass({
 
                     <div className={"screen " + (isOverview && this.state.current_courses.length > 0 ? "active" : "")}>
                         <div className="table-container">
-                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.activeDepartment} displayTop={doDisplayTop} active={this.state.active} />
+                            <OverviewComponent ref="overviewComponent" onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} currentData={this.state.current_courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" departmentName={this.state.activeDepartment} displayTop={doDisplayTop} active={this.state.active} depAverages={this.state.depAverages} />
                         </div>
                     </div>
 
                     <div className={"screen " + (isCourseDetails ? "active" : "")}>
-                        <CourseDetailComponent onClickInstructor={this.onClickInstructor} course={this.state.activeCourse} taffy={this.state.taffy} active={this.state.active} />
+                        <CourseDetailComponent onClickInstructor={this.onClickInstructor} course={this.state.activeCourse} taffy={this.state.taffy} active={this.state.active} depAverages={this.state.depAverages} />
                     </div>
 
                     <div className={"screen " + (isInstructorDetails ? "active" : "")}>
-                        <InstructorDetailComponent onClickCourse={this.onClickCourse} instructor={this.state.activeInstructor} taffy={this.state.taffy} active={this.state.active} />
+                        <InstructorDetailComponent onClickCourse={this.onClickCourse} instructor={this.state.activeInstructor} taffy={this.state.taffy} active={this.state.active} depAverages={this.state.depAverages} />
                     </div>
 
                     <div className={"screen " + (isCompare ? "active" : "")}>
-                        <ComparisonComponent allCourses={this.state.allCourses} onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} taffy={this.state.taffy} />
+                        <ComparisonComponent allCourses={this.state.allCourses} onClickCourse={this.onClickCourse} onClickInstructor={this.onClickInstructor} taffy={this.state.taffy} depAverages={this.state.depAverages} />
                     </div>
 
                     <div className={"screen " + (isTutorial ? "active" : "")}>

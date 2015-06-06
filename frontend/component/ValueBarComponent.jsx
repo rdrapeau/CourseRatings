@@ -14,9 +14,10 @@ var ValueBarComponent = React.createClass({
         var level = this.props.value ?
                     (percent >= 80 ? "green" :
                      percent >= 60 ? "yellow" : "red")
-                    : "disabled"
+                    : "disabled";
+
         return (
-            <div className="value-bar">
+            <div className="value-bar" title={(this.props.average ? this.props.average.department + " Average: " + this.props.average.value : "")}>
                 <div className={"vb-bg " + level} style={{width : width}}>
                 </div>
                 <p>{this.props.value ? this.props.value : "N/A"}</p>

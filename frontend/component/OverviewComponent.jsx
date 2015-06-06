@@ -266,6 +266,7 @@ var OverviewComponent = React.createClass({
                 }
             }
 
+            averageCourse['course_department'] = courses[0].course_department;
             averageCourse[this.props.collapseKey] = key;
             if (this.props.collapseKey === 'course_whole_code') {
                 averageCourse.professor = '...';
@@ -336,7 +337,7 @@ var OverviewComponent = React.createClass({
 
         	        	{this.state.allCourses.map(function(course) {
         	        		return (
-                                <OverviewCourseRowComponent headers={self.props.headers} onClickCourse={self.props.onClickCourse} onClickInstructor={self.props.onClickInstructor} data={course} onClickMany={self.onClickMany} collapseKey={self.props.collapseKey} />
+                                <OverviewCourseRowComponent headers={self.props.headers} onClickCourse={self.props.onClickCourse} onClickInstructor={self.props.onClickInstructor} data={course} onClickMany={self.onClickMany} collapseKey={self.props.collapseKey} average={self.props.depAverages[course.course_department]} />
         	        		);
         	        	})}
 

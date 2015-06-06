@@ -8,37 +8,19 @@ var SpecificSearchComponent = require('./SpecificSearchComponent.jsx');
 var ComparisonComponent = React.createClass({
 
     getInitialState : function() {
-        var departmentList = [];
-        if ('course_department' in localStorage) {
-            departmentList = localStorage['course_department'].split(';').map(function(item) { return {value: item, label: item};});
-        }
+        var departmentList = localStorage['course_department'].split(';').map(function(item) { return {value: item, label: item};});
 
-        var depAverages = {};
-        for (var i = 0; i < this.props.allCourses.length; i++) {
-            var course = this.props.allCourses[i];
+        if (!departmentList) {
+            departmentList = [];
 
-            if (!(course.course_department in depAverages)) {
-                depAverages[course.course_department] = {};
-                for (var j = 0; j < Constants.KEYS.length; j++) {
-                    depAverages[course.course_department][Constants.KEYS[j]] = course[Constants.KEYS[j]];
-                }
-
-                depAverages[course.course_department]['length'] = 1.0;
-            } else {
-                for (var j = 0; j < Constants.KEYS.length; j++) {
-                    depAverages[course.course_department][Constants.KEYS[j]] += course[Constants.KEYS[j]];
-                }
-
-                depAverages[course.course_department]['length'] += 1.0;
-            }
-        }
-
-        for (var department in depAverages) {
-            for (var attribute in depAverages[department]) {
-                if (attribute !== 'length') {
-                    depAverages[department][attribute] = Math.round(depAverages[department][attribute] / depAverages[department]['length'] * 100) / 100;
+            for (var i = 0; i < this.props.allCourses.length; i++) {
+                var course = this.props.allCourses[i];
+                if (departmentList.indexof(course.course_department) === -1) {
+                    departmentList.push(course.course_department);
                 }
             }
+
+            departmentList = departmentList.map(function(item) { return {value: item, label: item};});
         }
 
         return {
@@ -49,8 +31,7 @@ var ComparisonComponent = React.createClass({
             searchResults : [[]],
             departmentList : departmentList,
             courseLists : [[]],
-            compareKeys : Constants.KEYS,
-            depAverages : depAverages
+            compareKeys : Constants.KEYS
         };
     },
 
@@ -144,10 +125,10 @@ var ComparisonComponent = React.createClass({
                 </div>
 
                 <div className={"table-container" + (this.state.courses.length > 0 ? "" : " hidden")}>
-                    <OverviewComponent reSort={true} ref="overviewComponent" onClickCourse={this.props.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" active={Constants.SCREENS.COMPARE} />
+                    <OverviewComponent reSort={true} ref="overviewComponent" onClickCourse={this.props.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" active={Constants.SCREENS.COMPARE} depAverages={this.props.depAverages} />
                 </div>
 
-                <BarChartComponent depAverages={this.state.depAverages} compareKeys={this.state.compareKeys} courses={this.state.courses} divId="compareBarChart" />
+                <BarChartComponent depAverages={this.props.depAverages} compareKeys={this.state.compareKeys} courses={this.state.courses} divId="compareBarChart" />
             </div>
         );
     }

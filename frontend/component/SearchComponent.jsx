@@ -73,7 +73,7 @@ var SearchComponent = React.createClass({
     update: function(course_department, course_code, professor) {
         var unique = {};
 
-        if (!course_department && !course_code && !professor && localStorage['course_department']) {
+        if (!course_department && !course_code && !professor && localStorage['course_department'] && localStorage['course_code'] && localStorage['professor']) {
             unique = {
                     'course_department' : localStorage['course_department'].split(';').map(function(item) { return {value: item, label: item};}),
                     'course_code' : localStorage['course_code'].split(';').map(function(item) { return {value: item, label: item};}),
