@@ -5,8 +5,6 @@ var OverviewComponent = require('./OverviewComponent.jsx');
 var BarChartComponent = require('./BarChartComponent.jsx');
 var SpecificSearchComponent = require('./SpecificSearchComponent.jsx');
 
-var PriorityQueue = require('priorityqueuejs');
-
 var ComparisonComponent = React.createClass({
 
     getInitialState : function() {

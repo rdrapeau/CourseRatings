@@ -23,8 +23,7 @@
     "classnames" : "latest",
     "react-input-autosize" : "latest",
     "react-spinkit" : "latest",
-    "react-window-mixins" : "latest",
-    "priorityqueuejs" : "latest"
+    "react-window-mixins" : "latest"
   },
 
   "author": "Ryan Drapeau, Emily Gu, Vimala Jampala, Aaron Nech",
