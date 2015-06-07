@@ -11,9 +11,7 @@ var BarChartComponent = React.createClass({
     render: function() {
         /*
         TODO make hover work
-        Preserve course ordering in labels
         Make bars less fat
-        Remove logging code
         Clean up code
         */
 
@@ -114,7 +112,7 @@ function reorderData(data, keys, isAverage) {
     }
 
     for(var i = 0; i < keys.length; i++) {
-      arr[keys[i]] = d3.entries(ratings[i]).reverse();
+      arr[keys[i]] = d3.entries(ratings[i]);
     }
     arr = d3.entries(arr);
 
@@ -138,7 +136,7 @@ function reorderDataForAverage(data, keys) {
     }
 
     for(var i = 0; i < keys.length; i++) {
-      arr[keys[i]] = d3.entries(ratings[i]).reverse();
+      arr[keys[i]] = d3.entries(ratings[i]);
     }
     arr = d3.entries(arr);
 
@@ -178,7 +176,6 @@ var svg = d3.select("#" + this.props.divId).append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-console.log(courses);
 var modifiedData = modifyData(courses, compareKeys);
 data = reorderData(modifiedData, compareKeys, false);
 dataAverage = reorderData(modifiedData, compareKeys, true);
@@ -190,6 +187,8 @@ var tip = d3.tip()
         return d.key.concat(": ").concat(d.value);
     });
 
+console.log("tip", tip);
+console.log("svg", d3.select("body").select("#" + this.props.divId));
 //svg.call(tip);
 
 courseNames = d3.set(courseNames).values();
@@ -271,6 +270,8 @@ svg.selectAll(".avg")
                 return "black"; 
             })
             .style("fill-opacity", 0.0);
+
+console.log(svg);
 
 // Creating hovering
 svg.selectAll(".hover")
