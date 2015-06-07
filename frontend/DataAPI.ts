@@ -36,6 +36,10 @@ class DataAPI {
             for (var j = 0; j < line.length; j++) {
                 if (!isNaN(Number(line[j]))) {
                     course[header[j]] = Number(line[j]);
+
+                    if (header[j] != "course_code" && header[j] != "completed" && header[j] != "total_enrolled") {
+                        course[header[j]] = Math.min(5, Number(course[header[j]]));
+                    }
                 } else {
                     if (line[j] === 'NULL') {
                         course[header[j]] = null;

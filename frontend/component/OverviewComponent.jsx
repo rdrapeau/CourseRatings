@@ -250,11 +250,7 @@ var OverviewComponent = React.createClass({
                 var course = courses[i];
 
                 for (var attribute in averageCourse) {
-                    if (attribute === 'percent_enrolled') {
-                        averageCourse[attribute] += Math.min(100, course[attribute]) / courses.length;
-                    } else {
-                        averageCourse[attribute] += Math.min(5, course[attribute]) / courses.length;
-                    }
+                    averageCourse[attribute] += course[attribute] / courses.length;
                 }
             }
 

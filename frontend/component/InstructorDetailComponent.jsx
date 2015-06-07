@@ -43,7 +43,7 @@ var InstructorDetailComponent = React.createClass({
 
         var runningSum = 0.0;
         for (var i = 0; i < this.state.current_courses.length; i++) {
-            runningSum += Math.min(this.state.current_courses[i].the_course_as_a_whole, 5);
+            runningSum += this.state.current_courses[i].the_course_as_a_whole;
         }
 
         runningSum /= this.state.current_courses.length;
