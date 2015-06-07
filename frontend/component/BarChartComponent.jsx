@@ -306,7 +306,7 @@ var BarChartComponent = React.createClass({
                 .attr("width", 18)
                 .attr("height", 5)
                 .style("fill", "black")
-                .style("fill-opacity", 0.8);;
+                .style("fill-opacity", 0.7);;
 
             legend2.append("text")
                 .attr("x", width - 24 + 30 - 100 + 15)
