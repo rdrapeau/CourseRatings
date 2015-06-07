@@ -263,7 +263,7 @@ var BarChartComponent = React.createClass({
                     })
                     .on('mouseover', function(d){
                         tip.show(d);
-                        d3.selectAll("." + d.key).style("fill-opacity", 1.0);
+                        d3.selectAll("." + d.key).style("fill-opacity", 0.7);
                     })
                     .on('mouseout', function(d) {
                         tip.hide(d);
