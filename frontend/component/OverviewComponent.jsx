@@ -189,30 +189,6 @@ var OverviewComponent = React.createClass({
     },
 
     collapse: function(current_courses) {
-        if (this.props.reSort) {
-            current_courses.sort(function(a, b) {
-                if (a.course_whole_code < b.course_whole_code) {
-                    return -1;
-                } else if (a.course_whole_code > b.course_whole_code) {
-                    return 1;
-                }
-
-                if (a.professor < b.professor) {
-                    return -1;
-                } else if (a.professor > b.professor) {
-                    return 1;
-                }
-
-                if (a.datetime < b.datetime) {
-                    return -1;
-                } else if (a.datetime > b.datetime) {
-                    return 1;
-                }
-
-                return 0;
-            });
-        }
-
         var collapse = {};
         for (var i = 0; i < current_courses.length; i++) {
             var course = current_courses[i];
