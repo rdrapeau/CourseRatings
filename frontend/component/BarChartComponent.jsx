@@ -5,12 +5,6 @@ var Constants = require('../Constants');
 
 var BarChartComponent = React.createClass({
     getBarChart : function() {
-        /*
-        1) Have hovercard show up for all ratings of a course
-        2) Change transparency of avg line in legend
-        3) Change position of hovercard
-        */
-
         var courses = this.props.courses;
         var compareKeys = this.props.compareKeys;
         var avgData = this.props.depAverages;
@@ -265,7 +259,7 @@ var BarChartComponent = React.createClass({
                         return y(5); 
                     })
                     .attr("height", function(d) { 
-                        return height - y(d.value); 
+                        return height - y(5); 
                     })
                     .on('mouseover', function(d){
                         tip.show(d);
@@ -311,7 +305,8 @@ var BarChartComponent = React.createClass({
                 .attr("y", padding * 20)
                 .attr("width", 18)
                 .attr("height", 5)
-                .style("fill", "black");
+                .style("fill", "black")
+                .style("fill-opacity", 0.8);;
 
             legend2.append("text")
                 .attr("x", width - 24 + 30 - 100 + 15)
