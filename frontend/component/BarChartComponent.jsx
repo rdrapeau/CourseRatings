@@ -6,8 +6,9 @@ var Constants = require('../Constants');
 var BarChartComponent = React.createClass({
     getBarChart : function() {
         /*
-        TODO make hover work
-        Clean up code
+        1) Have hovercard show up for all ratings of a course
+        2) Change transparency of avg line in legend
+        3) Change position of hovercard
         */
 
         var courses = this.props.courses;
@@ -151,16 +152,12 @@ var BarChartComponent = React.createClass({
         data = reorderData(modifiedData, compareKeys, false);
         dataAverage = reorderData(modifiedData, compareKeys, true);
 
-        var tip = d3.tip() 
+        var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
                 return d.key.concat(": ").concat(d.value);
             });
-
-        //console.log("tip", tip);
-        //console.log("svg", d3.select("body").select("#" + this.props.divId));
-        svg.call(tip);
 
         courseNames = d3.set(courseNames).values();
 
@@ -211,6 +208,10 @@ var BarChartComponent = React.createClass({
                 return color(d.key); 
             });
 
+        if (svg.node() != null) {
+            svg.append("g").call(tip);
+        }
+
         // Creating average bars
         svg.selectAll(".avg")
             .data(dataAverage)
@@ -241,8 +242,6 @@ var BarChartComponent = React.createClass({
                         return "black"; 
                     })
                     .style("fill-opacity", 0.0);
-
-        console.log(svg);
 
         // Creating hovering
         svg.selectAll(".hover")
@@ -297,6 +296,30 @@ var BarChartComponent = React.createClass({
             .attr("dy", ".35em")
             .style("text-anchor", "start")
             .text(function (d) { return d; });
+
+        var padding = courseNames.length + 1;
+
+        if (padding > 1) {
+            var legend2 = svg.selectAll(".legend2")
+                .data(["Department Average"])
+                .enter().append("g")
+                .attr("class", "legend2")
+                .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+
+            legend2.append("rect")
+                .attr("x", width - 18 - 100 + 15)
+                .attr("y", padding * 20)
+                .attr("width", 18)
+                .attr("height", 5)
+                .style("fill", "black");
+
+            legend2.append("text")
+                .attr("x", width - 24 + 30 - 100 + 15)
+                .attr("y", 20 * padding + 6)
+                .style("text-anchor", "start")
+                .text(function (d) { return d; });
+        }
+
     },
 
     /**
@@ -304,29 +327,6 @@ var BarChartComponent = React.createClass({
      */
     render: function() {
         this.getBarChart();
-
-var padding = courseNames.length + 1;
-
-if (padding > 1) {
-var legend2 = svg.selectAll(".legend2")
-    .data(["Department Average"])
-.enter().append("g")
-    .attr("class", "legend2")
-    .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
-legend2.append("rect")
-    .attr("x", width - 18 - 100 + 15)
-    .attr("y", padding * 20)
-    .attr("width", 18)
-    .attr("height", 5)
-    .style("fill", "black");
-
-    legend2.append("text")
-    .attr("x", width - 24 + 30 - 100 + 15)
-    .attr("y", 20 * padding + 6)
- //   .attr("dy", ".35em")
-    .style("text-anchor", "start")
-    .text(function (d) { return d; });
-}
 
         return (
             <div id={this.props.divId} className="d3-chart-body"></div>
