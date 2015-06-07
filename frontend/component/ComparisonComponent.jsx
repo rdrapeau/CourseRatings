@@ -124,11 +124,15 @@ var ComparisonComponent = React.createClass({
                     {searchBars}
                 </div>
 
-                <div className={"table-container" + (this.state.courses.length > 0 ? "" : " hidden")}>
-                    <OverviewComponent ref="overviewComponent" onClickCourse={this.props.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" active={Constants.SCREENS.COMPARE} depAverages={this.props.depAverages} />
-                </div>
+                {this.state.courses.length > 0 && (
+                <div>
+                    <div className="table-container">
+                        <OverviewComponent ref="overviewComponent" onClickCourse={this.props.onClickCourse} onClickInstructor={this.props.onClickInstructor} currentData={this.state.courses} headers={Constants.OVERVIEW_HEADERS} collapseKey="course_whole_code" active={Constants.SCREENS.COMPARE} depAverages={this.props.depAverages} />
+                    </div>
 
-                <BarChartComponent depAverages={this.props.depAverages} compareKeys={this.state.compareKeys} courses={this.state.courses} divId="compareBarChart" />
+                    <BarChartComponent depAverages={this.props.depAverages} compareKeys={this.state.compareKeys} courses={this.state.courses} divId="compareBarChart" />
+                </div>
+                )}
             </div>
         );
     }
