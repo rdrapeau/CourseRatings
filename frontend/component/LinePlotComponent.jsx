@@ -9,17 +9,6 @@ var Constants = require('../Constants');
 var LinePlotComponent = React.createClass({
 
     getTimeSeries : function() {
-        /* TODO Vi + Emily
-        1) have the values on the x axis be spaced out better
-        2) Display only top X professors/courses
-
-        Notes:
-        1) The css for the d3 stuff is in fp-vjampala-emilygu-drapeau/frontend/static/css/time-series.css .
-        2) The main index.html file is in fp-vjampala-emilygu-drapeau/frontend/static/index.html .
-        You probably won't need to edit it.
-        3) The json Ryan created uses "datetime" instead of time.
-        */
-
         JQuery("#" + this.props.divId).empty();
         if (this.props.current_courses.length === 0) {
             return;
@@ -335,7 +324,7 @@ var LinePlotComponent = React.createClass({
         this.getTimeSeries();
 
         return (
-            <div id={this.props.divId} className="time-series-body"></div>
+            <div id={this.props.divId} className="d3-chart-body"></div>
         );
     }
 });

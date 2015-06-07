@@ -1,4 +1,4 @@
-.time-series-body {
+.d3-chart-body {
   font: 10px sans-serif;
   display: block;
   width: 100%;
@@ -44,4 +44,10 @@
   display: block;
   margin: 0 auto;
   width: 680px;
+}
+
+.chart {
+  display: block;
+  margin: 0 auto;
+  width: 780px;
 }
