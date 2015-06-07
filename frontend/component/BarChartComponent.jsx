@@ -262,7 +262,7 @@ var BarChartComponent = React.createClass({
                     })
                     .attr("width", x1.rangeBand())
                     .attr("y", function(d) { 
-                        return y(d.value); 
+                        return y(5); 
                     })
                     .attr("height", function(d) { 
                         return height - y(d.value); 
