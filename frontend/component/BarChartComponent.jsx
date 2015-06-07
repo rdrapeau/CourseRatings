@@ -11,7 +11,6 @@ var BarChartComponent = React.createClass({
     render: function() {
         /*
         TODO make hover work
-        Make bars less fat
         Clean up code
         */
 
@@ -324,6 +323,26 @@ legend.append("text")
     .attr("x", width - 24 + 30 - 100 + 15)
     .attr("y", 9)
     .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .text(function (d) { return d; });
+
+var padding = courseNames.length + 1;
+var legend2 = svg.selectAll(".legend2")
+    .data(["Department Average"])
+.enter().append("g")
+    .attr("class", "legend2")
+    .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
+legend2.append("rect")
+    .attr("x", width - 18 - 100 + 15)
+    .attr("y", padding * 20)
+    .attr("width", 18)
+    .attr("height", 5)
+    .style("fill", "black");
+
+    legend2.append("text")
+    .attr("x", width - 24 + 30 - 100 + 15)
+    .attr("y", 20 * padding + 6)
+ //   .attr("dy", ".35em")
     .style("text-anchor", "start")
     .text(function (d) { return d; });
 
