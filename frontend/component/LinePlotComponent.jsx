@@ -302,11 +302,11 @@ var LinePlotComponent = React.createClass({
             return color(d.name);
         });
 
-        category.append('rect')
-            .attr('x', width - 20 + 50 - 100)
-            .attr('y', function(d, i){ return i *  20;})
-            .attr('width', 10)
-            .attr('height', 10)
+        // Creates legend
+        category.append('circle')
+            .attr('cx', width - 20 + 50 - 100 + 5)
+            .attr('cy', function(d, i){ return (i *  20) + 5;})
+            .attr('r', 5)
             .style('fill', function(d) {
               return color(d.key);
             });
