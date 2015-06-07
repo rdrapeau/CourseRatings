@@ -11,9 +11,10 @@ var BarChartComponent = React.createClass({
     render: function() {
         /*
         TODO make hover work
-        Center bar chart
-        Pretty print labels
         Preserve course ordering in labels
+        Make bars less fat
+        Remove logging code
+        Clean up code
         */
 
         var courses = this.props.courses;
@@ -21,6 +22,7 @@ var BarChartComponent = React.createClass({
         var avgData = this.props.depAverages;
 
         JQuery("#" + this.props.divId).empty();
+
 
         var courseNames = [];
 function modifyData(data, keys) {
@@ -112,7 +114,7 @@ function reorderData(data, keys, isAverage) {
     }
 
     for(var i = 0; i < keys.length; i++) {
-      arr[keys[i]] = d3.entries(ratings[i]);
+      arr[keys[i]] = d3.entries(ratings[i]).reverse();
     }
     arr = d3.entries(arr);
 
@@ -136,7 +138,7 @@ function reorderDataForAverage(data, keys) {
     }
 
     for(var i = 0; i < keys.length; i++) {
-      arr[keys[i]] = d3.entries(ratings[i]);
+      arr[keys[i]] = d3.entries(ratings[i]).reverse();
     }
     arr = d3.entries(arr);
 
@@ -160,6 +162,7 @@ var color = d3.scale.category10();
 var xAxis = d3.svg.axis()
     .scale(x0)
     .orient("bottom");
+xAxis.tickFormat(function(d) { return Constants.KEY_TO_HEADER[d]; });
 
 var yAxis = d3.svg.axis()
     .scale(y)
@@ -169,23 +172,26 @@ yAxis.tickFormat(d3.format(".0f"));
 
 var svg = d3.select("#" + this.props.divId).append("svg")
     .attr("class", "chart")
+    .attr("id", "bar-svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+console.log(courses);
 var modifiedData = modifyData(courses, compareKeys);
 data = reorderData(modifiedData, compareKeys, false);
 dataAverage = reorderData(modifiedData, compareKeys, true);
 
-/*var tip = d3.tip() 
+var tip = d3.tip() 
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
         return d.key.concat(": ").concat(d.value);
-    })
+    });
 
-svg.call(tip);*/
+//svg.call(tip);
+
 courseNames = d3.set(courseNames).values();
 
 x0.domain(data.map(function (d) { return d.key; }));
@@ -302,7 +308,7 @@ svg.selectAll(".hover")
 
 // Creating the legend
 var legend = svg.selectAll(".legend")
-    .data(courseNames.slice().reverse())
+    .data(courseNames.slice())
 .enter().append("g")
     .attr("class", "legend")
     .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
