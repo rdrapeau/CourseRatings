@@ -327,6 +327,8 @@ legend.append("text")
     .text(function (d) { return d; });
 
 var padding = courseNames.length + 1;
+
+if (padding > 1) {
 var legend2 = svg.selectAll(".legend2")
     .data(["Department Average"])
 .enter().append("g")
@@ -345,6 +347,7 @@ legend2.append("rect")
  //   .attr("dy", ".35em")
     .style("text-anchor", "start")
     .text(function (d) { return d; });
+}
 
         return (
             <div id={this.props.divId} className="d3-chart-body"></div>
