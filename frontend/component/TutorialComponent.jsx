@@ -112,7 +112,7 @@ var TutorialComponent = React.createClass({
                     more courses.
                 </p>
                 
-                <img src="img/barchartInitial.png" alt="Comparison page after selecting a class" className="taller-tutorial-image" />
+                <img src="img/barchartSelection.png" alt="Comparison page selection after selecting a class" className="selection" />
 
                 <p>
                     Hovering over a bar will display the name of the course represented by the bar, as well as its 
@@ -121,11 +121,14 @@ var TutorialComponent = React.createClass({
                     representing CSE 142. The black line indicates the average amount learned rating in the CSE 
                     department.  More information on what each bar represents can be found in the legend next to the chart.
                 </p>
+                
+                <img src="img/barchartChart.png" alt="Comparison page chart after selecting a class" className="chart-final" />
+                <img src="img/barchartTable.png" alt="Comparison page table after selecting a class" className="chart-table" />
+
                 <p>
                     When a new course is specified, or an existing course is removed or modified, the 
                     table and chart update automatically.
                 </p>
-
             </div>
         );
     }
