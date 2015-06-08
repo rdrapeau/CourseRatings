@@ -17,11 +17,14 @@ class DataAPI {
         "au": 3
     };
 
+    private static KEYS: any = ["the_course_as_a_whole", "the_course_content", "amount_learned", "instructors_effectiveness", "grading_techniques"];
+
     private static processCSV(csv : string, callback : Function) : void {
         var lines = csv.split('\n');
         var header = lines[0].split(';');
 
         var output = [];
+        var depAverages = {};
         for (var i = 1; i < lines.length - 1; i++) {
             var line = lines[i].split(';');
             var course = { 'course_whole_code': line[0] + line[1] };
@@ -49,10 +52,35 @@ class DataAPI {
                 }
             }
 
-            output.push(course);
+            if (course['the_course_as_a_whole']) {
+                output.push(course);
+            }
+
+            if (!(course['course_department'] in depAverages)) {
+                depAverages[course['course_department']] = {};
+                for (var j = 0; j < DataAPI.KEYS.length; j++) {
+                    depAverages[course['course_department']][DataAPI.KEYS[j]] = course[DataAPI.KEYS[j]];
+                }
+
+                depAverages[course['course_department']]['length'] = 1.0;
+            } else {
+                for (var j = 0; j < DataAPI.KEYS.length; j++) {
+                    depAverages[course['course_department']][DataAPI.KEYS[j]] += course[DataAPI.KEYS[j]];
+                }
+
+                depAverages[course['course_department']]['length'] += 1.0;
+            }
         }
 
-        callback(TAFFY.taffy(output), output);
+        for (var department in depAverages) {
+            for (var attribute in depAverages[department]) {
+                if (attribute !== 'length') {
+                    depAverages[department][attribute] = Math.round(depAverages[department][attribute] / depAverages[department]['length'] * 100) / 100;
+                }
+            }
+        }
+
+        callback(TAFFY.taffy(output), output, depAverages);
     }
 
 	/**

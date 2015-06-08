@@ -31,39 +31,9 @@ var AppComponent = React.createClass({
     componentDidMount : function() {
         var self = this;
 
-        DataAPI.getTaffy(function(taffy, courses) {
-            var allCourses = taffy({the_course_as_a_whole : {isNumber: true}}).get();
-            self.setState({allCourses : allCourses});
+        DataAPI.getTaffy(function(taffy, courses, depAverages) {
+            self.setState({allCourses : courses});
             self.setState({taffy : taffy});
-
-            var depAverages = {};
-            for (var i = 0; i < allCourses.length; i++) {
-                var course = allCourses[i];
-
-                if (!(course.course_department in depAverages)) {
-                    depAverages[course.course_department] = {};
-                    for (var j = 0; j < Constants.KEYS.length; j++) {
-                        depAverages[course.course_department][Constants.KEYS[j]] = course[Constants.KEYS[j]];
-                    }
-
-                    depAverages[course.course_department]['length'] = 1.0;
-                } else {
-                    for (var j = 0; j < Constants.KEYS.length; j++) {
-                        depAverages[course.course_department][Constants.KEYS[j]] += course[Constants.KEYS[j]];
-                    }
-
-                    depAverages[course.course_department]['length'] += 1.0;
-                }
-            }
-
-            for (var department in depAverages) {
-                for (var attribute in depAverages[department]) {
-                    if (attribute !== 'length') {
-                        depAverages[department][attribute] = Math.round(depAverages[department][attribute] / depAverages[department]['length'] * 100) / 100;
-                    }
-                }
-            }
-
             self.setState({depAverages : depAverages});
         });
     },
@@ -105,49 +75,42 @@ var AppComponent = React.createClass({
     getSearchResult : function(course_department, course_code, professor) {
         var results = [];
         if (course_department && course_code && professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     course_department : {isnocase: course_department},
                                     course_code : {'==' : course_code},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (course_department && course_code && !professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     course_department : {isnocase: course_department},
                                     course_code : {'==' : course_code}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (course_department && !course_code && professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     course_department : {isnocase: course_department},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (course_department && !course_code && !professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     course_department : {isnocase: course_department}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (!course_department && course_code && professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     course_code : {'==' : course_code},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (!course_department && course_code && !professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     course_code : {'==' : course_code}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (!course_department && !course_code && professor) {
-            results = this.state.taffy({
-                                the_course_as_a_whole : {isNumber: true}},
+            results = this.state.taffy(
                                 {
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
