@@ -30,9 +30,9 @@ var TutorialComponent = React.createClass({
                 <h2>Hovering</h2>
                 <p>Hovering over an entry in the "% Completed" column will show the number of students who filled out evaluations for that class as a fraction.  Hovering over all other column entries will show the average department score for that column.</p>
 
-                <p>Depending on how many search boxes you filled out, one of three pages will load. These pages are similar, with a few important differences.</p>
-
                 <h2>Pages</h2>
+                <p>Depending on how many search boxes you filled out, one of three pages will load. These pages are similar, with a few important differences.</p>
+                
                 <h3>Department Page</h3>
                 <p>If you specified only the name of the department, the department page will load. It shows all courses offered by the specified department.  The top 5 courses and instructors in this department are listed at the top of the page.</p>
 
