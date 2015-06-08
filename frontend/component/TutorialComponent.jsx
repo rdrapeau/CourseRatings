@@ -55,16 +55,13 @@ var TutorialComponent = React.createClass({
                 <h1>Comparing Courses</h1>
                 <p>To compare courses, click on the "Compare Courses" button at the top of the page. This will take you to a new page with two drop down boxes. The first allows you to specify a department, and the second a course code. After you specify a department and course code, a table summarizing the rating of the course will appear. Click on the + button next to the drop down boxes to see a graph of the course{"'"}s ratings.</p>
 
-                <img src="img/barchartInitial.png" alt="Comparison page after selecting a class" className="taller-tutorial-image" />
-
                 <p>The + and - buttons on either side of the drop down boxes can be used to increase and decrease the number of courses being compared respectively. The + button adds another set of drop down boxes, while the - button removes a set of drop down boxes. These drop down boxes can be used to specify more courses. When a new course is specified, or an existing course is removed or modified, the table and chart update automatically.</p>
 
-                <img src="img/barchartTable.png" alt="Comparison page chart after selecting multiple classes" className="chart-final"/>
-                <img src="img/barchartFinal.png" alt="Comparison page table after selecting multiple classes" className="chart-table" />
+                <img src="img/barchartSelection.png" alt="Comparison page selection after selecting multiple classes" className="selection"/>
+                <img src="img/barchartChart.png" alt="Comparison page chart after selecting multiple classes" className="chart-final"/>
+                <img src="img/barchartTable.png" alt="Comparison page table after selecting multiple classes" className="chart-table" />
 
                 <p>Hovering over a bar will display the name of the course represented by the bar, as well as its value. It will also display a black horizontal bar indicating the average rating of classes in that department. For example, in the following picture the cursor is hovering over the bar representing CSE 142. The black line indicates the average amount learned rating in the CSE department.</p>
-
-                <img src="img/barchartHover.png" alt="Comparison page chart with hover" className="extra-taller-tutorial-image" />
 
                 <p>More information on what each bar represents can be found in the legend next to the chart.</p>
             </div>
