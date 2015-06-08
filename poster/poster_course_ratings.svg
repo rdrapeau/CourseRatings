@@ -117,8 +117,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497474"
-     inkscape:cx="3013.9922"
-     inkscape:cy="1064.9491"
+     inkscape:cx="1397.7481"
+     inkscape:cy="1549.8223"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -256,7 +256,7 @@
          sodipodi:role="line"
          x="74.997375"
          y="-657.72375"
-         id="tspan3897">students fill out an evaluation form for professors </tspan><tspan
+         id="tspan3897">students fill out an evaluation form for instructors </tspan><tspan
          sodipodi:role="line"
          x="74.997375"
          y="-597.82471"
@@ -280,7 +280,7 @@
          sodipodi:role="line"
          x="73.45311"
          y="81.861938"
-         id="tspan4100">The layout is simply a list of evaluations (1 for each</tspan><tspan
+         id="tspan4100">The layout is simply a list of evaluations (one for each</tspan><tspan
          sodipodi:role="line"
          x="73.45311"
          y="141.76103"
@@ -291,15 +291,15 @@
          id="tspan4332">ratings. The site does not directly elicit any average</tspan><tspan
          sodipodi:role="line"
          x="73.45311"
-         y="261.55923"
-         id="tspan4334">or aggregate information about courses or professors</tspan><tspan
+         y="261.5592"
+         id="tspan4334">or aggregate information about courses or instructors</tspan><tspan
          sodipodi:role="line"
          x="73.45311"
          y="321.45831"
          id="tspan4336">over time. The catalog does not have any search</tspan><tspan
          sodipodi:role="line"
          x="73.45311"
-         y="381.35742"
+         y="381.35739"
          id="tspan4364">capability causing users to resort to the browser's </tspan><tspan
          sodipodi:role="line"
          x="73.45311"
@@ -307,7 +307,7 @@
          id="tspan4366">find functionality, which can yield bad results. </tspan><tspan
          sodipodi:role="line"
          x="73.45311"
-         y="501.15561"
+         y="501.15558"
          id="tspan14458-7-6-5" /></text>
     <text
        xml:space="preserve"
@@ -320,15 +320,15 @@
          sodipodi:role="line"
          x="1297.9507"
          y="-1042.3275"
-         id="tspan3757">CourseRatings is built around 3 core features: search,</tspan><tspan
+         id="tspan3757">CourseRatings is built around three core features: </tspan><tspan
          sodipodi:role="line"
          x="1297.9507"
          y="-982.42841"
-         id="tspan4407">table visualization, and D3 plots. The search is </tspan><tspan
+         id="tspan4407">search, table visualization, and D3 plots. The search is </tspan><tspan
          sodipodi:role="line"
          x="1297.9507"
          y="-922.52936"
-         id="tspan4411">implemented as 3 searchable drop-down menus, </tspan><tspan
+         id="tspan4411">implemented as three searchable drop-down menus, </tspan><tspan
          sodipodi:role="line"
          x="1297.9507"
          y="-862.63025"
@@ -340,7 +340,7 @@
          sodipodi:role="line"
          x="1297.9507"
          y="-742.83203"
-         id="tspan4417">courses / professors are displayed as rows with their</tspan><tspan
+         id="tspan4417">courses / instructors are displayed as rows with their</tspan><tspan
          sodipodi:role="line"
          x="1297.9507"
          y="-682.93298"
