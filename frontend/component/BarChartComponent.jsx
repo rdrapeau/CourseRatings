@@ -206,6 +206,18 @@ var BarChartComponent = React.createClass({
             svg.append("g").call(tip);
         }
 
+        dataAverage.forEach(function (kv) {
+            kv.value.forEach(function (d) {
+                d.col = kv.key;
+            });
+        });
+
+        data.forEach(function (kv) {
+            kv.value.forEach(function (d) {
+                d.col = kv.key;
+            });
+        });
+
         // Creating average bars
         svg.selectAll(".avg")
             .data(dataAverage)
@@ -220,7 +232,7 @@ var BarChartComponent = React.createClass({
                 })
                 .enter().append("rect")
                     .attr("class", function(d) {
-                        return "avg " + d.key;
+                        return d.col.concat(d.key);
                     })
                     .attr("x", function(d) { 
                         return x1(d.key); 
@@ -263,11 +275,11 @@ var BarChartComponent = React.createClass({
                     })
                     .on('mouseover', function(d){
                         tip.show(d);
-                        d3.selectAll("." + d.key).style("fill-opacity", 0.7);
+                        d3.selectAll("." + d.col.concat(d.key)).style("fill-opacity", 0.7);
                     })
                     .on('mouseout', function(d) {
                         tip.hide(d);
-                        d3.selectAll("." + d.key).style("fill-opacity", 0); 
+                        d3.selectAll("." + d.col.concat(d.key)).style("fill-opacity", 0); 
                     })
                     .style("fill-opacity", 0.0);
 
