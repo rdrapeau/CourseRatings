@@ -60,7 +60,7 @@ var OverviewCourseRowComponent = React.createClass({
                 <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.amount_learned}} value={data.amount_learned} max={5} /></td>
                 <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.instructors_effectiveness}} value={data.instructors_effectiveness} max={5} /></td>
                 <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.grading_techniques}} value={data.grading_techniques} max={5} /></td>
-                <td className="no-pad"><ValueBarComponent value={data.percent_enrolled} max={100} /></td>
+                <td className="no-pad"><ValueBarComponent value={data.percent_enrolled} total={data.total_enrolled} completed={data.completed} max={100} /></td>
             </tr>
         );
     }
