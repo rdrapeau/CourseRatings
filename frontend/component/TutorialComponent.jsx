@@ -19,10 +19,18 @@ var TutorialComponent = React.createClass({
                 <img src="img/searchBoxes.png" alt="" className="tutorial-image" />
 
                 <p>
+                    To search for all courses at a specific level, for example all 100 level courses, a department
+                    or instructor must be specified.  A search for 1XX will return all 100 level courses, 2XX all 
+                    200 level courses and so on.
+                </p>
+
+                <img src="img/searchMultiple.png" alt="" className="search-multiple-style" />
+
+                <p>
                     After you fill out one or more search boxes, a table summarizing the search results will appear.
                 </p>
 
-                <img src="img/initialTable.png" alt="" className="large-tutorial-image" />
+                <img src="img/initialTable.png" alt="" className="initial-table-style" />
 
                 <h2>Sorting Table Columns/Expanding Rows</h2>
                 <p>

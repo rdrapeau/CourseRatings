@@ -397,6 +397,20 @@ button .glyphicon {
     margin: 0 auto;
 }
 
+.search-multiple-style {
+    width: 620px;
+    height: 50px;
+    display: block;
+    margin: 0 auto;
+}
+
+.initial-table-style {
+    width: 900px;
+    height: 250px;
+    display: block;
+    margin: 0 auto;
+}
+
 .chart-final {
     display: block;
     margin: 0 auto;
