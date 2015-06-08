@@ -390,6 +390,13 @@ button .glyphicon {
     margin: 0 auto;
 }
 
+.compareCourseStyle {
+    width: 650px;
+    height: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
 .chart-final {
     display: block;
     margin: 0 auto;

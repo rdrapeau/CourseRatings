@@ -114,7 +114,7 @@ var TutorialComponent = React.createClass({
                     more courses.
                 </p>
                 
-                <img src="img/barchartSelection.png" alt="Comparison page selection after selecting a class" className="selection" />
+                <img src="img/barchartSelection.png" alt="Comparison page selection after selecting a class" className="compareCourseStyle" />
 
                 <p>
                     Hovering over a bar will display the name of the course represented by the bar, as well as its 
