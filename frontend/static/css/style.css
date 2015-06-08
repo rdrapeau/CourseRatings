@@ -383,6 +383,13 @@ button .glyphicon {
     margin: 0 auto;
 }
 
+.tableHoverStyle {
+    width: 900px;
+    height: 70px;
+    display: block;
+    margin: 0 auto;
+}
+
 .chart-final {
     display: block;
     margin: 0 auto;

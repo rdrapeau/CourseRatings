@@ -52,6 +52,8 @@ var TutorialComponent = React.createClass({
                     the average department score for that column.
                 </p>
 
+                <img src="img/tableHover.png" alt="Table with hover feature shown" className="tableHoverStyle" />
+
                 <h2>Pages</h2>
                 <p>
                     Depending on how many search boxes you filled out, one of three pages will load. These pages are 
