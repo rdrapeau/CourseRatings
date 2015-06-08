@@ -16,8 +16,18 @@ var ValueBarComponent = React.createClass({
                      percent >= 60 ? "yellow" : "red")
                     : "disabled";
 
+        var hoverTitle = "";
+
+        if (this.props.total && this.props.completed) {
+            hoverTitle = this.props.completed + ' / ' + this.props.total + ' Students';
+        }
+
+        if (this.props.average) {
+            hoverTitle = this.props.average.department + " Average: " + this.props.average.value;
+        }
+
         return (
-            <div className="value-bar" title={(this.props.average ? this.props.average.department + " Average: " + this.props.average.value : "")}>
+            <div className="value-bar" title={hoverTitle}>
                 <div className={"vb-bg " + level} style={{width : width}}>
                 </div>
                 <p>{this.props.value ? this.props.value : "N/A"}</p>
