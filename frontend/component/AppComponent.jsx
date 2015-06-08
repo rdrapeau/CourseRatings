@@ -74,18 +74,24 @@ var AppComponent = React.createClass({
 
     getSearchResult : function(course_department, course_code, professor) {
         var results = [];
+        var originalCourseCode = course_code;
+
+        if (course_code && course_code.substring(1) === 'XX') {
+            course_code = course_code.substring(0, 1);
+        }
+
         if (course_department && course_code && professor) {
             results = this.state.taffy(
                                 {
                                     course_department : {isnocase: course_department},
-                                    course_code : {'==' : course_code},
+                                    course_code : {'left' : course_code},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (course_department && course_code && !professor) {
             results = this.state.taffy(
                                 {
                                     course_department : {isnocase: course_department},
-                                    course_code : {'==' : course_code}
+                                    course_code : {'left' : course_code}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (course_department && !course_code && professor) {
             results = this.state.taffy(
@@ -101,13 +107,13 @@ var AppComponent = React.createClass({
         } else if (!course_department && course_code && professor) {
             results = this.state.taffy(
                                 {
-                                    course_code : {'==' : course_code},
+                                    course_code : {'left' : course_code},
                                     professor : {isnocase : professor}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (!course_department && course_code && !professor) {
             results = this.state.taffy(
                                 {
-                                    course_code : {'==' : course_code}
+                                    course_code : {'left' : course_code}
                                 }).order('course_whole_code,professor,datetime').get();
         } else if (!course_department && !course_code && professor) {
             results = this.state.taffy(
@@ -125,11 +131,11 @@ var AppComponent = React.createClass({
         }
 
         this.setState({activeDepartment : course_department});
-        this.setState({activeCourseCode : course_code});
+        this.setState({activeCourseCode : originalCourseCode});
         this.setState({activeInstructor : professor});
 
         if (results.length !== 0) {
-            if (course_department && course_code && !professor) {
+            if (course_department && course_code && !professor && course_code.length !== 1) {
                 this.onClickCourse(results[0].course_whole_code);
             } else if (professor && !course_code && !course_department) {
                 this.onClickInstructor(results[0].professor);

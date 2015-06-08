@@ -12,7 +12,7 @@ var SearchComponent = React.createClass({
     getInitialState: function() {
         var keys = ['course_department', 'course_code', 'professor'];
         var allData = this.props.searchFunction(null, null, null);
-        var unique = this.getUnique(keys, allData);
+        var unique = this.getUnique(keys, allData, null, null);
 
         localStorage.setItem("course_department", unique.course_department.map(function(item) { return item.value; }).join(';'));
         localStorage.setItem("course_code", unique.course_code.map(function(item) { return item.value; }).join(';'));
@@ -37,7 +37,7 @@ var SearchComponent = React.createClass({
         }
     },
 
-    getUnique : function(keys, results) {
+    getUnique : function(keys, results, currentDepartment, currentProfessor) {
         var unique = {};
         var done = {};
         for (var i = 0; i < keys.length; i++) {
@@ -45,14 +45,28 @@ var SearchComponent = React.createClass({
             done[keys[i]] = [];
         }
 
+        var possible = [];
         for (var i = 0; i < results.length; i++) {
             for (var j = 0; j < keys.length; j++) {
                 var option_value = results[i][keys[j]];
+
+                if (keys[j] === 'course_code') {
+                    var character = option_value.charAt(0);
+                    if (possible.indexOf(character) === -1 && (currentDepartment || currentProfessor)) {
+                        possible.push(character);
+                    }
+                }
+
                 if (done[keys[j]].indexOf(option_value) === -1) {
                     unique[keys[j]].push({value: option_value, label: option_value})
                     done[keys[j]].push(option_value);
                 }
             }
+        }
+
+        for (var i = 0; i < possible.length; i++) {
+            var option_value = possible[i] + 'XX';
+            unique['course_code'].push({value: option_value, label: option_value});
         }
 
         for (var i = 0; i < keys.length; i++) {
@@ -82,7 +96,7 @@ var SearchComponent = React.createClass({
             this.props.resetFunction();
         } else {
             var searchResults = this.props.searchFunction(course_department, course_code, professor);
-            unique = this.getUnique(this.state.keys, searchResults);
+            unique = this.getUnique(this.state.keys, searchResults, course_department, professor);
         }
 
         this.setState({departments : unique.course_department});

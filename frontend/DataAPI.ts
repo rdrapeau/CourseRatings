@@ -37,10 +37,10 @@ class DataAPI {
             course['datetime'] = year + DataAPI.TIME_TO_DATETIME[quarter];
 
             for (var j = 0; j < line.length; j++) {
-                if (!isNaN(Number(line[j]))) {
+                if (!isNaN(Number(line[j])) && header[j] != "course_code") {
                     course[header[j]] = Number(line[j]);
 
-                    if (header[j] != "course_code" && header[j] != "completed" && header[j] != "total_enrolled") {
+                    if (header[j] != "completed" && header[j] != "total_enrolled") {
                         course[header[j]] = Math.min(5, Number(course[header[j]]));
                     }
                 } else {
