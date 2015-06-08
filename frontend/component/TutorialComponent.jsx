@@ -62,9 +62,9 @@ var TutorialComponent = React.createClass({
                 <img src="img/barchartTable.png" alt="Comparison page table after selecting multiple classes" className="taller-tutorial-image" />
                 <img src="img/barchartFinal.png" alt="Comparison page chart after selecting multiple classes" className="taller-tutorial-image" />
 
-                <p>Hovering over a bar will display the name of the course represented by the bar, as well as its value. It will also display a black horizontal bar over every bar representing that course. These bars display the average value for each rating in the department that offers the specified course. For example, in the following picture the cursor is hovering over the bar representing CSE 142. The black lines indicate the average overall, content, amount learned, teaching and grading ratings in the CSE department.</p>
+                <p>Hovering over a bar will display the name of the course represented by the bar, as well as its value. It will also display a black horizontal bar indicating the average rating of classes in that department. For example, in the following picture the cursor is hovering over the bar representing CSE 142. The black line indicates the average amount learned rating in the CSE department.</p>
 
-                <img src="img/barchartHover.png" alt="Comparison page chart with hover" className="taller-tutorial-image" />
+                <img src="img/barchartHover.png" alt="Comparison page chart with hover" className="extra-taller-tutorial-image" />
 
                 <p>More information on what each bar represents can be found in the legend next to the chart.</p>
             </div>
