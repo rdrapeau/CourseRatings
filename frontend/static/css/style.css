@@ -341,3 +341,38 @@ button .glyphicon {
     font-size: 30px;
     margin-top: 2px;
 }
+
+.tutorial {
+    display: block;
+    margin: 0 auto;
+    width: 1050px;
+    font-size: 16pt;
+}
+
+.tutorial-image {
+    width: 750px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+}
+
+.large-tutorial-image {
+    width: 950px;
+    height: 350px;
+    display: block;
+    margin: 0 auto;
+}
+
+.taller-tutorial-image {
+    width: 950px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;
+}
+
+.extra-taller-tutorial-image {
+    width: 950px;
+    height: 650px;
+    display: block;
+    margin: 0 auto;
+}
