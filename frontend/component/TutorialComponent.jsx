@@ -59,8 +59,8 @@ var TutorialComponent = React.createClass({
 
                 <p>The + and - buttons on either side of the drop down boxes can be used to increase and decrease the number of courses being compared respectively. The + button adds another set of drop down boxes, while the - button removes a set of drop down boxes. These drop down boxes can be used to specify more courses. When a new course is specified, or an existing course is removed or modified, the table and chart update automatically.</p>
 
-                <img src="img/barchartTable.png" alt="Comparison page table after selecting multiple classes" className="taller-tutorial-image" />
-                <img src="img/barchartFinal.png" alt="Comparison page chart after selecting multiple classes" className="taller-tutorial-image" />
+                <img src="img/barchartTable.png" alt="Comparison page chart after selecting multiple classes" className="chart-final"/>
+                <img src="img/barchartFinal.png" alt="Comparison page table after selecting multiple classes" className="chart-table" />
 
                 <p>Hovering over a bar will display the name of the course represented by the bar, as well as its value. It will also display a black horizontal bar indicating the average rating of classes in that department. For example, in the following picture the cursor is hovering over the bar representing CSE 142. The black line indicates the average amount learned rating in the CSE department.</p>
 
