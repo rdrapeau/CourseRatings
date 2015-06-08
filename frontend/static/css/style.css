@@ -283,10 +283,16 @@ td.no-pad {
 
 .left {
     float: left;
+    margin-left: 150px;
 }
 
 .right {
     float: right;
+    margin-right: 200px
+}
+
+.left, .right {
+    text-align: center;
 }
 
 .leftButton {
