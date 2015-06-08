@@ -376,3 +376,7 @@ button .glyphicon {
     display: block;
     margin: 0 auto;
 }
+
+#bar-svg {
+    width: 900px;
+}
