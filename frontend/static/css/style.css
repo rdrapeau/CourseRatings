@@ -407,3 +407,15 @@ button .glyphicon {
 #bar-svg {
     width: 900px;
 }
+
+.averages {
+    display: none;
+}
+
+.value-bar:hover .averages {
+    display: block;
+}
+
+#compareBarChart {
+    margin-top: 15px;
+}
