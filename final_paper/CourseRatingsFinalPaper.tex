@@ -1,0 +1,87 @@
+\documentclass{chi2009}
+\usepackage{times}
+\usepackage{url}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage[pdftex]{hyperref}
+\hypersetup{%
+pdftitle={CourseRatings: A Better Course Evaluation Catalog},
+pdfauthor={Ryan Drapeau, Emily Gu, Vimala Jampala},
+pdfkeywords={KEYWORDS},
+bookmarksnumbered,
+pdfstartview={FitH},
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black,
+breaklinks=true,
+}
+\newcommand{\comment}[1]{}
+\definecolor{Orange}{rgb}{1,0.5,0}
+\newcommand{\todo}[1]{\textsf{\textbf{\textcolor{Orange}{[[#1]]}}}}
+
+\pagenumbering{arabic}  % Arabic page numbers for submission.  Remove this line to eliminate page numbers for the camera ready copy
+
+\begin{document}
+% to make various LaTeX processors do the right thing with page size
+\special{papersize=8.5in,11in}
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\pdfpageheight}{\paperheight}
+\setlength{\pdfpagewidth}{\paperwidth}
+
+% use this command to override the default ACM copyright statement
+% (e.g. for preprints). Remove for camera ready copy.
+\toappear{Submitted to CSE 512 (Spring) as the final paper.}
+
+\title{CourseRatings: A Better Course Evaluation Catalog}
+\numberofauthors{3}
+\author{
+  \alignauthor Ryan Drapeau\\
+    \affaddr{University of Washington}\\
+    \email{drapeau@\footnotemark[1]}
+  \alignauthor Emily Gu\\
+    \affaddr{University of Washington}\\
+    \email{emilygu@\footnotemark[1]}
+  \alignauthor Vimala Jampala\\
+    \affaddr{University of Washington}\\
+    \email{vjampala@\thanks{@cs.washington.edu}}
+}
+
+\maketitle
+
+\begin{abstract}
+    ABSRACT HERE
+\end{abstract}
+
+\keywords{KEYWORDS DESCRIBING PAPER HERE}
+
+\section{Introduction}
+
+An explanation of the problem and the motivation for solving it.
+
+\section{Related Work}
+
+A description of previous papers related to your project.
+
+\section{Methods}
+
+A detailed explanation of the techniques and algorithms you used to solve the problem.
+
+\section{Results}
+
+The visualizations your system produces and data to help evaluate your approach. For example you may include running times, or the time users typically spend generating a visualization using your system.
+
+\section{Discussion}
+
+What has the audience learned from your work? What new insights or practices has your system enabled? A full blown user study is not expected, but informal observations of use that help evaluate your system are encouraged.
+
+\section{Future Work}
+
+A description of how your system could be extended or refined. We have read papers from a number of conferences throughout the course, but if you are having trouble figuring out how to write your paper, take a look at representative papers from the conferences listed above.
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}
