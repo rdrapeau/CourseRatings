@@ -6,15 +6,19 @@ Ryan Drapeau, Emily Gu, Vimala Jampala {drapeau, emilygu, vjampala}@cs.washingto
 ###Breakdown & Development Process
 We did not change our team from A3 so we met very early on to discuss changes to the visualizations from A3 that should be implemented for a final project. We also discussed new features and responsibilities and here is the breakdown:
 * **Ryan:**
+  - Predictive Drop Down Search
   - Designed poster
   - Structured and organized paper in LaTeX
 * **Emily:**
-  - Tutorial page: text for explroing courses, table, Sorting Table Columns/Expanding Rows, Hovering, Pages and Data, CSS
-  - Bar chart:  CSS, hovering for average
-  - Time series: CSS, legend, axis printing/tick marks, hovering
+  - Tutorial Page: text for exploring courses, table, Sorting Table Columns/Expanding Rows, Hovering, Pages and Data, CSS
+  - Bar Chart:  CSS, hovering for average
+  - Time Series: CSS, legend, axis printing/tick marks, hovering
   - Paper: most of intro; parts of related work, methods, results
 * **Vimala:**
-  - Contributed a significant amount to the paper
+  - Tutorial Page: text and images for the comparison page, css
+  - Bar Chart:  initial base of the bar chart, css, pretty printing axes
+  - Time Series: initial base of the time series chart, legend, css
+  - Paper: most of abstract, discussion, future work, conclusion; parts of related work, methods, and results
 
 We all stayed in contact throughout the entire process and kept everyone else up to date with where we stood / what we were currently working on. Every person brought new ideas and the value of the entire project is greater that the collective sum of our parts we worked on. It was a great experience and I hope that we see the incoming Freshman class use our tool to help find the classes they want to take.
 
