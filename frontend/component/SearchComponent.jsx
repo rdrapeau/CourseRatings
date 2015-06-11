@@ -30,10 +30,14 @@ var SearchComponent = React.createClass({
     },
 
     componentWillReceiveProps : function(next) {
+        var courseCode = next.activeCourseCode;
         if (this.state.currentDepartment != next.activeDepartment
                 || this.state.currentCourseCode != next.activeCourseCode
                 || this.state.currentProfessor != next.activeInstructor) {
-            this.update(next.activeDepartment, next.activeCourseCode, next.activeInstructor);
+            if (!next.activeDepartment && !next.activeInstructor) {
+                courseCode = null;
+            }
+            this.update(next.activeDepartment, courseCode, next.activeInstructor);
         }
     },
 
@@ -128,10 +132,11 @@ var SearchComponent = React.createClass({
      * Render the search bar
      */
     render: function() {
+        var isDisable = !this.props.activeDepartment && !this.props.activeInstructor;
         return (
             <div id='search-bar-container'>
                 <Select value={this.props.activeDepartment ? this.props.activeDepartment : null} className="departmentField" placeholder="Department" options={this.state.departments} onChange={this.departmentChange} />
-                <Select value={this.props.activeCourseCode ? this.props.activeCourseCode : null} className="courseCodeField" placeholder="Course Code" options={this.state.courseCodes} onChange={this.courseCodeChange} />
+                <Select disabled={isDisable} value={this.props.activeCourseCode ? this.props.activeCourseCode : null} className={"courseCodeField" + (isDisable ? " faded" : "")} placeholder="Course Code" options={this.state.courseCodes} onChange={this.courseCodeChange} />
                 <Select value={this.props.activeInstructor ? this.props.activeInstructor : null} className="profField" placeholder="Instructor" options={this.state.professors} onChange={this.profChange} />
             </div>
         );
