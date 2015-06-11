@@ -433,7 +433,7 @@ button .glyphicon {
 }
 
 #bar-svg {
-    /*width: 900px;*/
+    width: 400px;
 }
 
 .averages {
