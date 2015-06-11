@@ -11,6 +11,7 @@ We did not change our team from A3 so we met very early on to discuss changes to
   - Collapsible Data Entries
   - Department Averages
   - Top 5 Courses / Instructors in Department
+  - Time Data Integration (when each course was offered / taught)
   - Designed poster
   - Structured and organized paper in LaTeX
 * **Emily:**
