@@ -109,7 +109,7 @@ var BarChartComponent = React.createClass({
             return arr;
         }
 
-        var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+        var margin = { top: 20, right: 20, bottom: 30, left: 100 },
             width = (800 - margin.left - margin.right) / 1.8,
             height = 550 - margin.top - margin.bottom;
 
