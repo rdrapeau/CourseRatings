@@ -110,11 +110,11 @@ var BarChartComponent = React.createClass({
         }
 
         var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-            width = 800 - margin.left - margin.right,
+            width = (800 - margin.left - margin.right) / 1.8,
             height = 550 - margin.top - margin.bottom;
 
         var x0 = d3.scale.ordinal()
-            .rangeRoundBands([0, width / 1.8 - 100], .1);
+            .rangeRoundBands([0, width - 100], .1);
 
         var x1 = d3.scale.ordinal();
 
@@ -283,7 +283,7 @@ var BarChartComponent = React.createClass({
             .style("fill", color);
 
         legend.append("text")
-            .attr("x", width - 24 + 30 - 100 + 15)
+            .attr("x", width  - 24 + 30 - 100 + 15)
             .attr("y", 9)
             .attr("dy", ".35em")
             .style("text-anchor", "start")
@@ -299,7 +299,7 @@ var BarChartComponent = React.createClass({
                 .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; });
 
             legend2.append("rect")
-                .attr("x", width - 18 - 100 + 15)
+                .attr("x", width  - 18 - 100 + 15)
                 .attr("y", padding * 20)
                 .attr("width", 18)
                 .attr("height", 5)
@@ -307,7 +307,7 @@ var BarChartComponent = React.createClass({
                 .style("fill-opacity", 0.6);;
 
             legend2.append("text")
-                .attr("x", width - 24 + 30 - 100 + 15)
+                .attr("x", width  - 24 + 30 - 100 + 15)
                 .attr("y", 20 * padding + 6)
                 .style("text-anchor", "start")
                 .text(function (d) { return d; });
