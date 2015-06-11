@@ -439,8 +439,12 @@ button .glyphicon {
 .averages {
     display: none;
 }
-
+/*
 .value-bar:hover .averages {
+    display: block;
+}*/
+
+.rowComponent:hover .averages {
     display: block;
 }
 
