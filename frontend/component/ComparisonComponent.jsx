@@ -31,7 +31,7 @@ var ComparisonComponent = React.createClass({
             searchResults : [[]],
             departmentList : departmentList,
             courseLists : [[]],
-            compareKeys : Constants.KEYS
+            compareKeys : Constants.BAR_KEYS
         };
     },
 

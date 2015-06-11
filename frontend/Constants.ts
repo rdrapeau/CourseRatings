@@ -34,6 +34,8 @@ class Constants {
 
     public static KEYS: any = ["the_course_as_a_whole", "the_course_content", "amount_learned", "instructors_effectiveness", "grading_techniques"];
 
+    public static BAR_KEYS: any = ["the_course_as_a_whole", "instructors_effectiveness", "grading_techniques"];
+
     public static KEY_TO_HEADER : any = {
         "course_whole_code": "Course Code",
         "professor": "Instructor",
