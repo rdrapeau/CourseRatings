@@ -52,7 +52,7 @@ var OverviewCourseRowComponent = React.createClass({
         }
 
         return (
-            <tr className={(data.hidden ? "hidden" : "") + (data.colorThis ? " existing-expanded" : "")} >
+            <tr className={"rowComponent" + (data.hidden ? " hidden" : "") + (data.colorThis ? " existing-expanded" : "")} >
                 {courseCodeRow}
                 {instructorRow}
                 <td className="no-pad"><ValueBarComponent average={{department : data.course_department, value : this.props.average.the_course_as_a_whole}} value={data.the_course_as_a_whole} max={5} /></td>

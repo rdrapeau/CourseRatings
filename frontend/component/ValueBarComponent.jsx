@@ -34,7 +34,8 @@ var ValueBarComponent = React.createClass({
                 'backgroundColor': 'black',
                 'marginLeft': marginPercent + '%',
                 'position' : 'relative',
-                'zIndex' : 100
+                'zIndex' : 100,
+                'opacity' : 0.7
             };
         }
 
