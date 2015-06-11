@@ -261,7 +261,7 @@ var BarChartComponent = React.createClass({
                     })
                     .on('mouseover', function(d){
                         tip.show(d);
-                        d3.selectAll(".avgbar").style("fill-opacity", 0.7);
+                        d3.selectAll(".avgbar").style("fill-opacity", 0.6);
                     })
                     .on('mouseout', function(d) {
                         tip.hide(d);
@@ -304,7 +304,7 @@ var BarChartComponent = React.createClass({
                 .attr("width", 18)
                 .attr("height", 5)
                 .style("fill", "black")
-                .style("fill-opacity", 0.7);;
+                .style("fill-opacity", 0.6);;
 
             legend2.append("text")
                 .attr("x", width - 24 + 30 - 100 + 15)
