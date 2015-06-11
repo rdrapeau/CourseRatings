@@ -9,10 +9,6 @@ var TutorialComponent = React.createClass({
     render: function() {
         return (
             <div className="tutorial">
-                <h1>The Data</h1>
-                <p>Here are some words that Emily wrote.</p>
-                <img src="img/cec.png" alt="UW Course Evaluation Catalog" className="tutorial-image" />
-
                 <h1>Exploring Courses</h1>
                 <p>
                     Use the search boxes to enter a department, course code or instructor.  Click on each search 
@@ -142,6 +138,18 @@ var TutorialComponent = React.createClass({
                 <p>
                     When a new course is specified, or an existing course is removed or modified, the 
                     table and chart update automatically.
+                </p>
+
+                <h1>The Data</h1>
+                <p>
+                    At the end of every course, students fill out an evaluation for the instructor and the course as a whole.  
+                    Students give a score between 0 - 5 for multiple dimensions including overall rating, grading technique 
+                    and effectiveness in teaching.  The median, the point where the data is evenly split with half of the data 
+                    falling above and half falling below, is calculated and can be accessed from the UW data.  Since simply 
+                    taking the median doesn{"'"}t best reflect the average score due to different sizes of subgroups, 
+                    UW calculates the median in a slightly different manner.  More information on this can be found 
+                    <a href="https://www.washington.edu/oea/services/course_eval/medians.html"> here</a>.  
+                    Our site uses UW{"'"}s median for all calculations.
                 </p>
             </div>
         );
