@@ -101,13 +101,13 @@ var OverviewComponent = React.createClass({
             multiplier *= -1;
         } else {
             // Reset to normal Ascending sort
-            multiplier = 1;
+            multiplier = -1;
         }
 
         if (domElement) {
             this.addArrowToHeader(domElement, multiplier);
         } else {
-            multiplier = 1;
+            multiplier = -1;
         }
 
         // Remember states
