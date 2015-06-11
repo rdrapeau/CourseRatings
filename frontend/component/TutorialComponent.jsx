@@ -9,6 +9,10 @@ var TutorialComponent = React.createClass({
     render: function() {
         return (
             <div className="tutorial">
+                <h1>The Data</h1>
+                <p>Here are some words that Emily wrote.</p>
+                <img src="img/cec.png" alt="UW Course Evaluation Catalog" className="tutorial-image" />
+
                 <h1>Exploring Courses</h1>
                 <p>
                     Use the search boxes to enter a department, course code or instructor.  Click on each search 
@@ -16,7 +20,7 @@ var TutorialComponent = React.createClass({
                       The more search boxes you fill out, the more specific your search will be.
                 </p>
 
-                <img src="img/searchBoxes.png" alt="" className="tutorial-image" />
+                <img src="img/searchBoxes.png" alt="search boxes" className="tutorial-image" />
 
                 <p>
                     To search for all courses at a specific level, for example all 100 level courses, a department
