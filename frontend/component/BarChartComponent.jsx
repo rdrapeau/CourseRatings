@@ -172,9 +172,9 @@ var BarChartComponent = React.createClass({
             .call(yAxis)
         .append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 8 - margin.left)
+            .attr("y", 8 - margin.left + 60)
             .attr("x",0 - (height / 2))
-            .attr("dy", ".71em")
+            .attr("dy", ".1em")
             .style("text-anchor", "middle")
             .text("Rating");
 
