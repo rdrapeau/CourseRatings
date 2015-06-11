@@ -6,7 +6,10 @@ Ryan Drapeau, Emily Gu, Vimala Jampala {drapeau, emilygu, vjampala}@cs.washingto
 ###Breakdown & Development Process
 We did not change our team from A3 so we met very early on to discuss changes to the visualizations from A3 that should be implemented for a final project. We also discussed new features and responsibilities and here is the breakdown:
 * **Ryan:**
+  - CEC Scraper, Course Catalog Scraper, Parser
   - Predictive Drop Down Search
+  - Collapsible Data Entries
+  - Department Averages
   - Designed poster
   - Structured and organized paper in LaTeX
 * **Emily:**
