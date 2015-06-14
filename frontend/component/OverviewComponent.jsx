@@ -222,12 +222,28 @@ var OverviewComponent = React.createClass({
                 percent_enrolled : 0.0
             };
 
+            var counts = {
+                the_course_as_a_whole : 0.0,
+                the_course_content : 0.0,
+                amount_learned : 0.0,
+                instructors_effectiveness : 0.0,
+                grading_techniques : 0.0,
+                percent_enrolled : 0.0
+            };
+
             for (var i = 0; i < courses.length; i++) {
                 var course = courses[i];
 
                 for (var attribute in averageCourse) {
-                    averageCourse[attribute] += course[attribute] / courses.length;
+                    if (course[attribute]) {
+                        averageCourse[attribute] += course[attribute];
+                        counts[attribute]++;
+                    }
                 }
+            }
+
+            for (var attribute in averageCourse) {
+                averageCourse[attribute] /= counts[attribute];
             }
 
             for (var attribute in averageCourse) {
