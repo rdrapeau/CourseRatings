@@ -38,7 +38,7 @@ class DataAPI {
 
             for (var j = 0; j < line.length; j++) {
                 if (!isNaN(Number(line[j])) && header[j] != "course_code") {
-                    course[header[j]] = Number(line[j]);
+                    course[header[j]] = Math.max(0, Number(line[j]));
 
                     if (header[j] != "completed" && header[j] != "total_enrolled") {
                         course[header[j]] = Math.min(5, Number(course[header[j]]));
@@ -97,7 +97,6 @@ class DataAPI {
             }
 
             var zip = new JSZip(data);
-
             var csv = zip.file(DataAPI.INSIDE_ZIP).asText();
             DataAPI.processCSV(csv, callback);
         });
