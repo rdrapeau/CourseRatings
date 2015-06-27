@@ -12,51 +12,11 @@ var TutorialComponent = require('./TutorialComponent.jsx');
 var ComparisonComponent = require('./ComparisonComponent.jsx');
 
 /**
- * Encapsulates the entire application
+ * Encapsulates the entire application as a React class.
  */
 var AppComponent = React.createClass({
-	/**
-	 * Returns a thunk that when executed will change the screen.
-	 */
-	setScreenLater : function(screen) {
-        var self = this;
-		return function() {
-			self.setState({active : screen});
-		};
-	},
-
     /**
-     * Called after this component mounts
-     */
-    componentDidMount : function() {
-        var self = this;
-
-        DataAPI.getTaffy(function(taffy, courses, depAverages) {
-            self.setState({allCourses : courses});
-            self.setState({taffy : taffy});
-            self.setState({depAverages : depAverages});
-        });
-    },
-
-    onClickCourse : function(course) {
-        var match_index = course.match(/\d/).index;
-        this.setState({activeCourse : course});
-        this.setState({activeCourseCode : course.substring(match_index)});
-        this.setState({activeDepartment : course.substring(0, match_index)});
-        this.setState({activeInstructor : null});
-        this.setScreenLater(Constants.SCREENS.COURSE_DETAILS)();
-    },
-
-    onClickInstructor : function(instructor) {
-        this.setState({activeInstructor : instructor});
-        this.setState({activeCourse : null});
-        this.setState({activeCourseCode : null});
-        this.setState({activeDepartment : null});
-        this.setScreenLater(Constants.SCREENS.INSTRUCTOR_DETAILS)();
-    },
-
-    /**
-     * Initalize the application, setting it to the home screen
+     * Initalize the application, setting it to the Overview page.
      */
     getInitialState : function() {
         return {
@@ -72,6 +32,67 @@ var AppComponent = React.createClass({
         };
     },
 
+    /**
+     * Switches the state of the screen.
+     *
+     * @param {Number} screen: The enum of the screen to switch to
+     * @return {Function} A thunk that when executed will change the screen
+     */
+	setScreenLater : function(screen) {
+        var self = this;
+		return function() {
+			self.setState({active : screen});
+		};
+	},
+
+    /**
+     * After this component mounts, get the data from Taffy.
+     */
+    componentDidMount : function() {
+        var self = this;
+
+        DataAPI.getTaffy(function(taffy, courses, depAverages) {
+            self.setState({allCourses : courses});
+            self.setState({taffy : taffy});
+            self.setState({depAverages : depAverages});
+        });
+    },
+
+    /**
+     * Switches the active course and switches the screen to be the Course Details page.
+     *
+     * @param  {String} course: The full course code (ex. CSE142) of the course that was clicked
+     */
+    onClickCourse : function(course) {
+        var match_index = course.match(/\d/).index;
+        this.setState({activeCourse : course});
+        this.setState({activeCourseCode : course.substring(match_index)});
+        this.setState({activeDepartment : course.substring(0, match_index)});
+        this.setState({activeInstructor : null});
+        this.setScreenLater(Constants.SCREENS.COURSE_DETAILS)();
+    },
+
+    /**
+     * Switches the active instructor and switches the screen to be the Instructor Details page.
+     *
+     * @param  {String} instructor: The full name of the instructor that was clicked
+     */
+    onClickInstructor : function(instructor) {
+        this.setState({activeInstructor : instructor});
+        this.setState({activeCourse : null});
+        this.setState({activeCourseCode : null});
+        this.setState({activeDepartment : null});
+        this.setScreenLater(Constants.SCREENS.INSTRUCTOR_DETAILS)();
+    },
+
+    /**
+     * Performs a query on the data for the given fields (omit by passing false for a field).
+     *
+     * @param  {String} course_department: The course department to query (ex. CSE)
+     * @param  {Number} course_code: The course code to query (ex. 142)
+     * @param  {String} professor: The professor to query (ex. Stuart Reges)
+     * @return {Array} The course objects that match the query.
+     */
     getSearchResult : function(course_department, course_code, professor) {
         var results = [];
         var originalCourseCode = course_code;
@@ -125,11 +146,13 @@ var AppComponent = React.createClass({
         }
 
         if (!course_department && !course_code && !professor) {
+            // None specified so reset the page back to the start
             this.resetPage();
-        } else {
-            this.setState({current_courses : results});
+            return [];
         }
 
+        // Otherwise update the current courses
+        this.setState({current_courses : results});
         this.setState({activeDepartment : course_department});
         this.setState({activeCourseCode : originalCourseCode});
         this.setState({activeInstructor : professor});
@@ -149,6 +172,9 @@ var AppComponent = React.createClass({
         return results;
     },
 
+    /**
+     * Resets the page back to its initial state (empty on the Overview page).
+     */
     resetPage : function() {
         this.setState({current_courses : []});
         this.setState({activeDepartment : null});
@@ -159,7 +185,7 @@ var AppComponent = React.createClass({
     },
 
     /**
-     * Render the application
+     * Render the application.
      */
     render : function() {
         var self = this;
