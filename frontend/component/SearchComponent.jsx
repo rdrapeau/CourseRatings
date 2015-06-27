@@ -50,7 +50,6 @@ var SearchComponent = React.createClass({
         }
 
         var possible = [];
-        var counts = {};
         for (var i = 0; i < results.length; i++) {
             for (var j = 0; j < keys.length; j++) {
                 var option_value = results[i][keys[j]];
@@ -63,12 +62,6 @@ var SearchComponent = React.createClass({
                 }
 
                 if (done[keys[j]].indexOf(option_value) === -1) {
-                    if (keys[j] === 'course_code' && !(option_value.charAt(0) in counts)) {
-                        counts[option_value.charAt(0)] = 1;
-                    } else if (keys[j] === 'course_code') {
-                        counts[option_value.charAt(0)]++;
-                    }
-
                     unique[keys[j]].push({value: option_value, label: option_value})
                     done[keys[j]].push(option_value);
                 }
@@ -76,10 +69,8 @@ var SearchComponent = React.createClass({
         }
 
         for (var i = 0; i < possible.length; i++) {
-            if (counts[possible[i]] > 1) {
-                var option_value = possible[i] + 'XX';
-                unique['course_code'].push({value: option_value, label: option_value});
-            }
+            var option_value = possible[i] + 'XX';
+            unique['course_code'].push({value: option_value, label: option_value});
         }
 
         for (var i = 0; i < keys.length; i++) {
