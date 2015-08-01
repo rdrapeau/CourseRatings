@@ -3,6 +3,103 @@ from bs4 import BeautifulSoup
 import re
 
 PATH = 'cache/'
+
+META_DATA = {
+    "course_dep" : 'course_department',
+    "course_code" : 'course_code',
+    "prof" : 'professor',
+    "time" : 'time',
+    "course_title" : 'course_title',
+    "completed" : 'completed',
+    "total_enrolled" : 'total_enrolled',
+    "course_description" : 'course_description',
+}
+
+META_DATA_ORDER = [
+    "course_dep",
+    "course_code",
+    "prof",
+    "time",
+    "course_title",
+    "completed",
+    "total_enrolled",
+    "course_description",
+]
+
+FULL_DATA_ORDER = [
+    "the lab section content",
+    "clear and organized",
+    "instructor established rapport",
+    "coordination with lectures",
+    "the course as a whole",
+    "instructor was accessible",
+    "instructor was challenging",
+    "amount learned",
+    "instructor feedback",
+    "relevance and usefulness of homework",
+    "instuctor's interest",
+    "quiz section content",
+    "instructor was knowledgeable",
+    "instructor's effectiveness",
+    "instructor's contribution",
+    "grading techniques",
+    "instructor overall",
+    "effectiveness of format",
+    "tailoring instruction to skills",
+    "textbook overall",
+    "instructor was enthusiastic",
+    "quiz section as a whole",
+    "procedures/skill taught",
+    "the course content",
+    "the lab section as a whole",
+    "rotation/studio as a whole",
+]
+
+FULL_DATA = {
+    "the lab section content" : 'lab_section_content',
+    "clear and organized" : 'clear_and_organized',
+    "instructor established rapport" : 'instructor_established_rapport',
+    "coordination with lectures" : 'coordination_with_lectures',
+    "the course as a whole" : 'the_course_as_a_whole',
+    "instructor was accessible" : 'instructor_was_accessible',
+    "instructor was challenging" : 'instructor_was_challenging',
+    "amount learned" : 'amount_learned',
+    "instructor feedback" : 'instructor_feedback',
+    "relevance and usefulness of homework" : 'relevance_and_usefulness_of_homework',
+    "instuctor's interest" : 'instuctors_interest',
+    "quiz section content" : 'quiz_section_content',
+    "instructor was knowledgeable" : 'instructor_was_knowledgeable',
+    "instructor's effectiveness" : 'instructors_effectiveness',
+    "instructor's contribution" : 'instructors_contribution',
+    "grading techniques" : 'grading_techniques',
+    "instructor overall" : 'instructor_overall',
+    "effectiveness of format" : 'effectiveness_of_format',
+    "tailoring instruction to skills" : 'tailoring_instruction_to_skills',
+    "textbook overall" : 'textbook_overall',
+    "instructor was enthusiastic" : 'instructor_was_enthusiastic',
+    "quiz section as a whole" : 'quiz_section_as_a_whole',
+    "procedures/skill taught" : 'procedures_and_skills_taught',
+    "the course content" : 'the_course_content',
+    "the lab section as a whole" : 'the_lab_section_as_a_whole',
+    "rotation/studio as a whole" : 'rotation_and_studio_as_a_whole',
+}
+
+SMALL_DATA_ORDER = {
+    "the course as a whole",
+    "the course content",
+    "amount learned",
+    "instructor's effectiveness",
+    "grading techniques",
+}
+
+SMALL_DATA = {
+    "the course as a whole" : 'the_course_as_a_whole',
+    "the course content" : 'the_course_content',
+    "amount learned" : 'amount_learned',
+    "instructor's effectiveness" : 'instructors_effectiveness',
+    "grading techniques" : 'grading_techniques',
+}
+
 course_names = {}
 possible = set()
 
@@ -61,12 +158,10 @@ for filename in listdir(PATH):
 
     courses.append({'course_code' : course_code, 'ratings' : page_values, 'prof' : name, 'time' : time, 'course_dep' : course_dep, 'course_title' : course_title, 'completed' : completed, 'total_enrolled' : total_enrolled, 'course_description' : course_description})
 
-
-print ';'.join(['course_department', 'course_code', 'professor', 'time', 'course_title', 'completed', 'total_enrolled', 'course_description'] + list(possible))
+print ';'.join([META_DATA[key] for key in META_DATA_ORDER] + [SMALL_DATA[key] for key in SMALL_DATA_ORDER])
 for course in courses:
-    output = [course['course_dep'], course['course_code'], course['prof'], course['time'], course['course_title'], course['completed'], course['total_enrolled'], course['course_description']]
-
-    for rating in possible:
+    output = [course[key] for key in META_DATA_ORDER]
+    for rating in SMALL_DATA_ORDER:
         if rating in course['ratings']:
             output.append(str(course['ratings'][rating]))
         else:
