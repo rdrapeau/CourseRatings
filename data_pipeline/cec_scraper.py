@@ -64,6 +64,7 @@ def process_course(browser, course, base_url, cache):
         if js_warning_page(browser):
             response = browser.response().read()
             with open(CACHE + course_page_id, 'w') as f:
+                print course_page_id
                 f.write(response)
 
             cache.add(course_page_id)
