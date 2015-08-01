@@ -148,11 +148,10 @@ var AppComponent = React.createClass({
         if (!course_department && !course_code && !professor) {
             // None specified so reset the page back to the start
             this.resetPage();
-            return [];
+        } else {
+            this.setState({current_courses : results});
         }
 
-        // Otherwise update the current courses
-        this.setState({current_courses : results});
         this.setState({activeDepartment : course_department});
         this.setState({activeCourseCode : originalCourseCode});
         this.setState({activeInstructor : professor});
