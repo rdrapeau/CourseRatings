@@ -20,7 +20,7 @@ var BarChartComponent = React.createClass({
             var coursesToCounts = {};
 
             // Merge averages
-            for (var i = 0; i < data.length; i++) {
+            for(var i = 0; i < data.length; i++) {
                 var dataPoint = data[i];
 
                 var ratings = coursesToRatings[dataPoint.course_whole_code];
@@ -189,17 +189,17 @@ var BarChartComponent = React.createClass({
             .data(function (d) { return d.value; })
         .enter().append("rect")
             .attr("width", x1.rangeBand())
-            .attr("x", function (d) {
-                return x1(d.key);
+            .attr("x", function (d) { 
+                return x1(d.key); 
             })
-            .attr("y", function (d) {
-                return y(d.value);
+            .attr("y", function (d) { 
+                return y(d.value); 
             })
-            .attr("height", function (d) {
-                return height - y(d.value);
+            .attr("height", function (d) { 
+                return height - y(d.value); 
             })
-            .style("fill", function (d) {
-                return color(d.key);
+            .style("fill", function (d) { 
+                return color(d.key); 
             });
 
         if (svg.node() != null) {
@@ -211,8 +211,8 @@ var BarChartComponent = React.createClass({
             .data(dataAverage)
             .enter().append("g")
                 .attr("class", "g")
-                .attr("transform", function (d) {
-                    return "translate(" + x0(d.key) + ",0)";
+                .attr("transform", function (d) { 
+                    return "translate(" + x0(d.key) + ",0)"; 
                 })
                 .selectAll("rect")
                 .data(function(d) {
@@ -220,18 +220,18 @@ var BarChartComponent = React.createClass({
                 })
                 .enter().append("rect")
                     .attr("class", "avgbar")
-                    .attr("x", function(d) {
-                        return x1(d.key);
+                    .attr("x", function(d) { 
+                        return x1(d.key); 
                     })
                     .attr("width", x1.rangeBand())
-                    .attr("y", function(d) {
-                        return y(d.value);
+                    .attr("y", function(d) { 
+                        return y(d.value); 
                     })
-                    .attr("height", function(d) {
-                        return 5;
+                    .attr("height", function(d) { 
+                        return 5; 
                     })
-                    .style("fill", function (d) {
-                        return "black";
+                    .style("fill", function (d) { 
+                        return "black"; 
                     })
                     .style("fill-opacity", 0.0);
 
@@ -240,8 +240,8 @@ var BarChartComponent = React.createClass({
             .data(data)
             .enter().append("g")
                 .attr("class", "g")
-                .attr("transform", function (d) {
-                    return "translate(" + x0(d.key) + ",0)";
+                .attr("transform", function (d) { 
+                    return "translate(" + x0(d.key) + ",0)"; 
                 })
                 .selectAll("rect")
                 .data(function(d) {
@@ -249,15 +249,15 @@ var BarChartComponent = React.createClass({
                 })
                 .enter().append("rect")
                     .attr("class", "hover")
-                    .attr("x", function(d) {
-                        return x1(d.key);
+                    .attr("x", function(d) { 
+                        return x1(d.key); 
                     })
                     .attr("width", x1.rangeBand())
-                    .attr("y", function(d) {
-                        return y(5);
+                    .attr("y", function(d) { 
+                        return y(5); 
                     })
-                    .attr("height", function(d) {
-                        return height - y(5);
+                    .attr("height", function(d) { 
+                        return height - y(5); 
                     })
                     .on('mouseover', function(d){
                         tip.show(d);
@@ -265,7 +265,7 @@ var BarChartComponent = React.createClass({
                     })
                     .on('mouseout', function(d) {
                         tip.hide(d);
-                        d3.selectAll(".avgbar").style("fill-opacity", 0);
+                        d3.selectAll(".avgbar").style("fill-opacity", 0); 
                     })
                     .style("fill-opacity", 0.0);
 
