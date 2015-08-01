@@ -1,20 +1,17 @@
 import JQuery = require('jquery');
 import TAFFY = require('taffydb');
-var JSZip = require('jszip');
-var JSZipUtils = require('jszip-utils');
 
 /**
  * Provides an interface to get data for the front end application
  */
 class DataAPI {
-	private static PAYLOAD_URL = 'courses/data.csv.zip';
-    private static INSIDE_ZIP = 'data.csv';
+	private static PAYLOAD_URL = 'courses/data.csv';
 
     private static TIME_TO_DATETIME = {
         "wi": 0,
         "sp": 1,
         "su": 2,
-        "au": 3
+        "au": 3,
     };
 
     private static KEYS: any = ["the_course_as_a_whole", "the_course_content", "amount_learned", "instructors_effectiveness", "grading_techniques"];
@@ -88,16 +85,7 @@ class DataAPI {
 	 * @param {Function} callback Callback to execute after retrieval
 	 */
 	public static getTaffy(callback : Function) : void {
-        JSZipUtils.getBinaryContent(DataAPI.PAYLOAD_URL, (err, data) => {
-            if (err) {
-                setTimeout(() => {
-                    DataAPI.getTaffy(callback);
-                }, 500);
-                return;
-            }
-
-            var zip = new JSZip(data);
-            var csv = zip.file(DataAPI.INSIDE_ZIP).asText();
+        JQuery.get(DataAPI.PAYLOAD_URL, (csv: any) => {
             DataAPI.processCSV(csv, callback);
         });
 	}

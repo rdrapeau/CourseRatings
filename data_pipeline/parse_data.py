@@ -12,7 +12,7 @@ META_DATA = {
     "course_title" : 'course_title',
     "completed" : 'completed',
     "total_enrolled" : 'total_enrolled',
-    "course_description" : 'course_description',
+    # "course_description" : 'course_description',
 }
 
 META_DATA_ORDER = [
@@ -23,7 +23,7 @@ META_DATA_ORDER = [
     "course_title",
     "completed",
     "total_enrolled",
-    "course_description",
+    # "course_description",
 ]
 
 FULL_DATA_ORDER = [
